@@ -1,0 +1,3267 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Immediate Head Security Guard: Blocks direct access without login -->
+  <script>
+    (function () {
+      function getAuthUser() {
+        const userRaw = sessionStorage.getItem("zs_user") || localStorage.getItem("zs_user");
+        if (!userRaw) return null;
+        try {
+          const parsed = JSON.parse(userRaw);
+          return (parsed && (parsed.uid || parsed.email || parsed.name)) ? parsed : null;
+        } catch (e) {
+          return null;
+        }
+      }
+      if (!getAuthUser()) {
+        const curPage = window.location.pathname.split('/').pop() || 'appointment.html';
+        const curSearch = window.location.search || '';
+        const returnTarget = encodeURIComponent(curPage + curSearch);
+        window.location.replace(`login.html?redirect=${returnTarget}`);
+      }
+    })();
+  </script>
+
+  <title>Book an Appointment | ZeroSpot — Professional Cleaning & Precision A/C Care</title>
+  <meta name="description"
+    content="Schedule your mechanized deep cleaning, A/C jet wash, or specialized facility care with ZeroSpot. Pay after work, zero advance required.">
+  <meta name="theme-color" content="#11120f">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+
+  <!-- Inter & Plus Jakarta Sans Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script>
+    (function () {
+      var w = console.warn;
+      console.warn = function () {
+        if (arguments[0] && typeof arguments[0] === 'string' && arguments[0].indexOf('cdn.tailwindcss.com') !== -1) return;
+        w.apply(console, arguments);
+      };
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --black: #000000;
+      --offwhite: #f5f5f2;
+      /* Soft architectural white matching index.html */
+      --offwhite-card: #ffffff;
+      --black-card: #11120f;
+      --text-dark: #0e0f0c;
+      --text-muted-dark: #464840;
+      --text-light: #ffffff;
+      --text-muted-light: #b0b4a8;
+      --accent: #b8ff55;
+      --accent-hover: #cbff7a;
+      --accent-text-light: #254a02;
+      --whatsapp: #25D366;
+      --line-light: rgba(0, 0, 0, 0.09);
+      --line-dark: rgba(255, 255, 255, 0.14);
+    }
+
+    body {
+      background: var(--offwhite) !important;
+      color: var(--text-dark) !important;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .font-heading {
+      font-family: "Plus Jakarta Sans", sans-serif !important;
+    }
+
+    /* Snappy card transitions */
+    .step-card {
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.22s ease,
+        background-color 0.22s ease,
+        border-color 0.22s ease,
+        color 0.18s ease;
+      will-change: transform;
+    }
+
+    .step-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .step-card:active {
+      transform: scale(0.985);
+    }
+
+    /* Expandable Card Specific Transition */
+    .expandable-card {
+      transition: background-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, box-shadow;
+    }
+
+    /* Ultra-smooth Expandable Drawer */
+    .expand-drawer {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: grid-template-rows 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: grid-template-rows, opacity, transform;
+    }
+
+    .expand-drawer.expanded {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .expand-drawer-content {
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    /* Step transitions */
+    .step-pane {
+      animation: slideFadeStep 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes slideFadeStep {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.996);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Form card styling */
+    .form-card {
+      background: #ffffff;
+      border: 1px solid var(--line-light);
+      border-radius: 16px;
+      transition: border-color 0.2s ease, box-shadow 0.22s ease, transform 0.2s ease;
+    }
+
+    .form-card:hover {
+      border-color: rgba(0, 0, 0, 0.20);
+      box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-card:focus-within {
+      border-color: #11120f;
+      box-shadow: 0 8px 28px -2px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ACTIVE SELECTION STATE OVERRIDES: ZeroSpot Signature Lime Green (#b8ff55) */
+    .bg-emerald-600,
+    button.bg-emerald-600,
+    div.bg-emerald-600,
+    .card-selected-green {
+      background-color: var(--accent) !important;
+      /* #b8ff55 */
+      border-color: var(--accent) !important;
+      color: #0e0f0c !important;
+      box-shadow: 0 8px 24px rgba(184, 255, 85, 0.3) !important;
+    }
+
+    .bg-emerald-600 h2,
+    .bg-emerald-600 h3,
+    .bg-emerald-600 h4,
+    .bg-emerald-600 p,
+    .bg-emerald-600 span,
+    .bg-emerald-600 strong,
+    .card-selected-green h2,
+    .card-selected-green h3,
+    .card-selected-green h4,
+    .card-selected-green p,
+    .card-selected-green span,
+    .card-selected-green strong {
+      color: #0e0f0c !important;
+    }
+
+    .bg-emerald-600 .slot-sub,
+    .bg-emerald-600 .text-slate-400,
+    .bg-emerald-600 .text-slate-500,
+    .bg-emerald-600 .text-emerald-100,
+    .card-selected-green .text-slate-400,
+    .card-selected-green .text-slate-500 {
+      color: rgba(14, 15, 12, 0.75) !important;
+    }
+
+    .bg-emerald-600 svg,
+    .card-selected-green svg {
+      stroke: #0e0f0c !important;
+    }
+
+    .bg-emerald-600 .counter-btn,
+    .card-selected-green .counter-btn {
+      background-color: #0e0f0c !important;
+      color: var(--accent) !important;
+      font-weight: 900 !important;
+    }
+
+    .bg-emerald-600 .counter-btn *,
+    .card-selected-green .counter-btn * {
+      color: var(--accent) !important;
+    }
+
+    .bg-emerald-600 .infra-check,
+    .card-selected-green .infra-check {
+      background-color: #0e0f0c !important;
+      color: var(--accent) !important;
+    }
+
+    .bg-emerald-600 .infra-check svg,
+    .card-selected-green .infra-check svg {
+      stroke: var(--accent) !important;
+    }
+
+    .border-emerald-600,
+    .border-emerald-500 {
+      border-color: var(--accent) !important;
+    }
+
+    .text-emerald-600,
+    .text-emerald-700,
+    .text-emerald-800 {
+      color: #0e0f0c !important;
+    }
+
+    .bg-emerald-50,
+    .bg-emerald-100 {
+      background-color: rgba(184, 255, 85, 0.15) !important;
+      border-color: rgba(184, 255, 85, 0.5) !important;
+      color: #0e0f0c !important;
+    }
+
+    /* Pastel Card Neutralization to Crisp Architectural White */
+    .bg-sky-50\/90,
+    .bg-emerald-50\/90,
+    .bg-fuchsia-50\/90,
+    .bg-amber-50\/90,
+    .bg-orange-50\/90,
+    .bg-teal-50\/90,
+    .bg-indigo-50\/90,
+    .bg-rose-50\/90,
+    .bg-yellow-50\/90,
+    .bg-cyan-50\/90 {
+      background-color: #ffffff !important;
+      border-color: rgba(0, 0, 0, 0.10) !important;
+    }
+
+    .text-sky-950,
+    .text-emerald-950,
+    .text-fuchsia-950,
+    .text-amber-950,
+    .text-orange-950,
+    .text-teal-950,
+    .text-indigo-950,
+    .text-rose-950,
+    .text-yellow-950,
+    .text-cyan-950 {
+      color: #0e0f0c !important;
+    }
+
+    /* Primary CTA Buttons */
+    #submit-booking-btn {
+      background: #11120f !important;
+      color: var(--accent) !important;
+      border: 1px solid #11120f !important;
+      font-family: "Plus Jakarta Sans", sans-serif !important;
+      font-weight: 800 !important;
+      transition: all 0.2s ease !important;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18) !important;
+    }
+
+    #submit-booking-btn:hover {
+      background: #252820 !important;
+      color: #ffffff !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28) !important;
+    }
+
+    /* Remove dots & radio circles per design guidelines */
+    .slot-radio {
+      display: none !important;
+    }
+
+    /* Progress bar */
+    #progress-bar-fill {
+      background: #11120f !important;
+      border-right: 3px solid var(--accent);
+      box-shadow: 0 0 10px rgba(184, 255, 85, 0.4);
+    }
+
+    /* Custom form elements */
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #11120f !important;
+      box-shadow: 0 0 0 3px rgba(184, 255, 85, 0.35) !important;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-[#b8ff55] selection:text-black">
+
+  <!-- ========================================================
+       TOP GLOBAL HEADER (Matching index.html Dark Frosted Navbar)
+       ======================================================== -->
+  <header class="sticky top-0 z-30 bg-[#0e0f0c]/95 backdrop-blur-xl border-b border-white/10 text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 py-3.5 flex items-center justify-between">
+
+      <!-- ZeroSpot Logo & Home Return -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="assets/logo-transparent.png" alt="ZeroSpot"
+          class="h-10 sm:h-11 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
+          onerror="this.style.display='none'">
+        <span class="font-extrabold text-xl tracking-tight text-white font-['Plus_Jakarta_Sans']">ZERO<span
+            class="text-[#b8ff55]">SPOT</span></span>
+      </a>
+
+      <!-- WhatsApp Help & Return -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a href="https://wa.me/918940051100?text=Hi%20ZeroSpot,%20I%20need%20help%20booking%20an%20appointment"
+          target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-bold transition-all">
+          <svg class="w-4 h-4 fill-[#25D366]" viewBox="0 0 24 24">
+            <path
+              d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.61 20.15 9.22 19.78 8.01 19.07L7.69 18.88L4.57 19.7L5.4 16.65L5.19 16.32C4.41 15.07 4.01 13.51 4.01 11.91C4.01 7.37 7.7 3.67 12.05 3.67ZM8.83 7.37C8.63 7.37 8.44 7.38 8.27 7.71C8.07 8.08 7.52 8.6 7.52 9.66C7.52 10.72 8.3 11.75 8.41 11.89C8.52 12.04 9.93 14.21 12.09 15.15C13.88 15.93 14.25 15.77 14.65 15.74C15.06 15.7 15.96 15.2 16.15 14.68C16.33 14.15 16.33 13.7 16.28 13.61C16.22 13.52 16.07 13.46 15.85 13.35C15.63 13.24 14.54 12.7 14.33 12.63C14.13 12.55 13.98 12.52 13.83 12.74C13.68 12.96 13.25 13.46 13.12 13.61C12.99 13.76 12.86 13.78 12.64 13.67C12.42 13.56 11.71 13.32 10.87 12.57C10.22 11.99 9.78 11.27 9.65 11.05C9.52 10.83 9.64 10.71 9.75 10.6C9.85 10.5 9.97 10.34 10.08 10.21C10.19 10.08 10.23 9.99 10.3 9.84C10.38 9.7 10.34 9.57 10.28 9.46C10.23 9.35 9.8 8.31 9.62 7.88C9.44 7.45 9.27 7.51 9.13 7.51L8.83 7.37Z" />
+          </svg>
+          <span class="hidden sm:inline">WhatsApp Desk</span>
+        </a>
+
+        <!-- Exit / Back to Home -->
+        <a href="index.html"
+          class="inline-flex items-center justify-center w-8 h-8 rounded-md bg-white/10 hover:bg-white/20 text-white transition-colors"
+          title="Back to Home">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-8 sm:py-12 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+
+      <!-- Progress Bar Tracker -->
+      <div class="mb-10 max-w-3xl mx-auto">
+        <div
+          class="flex items-center justify-between text-[11px] font-extrabold uppercase tracking-widest text-[#464840] mb-2.5 font-['Plus_Jakarta_Sans']">
+          <span id="step-indicator-label">Step 1 of 3: Select Location</span>
+          <span id="step-percentage" class="text-black font-extrabold">25%</span>
+        </div>
+        <div class="w-full bg-black/10 h-2 rounded-full overflow-hidden">
+          <div id="progress-bar-fill" class="h-full w-1/4 transition-all duration-300 ease-out" style="width: 25%;">
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================================
+            STEP 1: LOCATION SELECTION (PUDUKKOTTAI OR COIMBATORE)
+            ========================================================== -->
+      <div id="step-1" class="step-pane">
+
+        <div class="text-center mb-10">
+          <span
+            class="inline-block px-3 py-1 rounded text-[11px] font-extrabold uppercase tracking-widest bg-[#11120f] text-[#b8ff55] font-['Plus_Jakarta_Sans'] mb-3">
+            Service Availability
+          </span>
+          <h1
+            class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+            Where do you need ZeroSpot?
+          </h1>
+          <p class="mt-2 text-sm sm:text-base text-[#464840] max-w-md mx-auto">
+            Choose your city to view available local teams, specialized equipment, and direct service slots.
+          </p>
+        </div>
+
+        <!-- 2 Large Location Cards (Pudukkottai & Coimbatore) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-3xl mx-auto">
+
+          <!-- Card 1: Pudukkottai -->
+          <button type="button" onclick="selectLocation('Pudukkottai')" id="loc-pudukkottai"
+            class="step-card group relative p-8 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-start text-left transition-all duration-200">
+            <div class="flex items-center justify-end w-full mb-3">
+              <span class="text-xs font-bold text-slate-400">Local Specialists</span>
+            </div>
+            <h2
+              class="text-2xl sm:text-3xl font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans'] mb-2">
+              Pudukkottai
+            </h2>
+            <p class="text-xs text-[#464840] mb-5">
+              Town center, residential complexes, villas, and industrial units.
+            </p>
+            <div
+              class="mt-auto w-full pt-4 border-t border-black/5 flex items-center justify-between text-xs font-bold text-[#0e0f0c]">
+              <span></span>
+              <span class="group-hover:translate-x-1 transition-transform">Select City →</span>
+            </div>
+          </button>
+
+          <!-- Card 2: Coimbatore -->
+          <button type="button" onclick="selectLocation('Coimbatore')" id="loc-coimbatore"
+            class="step-card group relative p-8 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-start text-left transition-all duration-200">
+            <div class="flex items-center justify-end w-full mb-3">
+              <span class="text-xs font-bold text-slate-400">Local Specialists</span>
+            </div>
+            <h2
+              class="text-2xl sm:text-3xl font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans'] mb-2">
+              Coimbatore
+            </h2>
+            <p class="text-xs text-[#464840] mb-5">
+              City center, apartments, IT parks, guest houses, and corporate offices.
+            </p>
+            <div
+              class="mt-auto w-full pt-4 border-t border-black/5 flex items-center justify-between text-xs font-bold text-[#0e0f0c]">
+              <span></span>
+              <span class="group-hover:translate-x-1 transition-transform">Select City →</span>
+            </div>
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- ==========================================================
+            STEP 2: SERVICE SELECTION (6 DETAILED SERVICES)
+            ========================================================== -->
+      <!-- ==========================================================
+            STEP 2: SERVICE SELECTION (6 DETAILED SERVICES)
+            ========================================================== -->
+      <div id="step-2" class="step-pane hidden">
+
+        <!-- Back button & Location Badge -->
+        <div class="flex items-center justify-between gap-3 mb-8 pb-3 border-b border-black/10">
+          <button type="button" onclick="goToStep(1)"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white border border-black/15 text-[#0e0f0c] hover:bg-black/5 text-xs font-bold transition-colors font-['Plus_Jakarta_Sans'] cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Change Location</span>
+          </button>
+
+          <!-- Selected Location Badge -->
+          <div class="text-xs font-bold text-[#464840] flex items-center gap-2">
+            <span>Location:</span>
+            <span id="badge-selected-city"
+              class="px-3 py-1 rounded bg-[#11120f] text-[#b8ff55] font-extrabold uppercase tracking-wider text-[11px] font-['Plus_Jakarta_Sans']"></span>
+          </div>
+        </div>
+
+        <div class="text-center mb-10">
+          <span
+            class="inline-block px-3 py-1 rounded text-[11px] font-extrabold uppercase tracking-widest bg-[#11120f] text-[#b8ff55] font-['Plus_Jakarta_Sans'] mb-3">
+            Our Services
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+            What type of service do you need?
+          </h2>
+          <p class="mt-2 text-sm text-[#464840] max-w-md mx-auto">
+            Choose from our specialized cleaning, maintenance, and precision A/C solutions.
+          </p>
+        </div>
+
+        <!-- Primary Service Cards Grid (Clean Architectural White - 6 Core Services) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+
+          <!-- 1. Home Cleaning (Comprehensive villa & home care) -->
+          <button type="button" onclick="handleServicePick('Home Cleaning')"
+            class="step-card group relative py-10 px-6 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <h3
+              class="text-xl sm:text-2xl font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Home Cleaning
+            </h3>
+            <span class="mt-2 text-xs font-bold text-slate-400 group-hover:text-slate-600 transition-colors">Villas,
+              Apartments &amp; Homes</span>
+          </button>
+
+          <!-- 2. Office & Company Cleaning -->
+          <button type="button" onclick="handleServicePick('Office & Company Cleaning')"
+            class="step-card group relative py-10 px-6 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <h3
+              class="text-xl sm:text-2xl font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Office &amp; Company Cleaning
+            </h3>
+            <span class="mt-2 text-xs font-bold text-slate-400 group-hover:text-slate-600 transition-colors">Workplaces
+              &amp; Commercial Units</span>
+          </button>
+
+          <!-- 3. Restaurant Cleaning -->
+          <button type="button" onclick="handleServicePick('Restaurant Cleaning')"
+            class="step-card group relative py-10 px-6 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <h3
+              class="text-xl sm:text-2xl font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Restaurant Cleaning
+            </h3>
+            <span class="mt-2 text-xs font-bold text-slate-400 group-hover:text-slate-600 transition-colors">Commercial
+              Kitchens &amp; Dining</span>
+          </button>
+
+          <!-- 4. Hotel Cleaning -->
+          <button type="button" onclick="handleServicePick('Hotel Cleaning')"
+            class="step-card group relative py-10 px-6 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <h3
+              class="text-xl sm:text-2xl font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Hotel Cleaning
+            </h3>
+            <span class="mt-2 text-xs font-bold text-slate-400 group-hover:text-slate-600 transition-colors">Guest Rooms
+              &amp; Hospitality Halls</span>
+          </button>
+
+          <!-- 5. A/C Problem & Wash -->
+          <button type="button" onclick="handleServicePick('A/C Complaints')"
+            class="step-card group relative py-10 px-6 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <h3
+              class="text-xl sm:text-2xl font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              A/C Problem &amp; Wash
+            </h3>
+            <span class="mt-2 text-xs font-bold text-slate-400 group-hover:text-slate-600 transition-colors">Power Jet
+              Flush &amp; Diagnostics</span>
+          </button>
+
+          <!-- 6. Retails & Shops Cleaning -->
+          <button type="button" onclick="handleServicePick('Retails & Shops Cleaning')"
+            class="step-card group relative py-10 px-6 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <h3
+              class="text-xl sm:text-2xl font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Retails &amp; Shops Cleaning
+            </h3>
+            <span class="mt-2 text-xs font-bold text-slate-400 group-hover:text-slate-600 transition-colors">Showrooms
+              &amp; Retail Outlets</span>
+          </button>
+
+        </div>
+
+        <!-- Specialized Services Divider & Heading -->
+        <div class="mt-14 mb-8 text-center">
+          <span
+            class="inline-block px-3 py-1 rounded text-[11px] font-extrabold uppercase tracking-widest bg-[#11120f] text-[#b8ff55] font-['Plus_Jakarta_Sans'] mb-2">
+            Specialized Solutions
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+            Infrastructure &amp; Overhead Care
+          </h3>
+          <p class="mt-1.5 text-xs sm:text-sm text-[#464840] max-w-md mx-auto">
+            Select one or multiple infrastructure services to book together.
+          </p>
+        </div>
+
+        <!-- Quick Services Cards (Multi-Selectable Infrastructure Cards) -->
+        <div id="infra-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
+
+          <!-- Window & Glass Cleaning -->
+          <button type="button" data-service="Window & Glass Cleaning"
+            onclick="toggleInfraService('Window & Glass Cleaning', this)"
+            class="step-card infra-service-card group relative py-8 px-4 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <div
+              class="infra-check hidden w-5 h-5 rounded bg-[#0e0f0c] text-[#b8ff55] flex items-center justify-center mb-2 shadow-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h4
+              class="text-base font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Window &amp; Glass
+            </h4>
+          </button>
+
+          <!-- Solar Panel Cleaning -->
+          <button type="button" data-service="Solar Panel Cleaning"
+            onclick="toggleInfraService('Solar Panel Cleaning', this)"
+            class="step-card infra-service-card group relative py-8 px-4 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <div
+              class="infra-check hidden w-5 h-5 rounded bg-[#0e0f0c] text-[#b8ff55] flex items-center justify-center mb-2 shadow-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h4
+              class="text-base font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Solar Panel Cleaning
+            </h4>
+          </button>
+
+          <!-- Water Tank Cleaning -->
+          <button type="button" data-service="Water Tank Cleaning"
+            onclick="toggleInfraService('Water Tank Cleaning', this)"
+            class="step-card infra-service-card group relative py-8 px-4 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <div
+              class="infra-check hidden w-5 h-5 rounded bg-[#0e0f0c] text-[#b8ff55] flex items-center justify-center mb-2 shadow-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h4
+              class="text-base font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Water Tank Cleaning
+            </h4>
+          </button>
+
+          <!-- Sump Cleaning -->
+          <button type="button" data-service="Sump Cleaning" onclick="toggleInfraService('Sump Cleaning', this)"
+            class="step-card infra-service-card group relative py-8 px-4 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <div
+              class="infra-check hidden w-5 h-5 rounded bg-[#0e0f0c] text-[#b8ff55] flex items-center justify-center mb-2 shadow-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h4
+              class="text-base font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Sump Cleaning
+            </h4>
+          </button>
+
+          <!-- Chimney Cleaning -->
+          <button type="button" data-service="Chimney Cleaning" onclick="toggleInfraService('Chimney Cleaning', this)"
+            class="step-card infra-service-card group relative py-8 px-4 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm hover:shadow-md cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200">
+            <div
+              class="infra-check hidden w-5 h-5 rounded bg-[#0e0f0c] text-[#b8ff55] flex items-center justify-center mb-2 shadow-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h4
+              class="text-base font-extrabold text-[#0e0f0c] group-hover:text-black transition-colors tracking-tight font-['Plus_Jakarta_Sans']">
+              Chimney &amp; Hob
+            </h4>
+          </button>
+
+        </div>
+
+        <!-- Minimal Infrastructure Book Button (Visible ONLY when 1+ services are selected) -->
+        <div id="infra-action-bar" class="hidden mt-8 flex items-center justify-center transition-all duration-300">
+          <button type="button" id="book-infra-btn" onclick="bookSelectedInfraServices()"
+            class="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-[#11120f] hover:bg-black text-[#b8ff55] hover:text-white border border-[#b8ff55]/40 hover:border-[#b8ff55] font-extrabold text-sm transition-all shadow-md cursor-pointer font-['Plus_Jakarta_Sans']">
+            <span>Book Selected Infrastructure</span>
+            <span id="infra-selected-count"
+              class="px-2 py-0.5 rounded bg-[#b8ff55] text-[#0e0f0c] text-xs font-black">0</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ==========================================================
+            STEP 2.5: SERVICE CONFIGURATION (HOME OR OFFICE DETAILS)
+            ========================================================== -->
+      <div id="step-home-config" class="step-pane hidden">
+
+        <!-- Back Navigation & City Badge -->
+        <div class="flex items-center justify-between gap-3 mb-8 pb-3 border-b border-black/10">
+          <button type="button" onclick="goToStep(2)"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white border border-black/15 text-[#0e0f0c] hover:bg-black/5 text-xs font-bold transition-colors font-['Plus_Jakarta_Sans'] cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Change Service</span>
+          </button>
+
+          <div class="text-xs font-bold text-[#464840] flex items-center gap-2">
+            <span>Service:</span>
+            <span id="config-service-label"
+              class="px-3 py-1 rounded bg-[#11120f] text-[#b8ff55] font-extrabold uppercase tracking-wider text-[11px] font-['Plus_Jakarta_Sans']">Home
+              Cleaning</span>
+          </div>
+        </div>
+
+        <!-- 1. Primary Filter Cards -->
+        <div id="config-filter-section" class="mb-10">
+          <div class="text-center mb-6">
+            <span
+              class="inline-block px-3 py-1 rounded text-[11px] font-extrabold uppercase tracking-widest bg-[#11120f] text-[#b8ff55] font-['Plus_Jakarta_Sans'] mb-2">
+              Plan Size
+            </span>
+            <h3 id="config-filter-title"
+              class="text-2xl sm:text-3xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+              Select BHK Type
+            </h3>
+            <p id="config-filter-description" class="mt-1.5 text-xs sm:text-sm text-[#464840] max-w-md mx-auto">
+              Choose your floor plan size to automatically set up standard room allocations.
+            </p>
+          </div>
+
+          <div id="config-filter-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
+
+            <!-- 1 BHK -->
+            <button type="button" id="bhk-btn-1" onclick="selectBhk(1)"
+              class="step-card py-6 px-4 rounded-2xl bg-white border-2 border-black/10 text-[#0e0f0c] hover:border-black/30 font-['Plus_Jakarta_Sans'] shadow-xs flex items-center justify-center text-center transition-all cursor-pointer">
+              <span class="text-xl sm:text-2xl font-black tracking-tight">1 BHK</span>
+            </button>
+
+            <!-- 2 BHK -->
+            <button type="button" id="bhk-btn-2" onclick="selectBhk(2)"
+              class="step-card py-6 px-4 rounded-2xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02] font-['Plus_Jakarta_Sans'] flex items-center justify-center text-center transition-all cursor-pointer">
+              <span class="text-xl sm:text-2xl font-black tracking-tight">2 BHK</span>
+            </button>
+
+            <!-- 3 BHK -->
+            <button type="button" id="bhk-btn-3" onclick="selectBhk(3)"
+              class="step-card py-6 px-4 rounded-2xl bg-white border-2 border-black/10 text-[#0e0f0c] hover:border-black/30 font-['Plus_Jakarta_Sans'] shadow-xs flex items-center justify-center text-center transition-all cursor-pointer">
+              <span class="text-xl sm:text-2xl font-black tracking-tight">3 BHK</span>
+            </button>
+
+            <!-- 4 BHK -->
+            <button type="button" id="bhk-btn-4" onclick="selectBhk(4)"
+              class="step-card py-6 px-4 rounded-2xl bg-white border-2 border-black/10 text-[#0e0f0c] hover:border-black/30 font-['Plus_Jakarta_Sans'] shadow-xs flex items-center justify-center text-center transition-all cursor-pointer">
+              <span class="text-xl sm:text-2xl font-black tracking-tight">4 BHK</span>
+            </button>
+
+            <!-- 5 BHK -->
+            <button type="button" id="bhk-btn-5" onclick="selectBhk(5)"
+              class="step-card py-6 px-4 rounded-2xl bg-white border-2 border-black/10 text-[#0e0f0c] hover:border-black/30 font-['Plus_Jakarta_Sans'] shadow-xs flex items-center justify-center text-center transition-all cursor-pointer col-span-2 sm:col-span-1">
+              <span class="text-xl sm:text-2xl font-black tracking-tight">5 BHK</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- 2. Rooms Inside (Dynamic based on selected BHK) -->
+        <div id="config-areas-section" class="mb-10">
+          <div class="text-center mb-6">
+            <span
+              class="inline-block px-3 py-1 rounded text-[11px] font-extrabold uppercase tracking-widest bg-[#11120f] text-[#b8ff55] font-['Plus_Jakarta_Sans'] mb-2">
+              Allocation
+            </span>
+            <h3 id="config-areas-title"
+              class="text-2xl sm:text-3xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+              Rooms Included
+            </h3>
+            <p id="config-areas-description" class="mt-1.5 text-xs sm:text-sm text-[#464840] max-w-md mx-auto">
+              Select the rooms to be cleaned. Tap any room to add or remove it from your cleaning plan.
+            </p>
+          </div>
+
+          <div id="rooms-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Dynamically populated room cards -->
+          </div>
+        </div>
+
+        <!-- 3. Extra Items to Clean Section -->
+        <div id="config-extras-section" class="mb-10">
+          <div class="text-center mb-6">
+            <span
+              class="inline-block px-3 py-1 rounded text-[11px] font-extrabold uppercase tracking-widest bg-[#11120f] text-[#b8ff55] font-['Plus_Jakarta_Sans'] mb-2">
+              Add-ons
+            </span>
+            <h3 id="config-extras-title"
+              class="text-2xl sm:text-3xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+              Extra Items to Clean
+            </h3>
+            <p id="config-extras-description" class="mt-1.5 text-xs sm:text-sm text-[#464840] max-w-md mx-auto">
+              Optional additions — tap any furniture or fixtures you would like our team to deep clean.
+            </p>
+          </div>
+
+          <div id="extra-items-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-4">
+            <!-- Populated with dynamic selectable cards -->
+          </div>
+        </div>
+
+        <!-- Continue to Schedule Button -->
+        <div class="pt-4 max-w-md mx-auto">
+          <button type="button" onclick="confirmConfigurationAndProceed()"
+            class="w-full py-4 px-6 rounded-xl bg-[#11120f] hover:bg-[#1e1f1a] text-[#b8ff55] font-extrabold text-base tracking-wide border border-black shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer font-['Plus_Jakarta_Sans']">
+            <span>Continue to Schedule</span>
+            <svg class="w-5 h-5 text-[#b8ff55]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ==========================================================
+            STEP 3: DETAILS & SCHEDULING FORM (WIDE CARD LAYOUT)
+            ========================================================== -->
+      <div id="step-3" class="step-pane hidden">
+
+        <!-- Top Navigation Bar & Selection Badges -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-8 pb-3 border-b border-black/10">
+          <button type="button" onclick="handleBackFromStep3()"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white border border-black/15 text-[#0e0f0c] hover:bg-black/5 text-xs font-bold transition-all shadow-xs cursor-pointer font-['Plus_Jakarta_Sans']">
+            <svg class="w-4 h-4 text-[#0e0f0c]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Back to Service Details</span>
+          </button>
+
+          <!-- Current Choices Badges (No pills) -->
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span id="summary-city-pill"
+              class="px-3 py-1 rounded bg-[#11120f] text-[#b8ff55] font-extrabold text-[11px] font-['Plus_Jakarta_Sans'] shadow-xs flex items-center gap-1.5 uppercase tracking-wider">
+              <svg class="w-3.5 h-3.5 text-[#b8ff55]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span></span>
+            </span>
+            <span id="summary-service-pill"
+              class="px-3 py-1 rounded bg-white border border-black/15 text-[#0e0f0c] font-bold text-xs font-['Plus_Jakarta_Sans'] shadow-xs"></span>
+            <span id="summary-bhk-pill"
+              class="hidden px-3 py-1 rounded bg-white border border-black/15 text-[#0e0f0c] font-bold text-xs font-['Plus_Jakarta_Sans'] shadow-xs"></span>
+          </div>
+        </div>
+
+        <form id="booking-form" onsubmit="handleFormSubmit(event)">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+
+            <!-- LEFT COLUMN (7 COLS): Modular Form Cards -->
+            <div class="lg:col-span-7 space-y-6">
+
+              <!-- CARD 1: Schedule & Timing -->
+              <div
+                class="form-card bg-white rounded-2xl p-6 sm:p-7 border border-black/10 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.05)] relative overflow-hidden">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-black/5">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-9 h-9 rounded-lg bg-[#11120f] text-[#b8ff55] flex items-center justify-center font-extrabold text-xs font-['Plus_Jakarta_Sans'] shadow-xs">
+                      01
+                    </div>
+                    <div>
+                      <h3
+                        class="text-lg sm:text-xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+                        Schedule Appointment
+                      </h3>
+                      <p class="text-xs text-[#464840] mt-0.5">Select when our certified team should arrive at your
+                        doorstep.</p>
+                    </div>
+                  </div>
+                  <span
+                    class="hidden sm:inline-flex items-center gap-1 text-[11px] font-extrabold text-[#0e0f0c] bg-[#11120f]/5 px-2.5 py-1 rounded border border-black/10 font-['Plus_Jakarta_Sans']">
+                    <svg class="w-3.5 h-3.5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Instant Dispatch</span>
+                  </span>
+                </div>
+
+                <!-- Day Selector Cards -->
+                <div class="mb-6">
+                  <div class="flex items-center justify-between mb-2.5">
+                    <label
+                      class="block text-xs font-extrabold uppercase tracking-wider text-[#0e0f0c] font-['Plus_Jakarta_Sans']">
+                      Service Day <span class="text-black">*</span>
+                    </label>
+                    <span id="selected-date-label"
+                      class="text-xs font-bold text-[#0e0f0c] bg-black/5 px-2.5 py-0.5 rounded border border-black/10">Today</span>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <!-- Today Option -->
+                    <button type="button" id="today-btn" onclick="selectBookingDay('today')"
+                      class="day-choice rounded-xl border-2 border-emerald-600 bg-emerald-600 p-4 text-left font-bold text-white shadow-sm transition-all cursor-pointer flex items-center gap-3.5">
+                      <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <span class="block text-sm font-extrabold leading-tight font-['Plus_Jakarta_Sans']">Today</span>
+                        <span class="block text-xs font-normal opacity-90 mt-0.5">Earliest dispatch crew</span>
+                      </div>
+                    </button>
+
+                    <!-- Another Day Option -->
+                    <button type="button" id="another-day-btn" onclick="selectBookingDay('another')"
+                      class="day-choice rounded-xl border-2 border-black/10 bg-white p-4 text-left font-bold text-[#0e0f0c] transition-all hover:border-black/30 cursor-pointer flex items-center gap-3.5">
+                      <div class="w-10 h-10 rounded-lg bg-black/5 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <span
+                          class="block text-sm font-extrabold leading-tight text-[#0e0f0c] font-['Plus_Jakarta_Sans']">Another
+                          Day</span>
+                        <span class="block text-xs font-normal text-slate-500 mt-0.5">Choose future date</span>
+                      </div>
+                    </button>
+                  </div>
+
+                  <!-- Expandable Date Picker with Smooth CSS Grid Drawer & Quick Chips -->
+                  <div id="another-day-field" class="expand-drawer w-full">
+                    <div class="expand-drawer-content pt-4">
+                      <div class="p-4 sm:p-5 rounded-xl bg-white border-2 border-black/10 space-y-3 shadow-sm">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <label for="preferred-date"
+                            class="block text-xs font-extrabold uppercase tracking-wider text-[#0e0f0c] font-['Plus_Jakarta_Sans']">
+                            Select Appointment Date <span class="text-black">*</span>
+                          </label>
+                          <span class="text-[11px] text-[#464840] font-semibold">Free cancellation up to 2 hours
+                            prior</span>
+                        </div>
+
+                        <input type="date" id="preferred-date"
+                          class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-black shadow-xs">
+
+                        <!-- Quick Date Selection Chips -->
+                        <div class="pt-1">
+                          <span
+                            class="text-[10px] uppercase font-bold text-[#464840] tracking-wider block mb-1.5 font-['Plus_Jakarta_Sans']">Quick
+                            Select:</span>
+                          <div class="flex flex-wrap gap-2">
+                            <button type="button" onclick="setQuickDate(1)"
+                              class="text-xs font-bold px-3 py-1.5 rounded-lg bg-white border border-black/15 text-[#0e0f0c] hover:bg-black/5 transition-all cursor-pointer shadow-xs active:scale-95 font-['Plus_Jakarta_Sans']">
+                              Tomorrow
+                            </button>
+                            <button type="button" onclick="setQuickDate(2)"
+                              class="text-xs font-bold px-3 py-1.5 rounded-lg bg-white border border-black/15 text-[#0e0f0c] hover:bg-black/5 transition-all cursor-pointer shadow-xs active:scale-95 font-['Plus_Jakarta_Sans']">
+                              +2 Days
+                            </button>
+                            <button type="button" onclick="setQuickDate(3)"
+                              class="text-xs font-bold px-3 py-1.5 rounded-lg bg-white border border-black/15 text-[#0e0f0c] hover:bg-black/5 transition-all cursor-pointer shadow-xs active:scale-95 font-['Plus_Jakarta_Sans']">
+                              +3 Days
+                            </button>
+                            <button type="button" onclick="setWeekendQuickDate()"
+                              class="text-xs font-bold px-3 py-1.5 rounded-lg bg-white border border-black/15 text-[#0e0f0c] hover:bg-black/5 transition-all cursor-pointer shadow-xs active:scale-95 font-['Plus_Jakarta_Sans']">
+                              Upcoming Weekend
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Time Slot Cards -->
+                <div>
+                  <label for="preferred-time"
+                    class="mb-2.5 block text-xs font-extrabold uppercase tracking-wider text-[#0e0f0c] font-['Plus_Jakarta_Sans']">
+                    Preferred Arrival Window <span class="text-black">*</span>
+                  </label>
+                  <div id="time-slot-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <!-- Morning Slot Card -->
+                    <button type="button" data-time-slot="Morning (9:00 AM - 12:00 PM)" onclick="selectTimeSlot(this)"
+                      class="time-slot step-card rounded-xl border-2 border-emerald-600 bg-emerald-600 px-3.5 py-4 text-left text-sm font-bold text-white shadow-md transition-all cursor-pointer flex items-center gap-3">
+                      <div
+                        class="slot-radio w-4 h-4 rounded-full border-2 border-white bg-white flex items-center justify-center shrink-0">
+                        <div class="w-1.5 h-1.5 rounded-full bg-emerald-600"></div>
+                      </div>
+                      <div class="min-w-0">
+                        <span class="slot-sub block text-xs font-medium text-emerald-100 flex items-center gap-1.5">
+                          <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2" />
+                            <path stroke-linecap="round" stroke-width="2"
+                              d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                          </svg>
+                          <span>Morning</span>
+                        </span>
+                        <span class="block text-xs font-extrabold mt-0.5 truncate font-['Plus_Jakarta_Sans']">9:00 AM -
+                          12:00 PM</span>
+                      </div>
+                    </button>
+
+                    <!-- Afternoon Slot Card -->
+                    <button type="button" data-time-slot="Afternoon (12:00 PM - 3:00 PM)" onclick="selectTimeSlot(this)"
+                      class="time-slot step-card rounded-xl border-2 border-black/10 bg-white px-3.5 py-4 text-left text-sm font-bold text-[#0e0f0c] transition-all hover:border-black/30 cursor-pointer flex items-center gap-3">
+                      <div
+                        class="slot-radio w-4 h-4 rounded-full border-2 border-slate-300 flex items-center justify-center shrink-0">
+                        <div class="w-1.5 h-1.5 rounded-full bg-transparent"></div>
+                      </div>
+                      <div class="min-w-0">
+                        <span class="slot-sub block text-xs font-medium text-slate-500 flex items-center gap-1.5">
+                          <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 3v2m6.364 1.636l-1.414 1.414M21 12h-2M4 12H2m3.343-5.657L3.93 4.93m14.07 14.07l1.414 1.414M12 19v2M12 7a5 5 0 100 10 5 5 0 000-10z" />
+                          </svg>
+                          <span>Afternoon</span>
+                        </span>
+                        <span
+                          class="block text-xs font-extrabold text-[#0e0f0c] mt-0.5 truncate font-['Plus_Jakarta_Sans']">12:00
+                          PM - 3:00 PM</span>
+                      </div>
+                    </button>
+
+                    <!-- Evening Slot Card -->
+                    <button type="button" data-time-slot="Evening (3:00 PM - 6:00 PM)" onclick="selectTimeSlot(this)"
+                      class="time-slot step-card rounded-xl border-2 border-black/10 bg-white px-3.5 py-4 text-left text-sm font-bold text-[#0e0f0c] transition-all hover:border-black/30 cursor-pointer flex items-center gap-3">
+                      <div
+                        class="slot-radio w-4 h-4 rounded-full border-2 border-slate-300 flex items-center justify-center shrink-0">
+                        <div class="w-1.5 h-1.5 rounded-full bg-transparent"></div>
+                      </div>
+                      <div class="min-w-0">
+                        <span class="slot-sub block text-xs font-medium text-slate-500 flex items-center gap-1.5">
+                          <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                          </svg>
+                          <span>Evening</span>
+                        </span>
+                        <span
+                          class="block text-xs font-extrabold text-[#0e0f0c] mt-0.5 truncate font-['Plus_Jakarta_Sans']">3:00
+                          PM - 6:00 PM</span>
+                      </div>
+                    </button>
+                  </div>
+                  <select id="preferred-time" required class="sr-only" aria-label="Available Hours">
+                    <option value="Morning (9:00 AM - 12:00 PM)" selected>Morning (9:00 AM - 12:00 PM)</option>
+                    <option value="Afternoon (12:00 PM - 3:00 PM)">Afternoon (12:00 PM - 3:00 PM)</option>
+                    <option value="Evening (3:00 PM - 6:00 PM)">Evening (3:00 PM - 6:00 PM)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- CARD 2: Contact Information -->
+              <div
+                class="form-card bg-white rounded-2xl p-6 sm:p-7 border border-black/10 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.05)] relative overflow-hidden">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-black/5">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-9 h-9 rounded-lg bg-[#11120f] text-[#b8ff55] flex items-center justify-center font-extrabold text-xs font-['Plus_Jakarta_Sans'] shadow-xs">
+                      02
+                    </div>
+                    <div>
+                      <h3
+                        class="text-lg sm:text-xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+                        Contact Information
+                      </h3>
+                      <p class="text-xs text-[#464840] mt-0.5">Pre-filled automatically from your verified account.</p>
+                    </div>
+                  </div>
+
+                  <span id="card-user-badge"
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#11120f]/5 border border-black/10 text-[#0e0f0c] text-[11px] font-extrabold font-['Plus_Jakarta_Sans']">
+                    <span id="card-user-badge-text">Logged In</span>
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label for="customer-name"
+                      class="block text-xs font-extrabold uppercase tracking-wider text-[#0e0f0c] font-['Plus_Jakarta_Sans'] mb-1.5">
+                      Full Name <span class="text-black">*</span>
+                    </label>
+                    <input type="text" id="customer-name" required placeholder="e.g. Ramesh Kumar"
+                      class="w-full rounded-lg border border-black/15 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-black outline-none transition bg-white shadow-2xs">
+                  </div>
+
+                  <div>
+                    <label for="customer-phone"
+                      class="block text-xs font-extrabold uppercase tracking-wider text-[#0e0f0c] font-['Plus_Jakarta_Sans'] mb-1.5">
+                      Mobile Number <span class="text-black">*</span>
+                    </label>
+                    <input type="tel" id="customer-phone" required pattern="[0-9]{10}"
+                      placeholder="10-digit phone number"
+                      class="w-full rounded-lg border border-black/15 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-black outline-none transition bg-white shadow-2xs">
+                  </div>
+                </div>
+
+                <div>
+                  <label for="customer-email"
+                    class="block text-xs font-extrabold uppercase tracking-wider text-[#0e0f0c] font-['Plus_Jakarta_Sans'] mb-1.5">
+                    Email Address <span class="text-black">*</span>
+                  </label>
+                  <input type="email" id="customer-email" required autocomplete="email" placeholder="you@example.com"
+                    class="w-full rounded-lg border border-black/15 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-black outline-none transition bg-white shadow-2xs">
+                  <p class="text-[11px] text-[#464840] mt-1.5 flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-black shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Your booking confirmation receipt and official GST invoice will be sent here.</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- CARD 3: Service Address & Specific Requirements -->
+              <div
+                class="form-card bg-white rounded-2xl p-6 sm:p-7 border border-black/10 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.05)] relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-6 pb-4 border-b border-black/5">
+                  <div
+                    class="w-9 h-9 rounded-lg bg-[#11120f] text-[#b8ff55] flex items-center justify-center font-extrabold text-xs font-['Plus_Jakarta_Sans'] shadow-xs">
+                    03
+                  </div>
+                  <div>
+                    <h3
+                      class="text-lg sm:text-xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+                      Service Location &amp; Instructions</h3>
+                    <p class="text-xs text-[#464840] mt-0.5">Where should our team report? Add floor, door number, and
+                      focus areas.</p>
+                  </div>
+                </div>
+
+                <!-- Complete Address -->
+                <div class="mb-4">
+                  <div class="flex items-center justify-between mb-1.5 flex-wrap gap-2">
+                    <label for="customer-address"
+                      class="block text-xs font-extrabold uppercase tracking-wider text-[#0e0f0c] font-['Plus_Jakarta_Sans']">
+                      Doorstep Address &amp; Landmark <span class="text-black">*</span>
+                    </label>
+                    <button type="button" id="btn-share-live-location" onclick="handleShareLiveLocation()"
+                      class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-bold transition cursor-pointer shadow-2xs">
+                      <svg class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 01-6 0z"/></svg>
+                      <span id="btn-share-location-text">Share Live GPS Pin</span>
+                    </button>
+                  </div>
+                  <textarea id="customer-address" rows="3" required
+                    placeholder="e.g., Flat 402, 4th Floor, Green Valley Apartments, Near Avinashi Road Bus Stop..."
+                    class="w-full rounded-lg border border-black/15 px-4 py-3 text-sm font-medium text-slate-800 focus:border-black outline-none transition bg-white shadow-2xs"></textarea>
+                  <div id="live-location-badge" class="hidden mt-2 p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-center justify-between flex-wrap gap-2">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      <span>Live GPS Attached: <strong id="live-location-coords" class="font-mono"></strong></span>
+                    </div>
+                    <a id="live-location-maps-link" href="#" target="_blank" class="font-bold underline text-emerald-800 hover:text-emerald-950">Test Google Maps &rarr;</a>
+                  </div>
+                </div>
+
+                <!-- Specific Requirements (Optional) -->
+                <div>
+                  <label for="service-notes"
+                    class="block text-xs font-extrabold uppercase tracking-wider text-[#0e0f0c] font-['Plus_Jakarta_Sans'] mb-1.5">
+                    Specific Focus Areas or Notes <span class="text-slate-400 font-normal text-[11px]">(Optional)</span>
+                  </label>
+                  <textarea id="service-notes" rows="2"
+                    class="w-full rounded-lg border border-black/15 px-4 py-3 text-sm font-medium text-slate-800 focus:border-black outline-none transition bg-white shadow-2xs"
+                    placeholder="e.g., tough hard water stains in master bathroom, balcony glass cleaning, pet stains on sofa..."></textarea>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN (5 COLS): Sticky Live Summary Card -->
+            <div class="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
+              <div
+                class="relative overflow-hidden bg-white rounded-2xl p-6 sm:p-7 border border-black/10 shadow-[0_8px_32px_-6px_rgba(0,0,0,0.06)]">
+                <div class="absolute inset-x-0 top-0 h-1 bg-[#11120f]"></div>
+
+                <div class="flex items-center justify-between pb-4 mb-4 border-b border-black/5">
+                  <div>
+                    <h3
+                      class="text-lg sm:text-xl font-extrabold text-[#0e0f0c] tracking-tight font-['Plus_Jakarta_Sans']">
+                      Booking Summary</h3>
+                    <p class="text-xs text-[#464840] mt-0.5">Live reactive breakdown</p>
+                  </div>
+                  <span
+                    class="px-2.5 py-1 rounded bg-[#11120f] text-[#b8ff55] text-[10px] font-extrabold uppercase tracking-wider font-['Plus_Jakarta_Sans']">
+                    Zero Advance
+                  </span>
+                </div>
+
+                <!-- Live Summary Items -->
+                <div class="space-y-3 text-sm mb-6">
+                  <!-- City Item -->
+                  <div
+                    class="p-3.5 rounded-xl bg-black/[0.02] border border-black/5 flex items-center justify-between hover:bg-black/[0.04] transition-colors">
+                    <div class="flex items-center gap-2.5">
+                      <span
+                        class="w-8 h-8 rounded-lg bg-[#11120f] text-[#b8ff55] flex items-center justify-center font-bold text-xs shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </span>
+                      <div>
+                        <span
+                          class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block font-['Plus_Jakarta_Sans']">City
+                          / Region</span>
+                        <span id="summary-live-city"
+                          class="font-extrabold text-[#0e0f0c] block font-['Plus_Jakarta_Sans']">Pudukkottai</span>
+                      </div>
+                    </div>
+                    <button type="button" onclick="goToStep(1)"
+                      class="text-xs font-bold text-[#0e0f0c] hover:underline cursor-pointer font-['Plus_Jakarta_Sans']">Change</button>
+                  </div>
+
+                  <!-- Service Item -->
+                  <div
+                    class="p-3.5 rounded-xl bg-black/[0.02] border border-black/5 flex items-center justify-between hover:bg-black/[0.04] transition-colors">
+                    <div class="flex items-center gap-2.5">
+                      <span
+                        class="w-8 h-8 rounded-lg bg-[#11120f] text-[#b8ff55] flex items-center justify-center font-bold text-xs shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.286L13 21l-2.286-6.857L5 12l5.714-2.286L13 3z" />
+                        </svg>
+                      </span>
+                      <div>
+                        <span
+                          class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block font-['Plus_Jakarta_Sans']">Service</span>
+                        <span id="summary-live-service"
+                          class="font-extrabold text-[#0e0f0c] block font-['Plus_Jakarta_Sans']">Home Cleaning</span>
+                      </div>
+                    </div>
+                    <button type="button" onclick="goToStep(2)"
+                      class="text-xs font-bold text-[#0e0f0c] hover:underline cursor-pointer font-['Plus_Jakarta_Sans']">Change</button>
+                  </div>
+
+                  <!-- Plan Scope & Rooms Item -->
+                  <div
+                    class="p-3.5 rounded-xl bg-black/[0.02] border border-black/5 hover:bg-black/[0.04] transition-colors">
+                    <div class="flex items-center justify-between mb-1">
+                      <span
+                        class="text-[10px] uppercase tracking-wider text-slate-400 font-bold font-['Plus_Jakarta_Sans']">Allocated
+                        Scope</span>
+                      <button type="button" onclick="handleBackFromStep3()"
+                        class="text-xs font-bold text-[#0e0f0c] hover:underline cursor-pointer font-['Plus_Jakarta_Sans']">Edit</button>
+                    </div>
+                    <p id="summary-live-details" class="text-xs font-semibold text-[#0e0f0c] leading-relaxed">
+                      Standard package allocation
+                    </p>
+                  </div>
+
+                  <!-- Schedule Slot Item -->
+                  <div class="p-3.5 rounded-xl bg-black/[0.02] border border-black/5 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                      <span
+                        class="w-8 h-8 rounded-lg bg-[#11120f] text-[#b8ff55] flex items-center justify-center font-bold text-xs shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </span>
+                      <div>
+                        <span
+                          class="text-[10px] uppercase tracking-wider text-[#464840] font-bold block font-['Plus_Jakarta_Sans']">Arrival
+                          Window</span>
+                        <span id="summary-live-slot"
+                          class="font-extrabold text-[#0e0f0c] block font-['Plus_Jakarta_Sans']">Today • Morning (9:00
+                          AM - 12:00 PM)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Zero Advance Reassurance Card -->
+                <div class="p-4 rounded-xl bg-black/[0.02] border border-black/5 mb-6 space-y-2 text-xs">
+                  <div class="flex items-center gap-2 text-[#0e0f0c] font-semibold">
+                    <svg class="w-4 h-4 text-black shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>No advance payment needed today</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-[#0e0f0c] font-semibold">
+                    <svg class="w-4 h-4 text-black shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Pay only after 100% satisfactory sign-off</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-[#0e0f0c] font-semibold">
+                    <svg class="w-4 h-4 text-black shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Official GST invoice delivered to your email</span>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submit-booking-btn"
+                  class="w-full py-4 px-6 rounded-xl bg-[#11120f] hover:bg-[#252820] text-[#b8ff55] font-extrabold text-base tracking-wide font-['Plus_Jakarta_Sans'] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md">
+                  <span>Confirm &amp; Book Service</span>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                </button>
+
+                <p class="text-center text-[11px] text-[#464840] mt-2.5">
+                  Instant local crew assignment upon submission.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+
+      <!-- ==========================================================
+            STEP 4: CONFIRMATION SUCCESS PANE
+            ========================================================== -->
+      <div id="step-4" class="step-pane hidden">
+
+        <div class="bg-white rounded-2xl p-6 sm:p-10 border border-black/10 text-center shadow-md">
+
+          <div
+            class="w-16 h-16 rounded-2xl bg-[#11120f] text-[#b8ff55] flex items-center justify-center mx-auto mb-5 shadow-sm">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+
+          <span
+            class="inline-block px-3 py-1 rounded text-[11px] font-extrabold uppercase tracking-widest bg-[#11120f] text-[#b8ff55] font-['Plus_Jakarta_Sans'] mb-2">
+            Appointment Request Sent
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0e0f0c] font-['Plus_Jakarta_Sans']">
+            Thank You, <span id="confirm-name">Customer</span>!
+          </h2>
+          <p class="mt-2 text-sm text-[#464840] max-w-md mx-auto">
+            Your ZeroSpot appointment request for <strong id="confirm-city" class="text-[#0e0f0c]"></strong> has been
+            recorded. Our regional supervisor will call you shortly to confirm the crew arrival.
+          </p>
+
+          <!-- Appointment Summary Receipt Card -->
+          <div
+            class="mt-8 p-5 sm:p-6 rounded-xl bg-black/[0.02] border border-black/10 text-left max-w-lg mx-auto space-y-3 text-sm">
+            <div class="flex justify-between items-center pb-3 border-b border-black/10">
+              <span class="text-slate-400 text-xs uppercase font-extrabold font-['Plus_Jakarta_Sans']">Booking ID</span>
+              <span id="confirm-id" class="font-mono font-bold text-[#0e0f0c]">ZS-2026-0000</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-500">Service</span>
+              <span id="confirm-service" class="font-bold text-[#0e0f0c] font-['Plus_Jakarta_Sans']"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-500">City / Region</span>
+              <span id="confirm-location-val" class="font-bold text-[#0e0f0c] font-['Plus_Jakarta_Sans']"></span>
+            </div>
+            <div class="flex justify-between items-center gap-4">
+              <span class="text-slate-500">Email</span>
+              <span id="confirm-email" class="font-semibold text-slate-800 text-right break-all"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-500">Phone</span>
+              <span id="confirm-phone" class="font-semibold text-slate-800"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-500">Scheduled Date</span>
+              <span id="confirm-date" class="font-bold text-[#0e0f0c]"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-500">Time Slot</span>
+              <span id="confirm-time" class="font-bold text-[#0e0f0c]"></span>
+            </div>
+            <div class="flex justify-between items-start pt-3 border-t border-black/10">
+              <span class="text-slate-500 text-xs">Address</span>
+              <span id="confirm-address" class="font-medium text-slate-800 text-xs text-right max-w-xs"></span>
+            </div>
+          </div>
+
+          <!-- Direct Instant Action Buttons -->
+          <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-md mx-auto">
+            <!-- Send to WhatsApp -->
+            <a id="whatsapp-share-btn" href="#" target="_blank" rel="noopener noreferrer"
+              class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-extrabold text-sm transition-colors shadow-sm font-['Plus_Jakarta_Sans']">
+              <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                <path
+                  d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.61 20.15 9.22 19.78 8.01 19.07L7.69 18.88L4.57 19.7L5.4 16.65L5.19 16.32C4.41 15.07 4.01 13.51 4.01 11.91C4.01 7.37 7.7 3.67 12.05 3.67ZM8.83 7.37C8.63 7.37 8.44 7.38 8.27 7.71C8.07 8.08 7.52 8.6 7.52 9.66C7.52 10.72 8.3 11.75 8.41 11.89C8.52 12.04 9.93 14.21 12.09 15.15C13.88 15.93 14.25 15.77 14.65 15.74C15.06 15.7 15.96 15.2 16.15 14.68C16.33 14.15 16.33 13.7 16.28 13.61C16.22 13.52 16.07 13.46 15.85 13.35C15.63 13.24 14.54 12.7 14.33 12.63C14.13 12.55 13.98 12.52 13.83 12.74C13.68 12.96 13.25 13.46 13.12 13.61C12.99 13.76 12.86 13.78 12.64 13.67C12.42 13.56 11.71 13.32 10.87 12.57C10.22 11.99 9.78 11.27 9.65 11.05C9.52 10.83 9.64 10.71 9.75 10.6C9.85 10.5 9.97 10.34 10.08 10.21C10.19 10.08 10.23 9.99 10.3 9.84C10.38 9.7 10.34 9.57 10.28 9.46C10.23 9.35 9.8 8.31 9.62 7.88C9.44 7.45 9.27 7.51 9.13 7.51L8.83 7.37Z" />
+              </svg>
+              <span>Confirm on WhatsApp</span>
+            </a>
+
+            <!-- Return Home -->
+            <a href="index.html"
+              class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-black/5 hover:bg-black/10 text-[#0e0f0c] font-bold text-sm transition-colors font-['Plus_Jakarta_Sans']">
+              Return to Website
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ========================================================
+       GLOBAL FOOTER (Matching index.html Solid Black Footer)
+       ======================================================== -->
+  <footer class="bg-black text-white py-10 px-4 sm:px-6 mt-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#b0b4a8]">
+      <div class="flex items-center gap-3">
+        <img src="assets/logo-transparent.png" alt="ZeroSpot" class="h-6 w-auto object-contain"
+          onerror="this.style.display='none'">
+        <span class="font-extrabold text-white text-sm font-['Plus_Jakarta_Sans']">ZERO<span
+            class="text-[#b8ff55]">SPOT</span></span>
+        <span>&bull; Professional Cleaning &amp; Precision A/C Care</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>Serving Coimbatore &bull; Pudukkottai</span>
+        <button type="button" onclick="window.ZS_CookieBanner && window.ZS_CookieBanner.openPreferencesModal();"
+          class="hover:text-[#b8ff55] transition cursor-pointer">Manage Cookies</button>
+      </div>
+      <div>
+        <p>&copy; 2026 ZeroSpot. Pay after work. Zero compromise.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="cookie-manager.js"></script>
+  <script>
+    // ZeroSpot backend URL.
+    const getApiBase = () => {
+      if (window.ZS_API_BASE) return window.ZS_API_BASE;
+      try {
+        const stored = localStorage.getItem("zs_api_base");
+        if (stored) return stored;
+      } catch (e) {}
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+      if (!isLocalhost) return '';
+      if (window.location.port === '4000' || window.location.port === '3000') return '';
+      return 'http://localhost:4000';
+    };
+    const API_BASE = getApiBase();
+
+    // =========================================================================
+    // AUTHENTICATION GUARD & USER PRE-FILL
+    // For booking service, the user MUST be a logged-in user.
+    // Persistent browser cookies (30-day lifespan) and local cache ensure
+    // returning customers never have to login every single time.
+    // =========================================================================
+    function getAuthenticatedUser() {
+      if (window.ZS_Auth) {
+        const user = window.ZS_Auth.getUser();
+        if (user) return user;
+      }
+      const userRaw = sessionStorage.getItem("zs_user") || localStorage.getItem("zs_user");
+      if (!userRaw) return null;
+      try {
+        const parsed = JSON.parse(userRaw);
+        return (parsed && (parsed.uid || parsed.email || parsed.name)) ? parsed : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    const authUser = getAuthenticatedUser();
+    if (!authUser) {
+      // Not logged in -> redirect to login with return destination
+      const curPage = window.location.pathname.split('/').pop() || 'appointment.html';
+      const curSearch = window.location.search || '';
+      const returnTarget = encodeURIComponent(curPage + curSearch);
+      window.location.replace(`login.html?redirect=${returnTarget}`);
+    }
+
+    function autofillCustomerDetails() {
+      const u = getAuthenticatedUser();
+      if (!u) return;
+
+      const nameField = document.getElementById('customer-name');
+      const emailField = document.getElementById('customer-email');
+      const phoneField = document.getElementById('customer-phone');
+
+      const accountName = u.name || u.displayName || '';
+      const accountEmail = u.email || '';
+      const accountPhone = u.phone || u.phoneNumber || '';
+
+      if (nameField && accountName) {
+        nameField.value = accountName;
+        bookingState.name = accountName;
+      }
+      if (emailField && accountEmail) {
+        emailField.value = accountEmail;
+        bookingState.email = accountEmail;
+      }
+      if (phoneField && accountPhone) {
+        phoneField.value = accountPhone;
+        bookingState.phone = accountPhone;
+      }
+
+    }
+
+    // State storage for current appointment
+    const bookingState = {
+      location: '',
+      service: '',
+      bhk: 2,
+      selectedRooms: ['Hall', 'Kitchen', 'Room 1', 'Room 2'],
+      bathrooms: 0,
+      lastBathrooms: 1,
+      officeType: '',
+      officeAvailableAreas: [],
+      officeAreas: [],
+      officeExtraItems: [],
+      configType: '',
+      configAvailableAreas: [],
+      configAreas: [],
+      configExtras: [],
+      configExtraItems: [],
+      hotelRoomCount: 1,
+      extraItems: [],
+      extraCounts: {
+        'Sofa': 1,
+        'Windows': 1,
+        'Balcony': 1
+      },
+      customExtras: {
+        'Others': ''
+      },
+      notes: '',
+      date: '',
+      timeSlot: '',
+      name: (authUser && authUser.name) ? authUser.name : '',
+      phone: (authUser && authUser.phone) ? authUser.phone : '',
+      email: (authUser && authUser.email) ? authUser.email : '',
+      address: '',
+      googleMapsUrl: '',
+      latitude: null,
+      longitude: null,
+      bookingId: ''
+    };
+
+    window.handleShareLiveLocation = function() {
+      const btnText = document.getElementById('btn-share-location-text');
+      if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser. Please type your full address.");
+        return;
+      }
+      if (btnText) btnText.textContent = "Detecting GPS...";
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+          bookingState.latitude = lat;
+          bookingState.longitude = lng;
+          bookingState.googleMapsUrl = mapsUrl;
+
+          const badge = document.getElementById('live-location-badge');
+          const coordsText = document.getElementById('live-location-coords');
+          const mapsLink = document.getElementById('live-location-maps-link');
+          if (badge && coordsText && mapsLink) {
+            badge.classList.remove('hidden');
+            coordsText.textContent = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+            mapsLink.href = mapsUrl;
+          }
+          if (btnText) btnText.textContent = "Live GPS Attached";
+
+          const addrField = document.getElementById('customer-address');
+          if (addrField) {
+            const currentVal = addrField.value.trim();
+            if (!currentVal) {
+              addrField.value = `[GPS Pin: ${lat.toFixed(5)}, ${lng.toFixed(5)}]\nGoogle Maps: ${mapsUrl}\n`;
+            }
+          }
+        },
+        (err) => {
+          console.warn("Geolocation error:", err);
+          if (btnText) btnText.textContent = "Share Live GPS Pin";
+          alert("Could not fetch GPS location: " + (err.message || "Permission denied") + ". You can enter your doorstep address manually.");
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    };
+
+    const requestedService = new URLSearchParams(window.location.search).get('service');
+
+    // Initialize Min Date on date input to today & prefill authenticated user
+    window.addEventListener('DOMContentLoaded', () => {
+      autofillCustomerDetails();
+
+      const dateInput = document.getElementById('preferred-date');
+      if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        dateInput.value = today;
+        dateInput.addEventListener('change', () => {
+          const dateLabel = document.getElementById('selected-date-label');
+          if (dateLabel && dateInput.value) {
+            try {
+              const parts = dateInput.value.split('-');
+              const d = new Date(parts[0], parts[1] - 1, parts[2]);
+              dateLabel.innerText = d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+            } catch (e) {
+              dateLabel.innerText = 'Selected date';
+            }
+          }
+          updateLiveSummary();
+        });
+      }
+      selectBookingDay('today');
+      selectTimeSlot(document.querySelector('[data-time-slot^="Morning"]'));
+
+      // Listen to customer address and notes inputs to update live summary if needed
+      const addressField = document.getElementById('customer-address');
+      const notesField = document.getElementById('service-notes');
+      if (addressField) addressField.addEventListener('input', updateLiveSummary);
+      if (notesField) notesField.addEventListener('input', updateLiveSummary);
+    });
+
+    function selectBookingDay(mode) {
+      const dateInput = document.getElementById('preferred-date');
+      const anotherDayField = document.getElementById('another-day-field');
+      const todayButton = document.getElementById('today-btn');
+      const anotherDayButton = document.getElementById('another-day-btn');
+      const dateLabel = document.getElementById('selected-date-label');
+      const today = new Date().toISOString().split('T')[0];
+
+      if (mode === 'today') {
+        if (dateInput) {
+          dateInput.value = today;
+          dateInput.required = false;
+        }
+        if (anotherDayField) anotherDayField.classList.remove('expanded');
+        if (todayButton) {
+          todayButton.className = 'day-choice rounded-2xl border-2 border-emerald-600 bg-emerald-600 p-4 text-left font-bold text-white shadow-sm transition-all cursor-pointer flex items-center gap-3.5';
+          const iconDiv = todayButton.querySelector('div:first-child');
+          if (iconDiv) iconDiv.className = 'w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0';
+          const svg = todayButton.querySelector('svg');
+          if (svg) svg.className = 'w-5 h-5 text-white';
+          const title = todayButton.querySelector('span:first-child');
+          if (title) title.className = 'block text-sm font-extrabold leading-tight';
+          const sub = todayButton.querySelector('span:last-child');
+          if (sub) sub.className = 'block text-xs font-normal opacity-90 mt-0.5';
+        }
+        if (anotherDayButton) {
+          anotherDayButton.className = 'day-choice rounded-2xl border-2 border-slate-200 bg-white p-4 text-left font-bold text-slate-700 transition-all hover:border-emerald-300 hover:bg-emerald-50/50 cursor-pointer flex items-center gap-3.5';
+          const iconDiv = anotherDayButton.querySelector('div:first-child');
+          if (iconDiv) iconDiv.className = 'w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0';
+          const svg = anotherDayButton.querySelector('svg');
+          if (svg) svg.className = 'w-5 h-5 text-slate-600';
+          const title = anotherDayButton.querySelector('span:first-child');
+          if (title) title.className = 'block text-sm font-extrabold leading-tight text-slate-900';
+          const sub = anotherDayButton.querySelector('span:last-child');
+          if (sub) sub.className = 'block text-xs font-normal text-slate-500 mt-0.5';
+        }
+        if (dateLabel) dateLabel.innerText = 'Today';
+      } else {
+        if (dateInput) {
+          if (dateInput.value === today) dateInput.value = '';
+          dateInput.required = true;
+        }
+        if (anotherDayField) anotherDayField.classList.add('expanded');
+        if (todayButton) {
+          todayButton.className = 'day-choice rounded-2xl border-2 border-slate-200 bg-white p-4 text-left font-bold text-slate-700 transition-all hover:border-emerald-300 hover:bg-emerald-50/50 cursor-pointer flex items-center gap-3.5';
+          const iconDiv = todayButton.querySelector('div:first-child');
+          if (iconDiv) iconDiv.className = 'w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0';
+          const svg = todayButton.querySelector('svg');
+          if (svg) svg.className = 'w-5 h-5 text-slate-600';
+          const title = todayButton.querySelector('span:first-child');
+          if (title) title.className = 'block text-sm font-extrabold leading-tight text-slate-900';
+          const sub = todayButton.querySelector('span:last-child');
+          if (sub) sub.className = 'block text-xs font-normal text-slate-500 mt-0.5';
+        }
+        if (anotherDayButton) {
+          anotherDayButton.className = 'day-choice rounded-2xl border-2 border-emerald-600 bg-emerald-600 p-4 text-left font-bold text-white shadow-sm transition-all cursor-pointer flex items-center gap-3.5';
+          const iconDiv = anotherDayButton.querySelector('div:first-child');
+          if (iconDiv) iconDiv.className = 'w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0';
+          const svg = anotherDayButton.querySelector('svg');
+          if (svg) svg.className = 'w-5 h-5 text-white';
+          const title = anotherDayButton.querySelector('span:first-child');
+          if (title) title.className = 'block text-sm font-extrabold leading-tight';
+          const sub = anotherDayButton.querySelector('span:last-child');
+          if (sub) sub.className = 'block text-xs font-normal opacity-90 mt-0.5';
+        }
+        if (dateLabel) dateLabel.innerText = (dateInput && dateInput.value) ? 'Selected date' : 'Choose a date';
+        setTimeout(() => dateInput && dateInput.focus(), 150);
+      }
+      updateLiveSummary();
+    }
+
+    // Quick Date Chip Selector
+    function setQuickDate(daysAhead) {
+      const dateInput = document.getElementById('preferred-date');
+      const dateLabel = document.getElementById('selected-date-label');
+      if (!dateInput) return;
+      const target = new Date(Date.now() + daysAhead * 86400000);
+      const yyyy = target.getFullYear();
+      const mm = String(target.getMonth() + 1).padStart(2, '0');
+      const dd = String(target.getDate()).padStart(2, '0');
+      dateInput.value = `${yyyy}-${mm}-${dd}`;
+      if (dateLabel) {
+        dateLabel.innerText = target.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+      }
+      updateLiveSummary();
+    }
+
+    function setWeekendQuickDate() {
+      const now = new Date();
+      const day = now.getDay(); // 0 is Sun, 6 is Sat
+      let daysAhead = (6 - day);
+      if (daysAhead <= 0) daysAhead += 7; // Next Saturday
+      setQuickDate(daysAhead);
+    }
+
+    function selectTimeSlot(button) {
+      if (!button) return;
+      const select = document.getElementById('preferred-time');
+      const slot = button.dataset.timeSlot;
+      if (select) select.value = slot;
+
+      document.querySelectorAll('#time-slot-grid .time-slot').forEach((timeButton) => {
+        timeButton.className = 'time-slot step-card rounded-2xl border-2 border-slate-200 bg-white px-3.5 py-4 text-left text-sm font-bold text-slate-700 transition-all hover:border-emerald-300 hover:bg-emerald-50/50 cursor-pointer flex items-center gap-3';
+        const sub = timeButton.querySelector('.slot-sub');
+        if (sub) sub.className = 'slot-sub block text-xs font-medium text-slate-500 flex items-center gap-1';
+        const radioCircle = timeButton.querySelector('.slot-radio');
+        if (radioCircle) {
+          radioCircle.className = 'slot-radio w-4 h-4 rounded-full border-2 border-slate-300 flex items-center justify-center shrink-0';
+          const innerDot = radioCircle.querySelector('div');
+          if (innerDot) innerDot.className = 'w-1.5 h-1.5 rounded-full bg-transparent';
+        }
+        const textSpan = timeButton.querySelector('.truncate');
+        if (textSpan) textSpan.className = 'block text-xs font-extrabold text-slate-900 mt-0.5 truncate';
+      });
+
+      button.className = 'time-slot step-card rounded-2xl border-2 border-emerald-600 bg-emerald-600 px-3.5 py-4 text-left text-sm font-bold text-white shadow-md transition-all cursor-pointer flex items-center gap-3';
+      const activeSub = button.querySelector('.slot-sub');
+      if (activeSub) activeSub.className = 'slot-sub block text-xs font-medium text-emerald-100 flex items-center gap-1';
+      const activeRadio = button.querySelector('.slot-radio');
+      if (activeRadio) {
+        activeRadio.className = 'slot-radio w-4 h-4 rounded-full border-2 border-white bg-white flex items-center justify-center shrink-0';
+        const innerDot = activeRadio.querySelector('div');
+        if (innerDot) innerDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-600';
+      }
+      const activeTextSpan = button.querySelector('.truncate');
+      if (activeTextSpan) activeTextSpan.className = 'block text-xs font-extrabold text-white mt-0.5 truncate';
+
+      updateLiveSummary();
+    }
+
+    // Step 1: Select Location (Pudukkottai or Coimbatore)
+    function selectLocation(cityName) {
+      bookingState.location = cityName;
+
+      // Update UI badges safely with null checks
+      const badgeCity = document.getElementById('badge-selected-city');
+      if (badgeCity) badgeCity.innerText = cityName;
+
+      const summaryCityPill = document.getElementById('summary-city-pill');
+      if (summaryCityPill) {
+        const span = summaryCityPill.querySelector('span');
+        if (span) span.innerText = cityName;
+        else summaryCityPill.innerText = cityName;
+      }
+
+      const formLoc = document.getElementById('form-location-name');
+      if (formLoc) formLoc.innerText = cityName;
+
+      const liveCity = document.getElementById('summary-live-city');
+      if (liveCity) liveCity.innerText = cityName;
+
+      // Highlight selected location card if revisited
+      const pBtn = document.getElementById('loc-pudukkottai');
+      const cBtn = document.getElementById('loc-coimbatore');
+      if (pBtn && cBtn) {
+        if (cityName === 'Pudukkottai') {
+          pBtn.className = 'step-card group relative p-8 rounded-2xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md cursor-pointer flex flex-col items-start text-left transition-all duration-200';
+          cBtn.className = 'step-card group relative p-8 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm cursor-pointer flex flex-col items-start text-left transition-all duration-200';
+        } else {
+          cBtn.className = 'step-card group relative p-8 rounded-2xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md cursor-pointer flex flex-col items-start text-left transition-all duration-200';
+          pBtn.className = 'step-card group relative p-8 rounded-2xl bg-white border-2 border-black/10 hover:border-black/30 shadow-sm cursor-pointer flex flex-col items-start text-left transition-all duration-200';
+        }
+      }
+
+      updateLiveSummary();
+
+      // Move to Step 2
+      goToStep(2);
+      if (requestedService) {
+        handleServicePick(requestedService);
+      }
+    }
+
+    // =========================================================================
+    // INFRASTRUCTURE & OVERHEAD CARE: MULTI-SELECTION & BOOKING
+    // =========================================================================
+    const selectedInfraServices = new Set();
+
+    function toggleInfraService(serviceName, cardEl) {
+      if (!cardEl) cardEl = document.querySelector(`[data-service="${serviceName}"]`);
+      if (selectedInfraServices.has(serviceName)) {
+        selectedInfraServices.delete(serviceName);
+        if (cardEl) {
+          cardEl.classList.remove('bg-emerald-600', 'border-emerald-600', 'text-white', 'scale-[1.02]');
+          cardEl.classList.add('bg-white', 'border-black/10', 'text-[#0e0f0c]');
+          const checkIcon = cardEl.querySelector('.infra-check');
+          if (checkIcon) checkIcon.classList.add('hidden');
+        }
+      } else {
+        selectedInfraServices.add(serviceName);
+        if (cardEl) {
+          cardEl.classList.remove('bg-white', 'border-black/10', 'text-[#0e0f0c]');
+          cardEl.classList.add('bg-emerald-600', 'border-emerald-600', 'text-white', 'scale-[1.02]');
+          const checkIcon = cardEl.querySelector('.infra-check');
+          if (checkIcon) checkIcon.classList.remove('hidden');
+        }
+      }
+      updateInfraActionBar();
+    }
+
+    function updateInfraActionBar() {
+      const actionBar = document.getElementById('infra-action-bar');
+      const countEl = document.getElementById('infra-selected-count');
+
+      const count = selectedInfraServices.size;
+      if (countEl) countEl.innerText = count;
+
+      if (actionBar) {
+        if (count > 0) {
+          actionBar.classList.remove('hidden');
+        } else {
+          actionBar.classList.add('hidden');
+        }
+      }
+    }
+
+    function bookSelectedInfraServices() {
+      if (selectedInfraServices.size === 0) {
+        alert('Please select at least one infrastructure service above before clicking Book.');
+        return;
+      }
+      const combined = Array.from(selectedInfraServices).join(' + ');
+      bookingState.service = combined;
+      bookingState.selectedRooms = [];
+      bookingState.extraItems = [];
+      bookingState.bhk = 0;
+
+      const pill = document.getElementById('summary-service-pill');
+      if (pill) pill.innerText = combined;
+      const badge = document.getElementById('badge-selected-service');
+      if (badge) badge.innerText = combined;
+      const formService = document.getElementById('form-service-name');
+      if (formService) formService.innerText = combined;
+      const liveService = document.getElementById('summary-live-service');
+      if (liveService) liveService.innerText = combined;
+
+      // Automatically prefill special instructions notes with selected services
+      const notes = document.getElementById('special-instructions');
+      if (notes) {
+        const prefix = `Infrastructure & Overhead Care Services: ${Array.from(selectedInfraServices).join(', ')}`;
+        if (!notes.value.includes(prefix)) {
+          notes.value = notes.value ? `${prefix}\n${notes.value}` : prefix;
+        }
+      }
+
+      const bhkPill = document.getElementById('summary-bhk-pill');
+      if (bhkPill) bhkPill.classList.add('hidden');
+
+      updateLiveSummary();
+      goToStep(3);
+    }
+
+    window.toggleInfraService = toggleInfraService;
+    window.bookSelectedInfraServices = bookSelectedInfraServices;
+
+    // Step 2: Handle Service Pick (Routes to Home Config or directly to Step 3)
+    function handleServicePick(serviceName) {
+      const SLUG_TO_NAME = {
+        'home-deep-cleaning': 'Home Cleaning',
+        'home-cleaning': 'Home Cleaning',
+        'home-basic': 'Home Cleaning',
+        'home-standard': 'Home Cleaning',
+        'home-premium': 'Home Cleaning',
+        'bathroom-cleaning': 'Bathroom Cleaning',
+        'bathroom-single': 'Bathroom Cleaning',
+        'bathroom-premium': 'Bathroom Cleaning',
+        'sofa-carpet-clean': 'Sofa & Carpet Cleaning',
+        'sofa-carpet-cleaning': 'Sofa & Carpet Cleaning',
+        'sofa-3seater': 'Sofa & Carpet Cleaning',
+        'sofa-full-living': 'Sofa & Carpet Cleaning',
+        'kitchen-cleaning': 'Kitchen Cleaning',
+        'chimney-cleaning': 'Chimney Cleaning',
+        'kitchen-premium': 'Kitchen Cleaning',
+        'company-cleaning': 'Office & Company Cleaning',
+        'office-company-cleaning': 'Office & Company Cleaning',
+        'company-basic': 'Office & Company Cleaning',
+        'company-standard': 'Office & Company Cleaning',
+        'company-premium': 'Office & Company Cleaning',
+        'restaurant-cleaning': 'Restaurant Cleaning',
+        'restaurant-dining': 'Restaurant Cleaning',
+        'restaurant-premium': 'Restaurant Cleaning',
+        'hotel-cleaning': 'Hotel Cleaning',
+        'hotel-basic': 'Hotel Cleaning',
+        'hotel-standard': 'Hotel Cleaning',
+        'hotel-premium': 'Hotel Cleaning',
+        'ac-cleaning': 'A/C Complaints',
+        'ac-jet-wash': 'A/C Complaints',
+        'ac-problem-wash': 'A/C Complaints',
+        'ac-complaints': 'A/C Complaints',
+        'ac-complaint-diagnostics': 'A/C Complaints',
+        'ac-gas-refill': 'A/C Complaints',
+        'retails-shops-cleaning': 'Retails & Shops Cleaning',
+        'window-cleaning': 'Window & Glass Cleaning',
+        'window-glass-cleaning': 'Window & Glass Cleaning',
+        'solar-panel-cleaning': 'Solar Panel Cleaning',
+        'water-tank-cleaning': 'Water Tank Cleaning',
+        'sump-cleaning': 'Sump Cleaning'
+      };
+      if (SLUG_TO_NAME[serviceName]) {
+        serviceName = SLUG_TO_NAME[serviceName];
+      }
+
+      bookingState.service = serviceName;
+      document.getElementById('summary-service-pill').innerText = serviceName;
+
+      // Clean state for other service types to prevent cross-service option bleed
+      if (serviceName !== 'Home Cleaning') {
+        bookingState.bhk = 0;
+        bookingState.selectedRooms = [];
+        bookingState.extraItems = [];
+      }
+      if (serviceName !== 'Office & Company Cleaning') {
+        bookingState.officeType = '';
+        bookingState.officeAreas = [];
+        bookingState.officeExtraItems = [];
+      }
+      if (!['Restaurant Cleaning', 'Hotel Cleaning', 'A/C Complaints', 'Retails & Shops Cleaning'].includes(serviceName)) {
+        bookingState.configType = '';
+        bookingState.configAreas = [];
+        bookingState.configExtraItems = [];
+      }
+
+      if (serviceName === 'Home Cleaning') {
+        configureHomeCleaningPane();
+        selectBhk(bookingState.bhk || 2);
+        renderExtraItems();
+        goToStep('home-config');
+      } else if (serviceName === 'Office & Company Cleaning') {
+        configureOfficeCleaningPane();
+        goToStep('home-config');
+      } else if (serviceName === 'Restaurant Cleaning') {
+        configureRestaurantCleaningPane();
+        goToStep('home-config');
+      } else if (serviceName === 'Hotel Cleaning') {
+        configureHotelCleaningPane();
+        goToStep('home-config');
+      } else if (serviceName === 'A/C Complaints') {
+        configureAcCleaningPane();
+        goToStep('home-config');
+      } else if (serviceName === 'Retails & Shops Cleaning') {
+        configureRetailCleaningPane();
+        goToStep('home-config');
+      } else {
+        bookingState.bhk = 0;
+        bookingState.extraItems = [];
+        document.getElementById('summary-bhk-pill').classList.add('hidden');
+        goToStep(3);
+      }
+    }
+
+    function configureHomeCleaningPane() {
+      document.getElementById('config-service-label').innerText = 'Home Cleaning';
+      document.getElementById('config-filter-title').innerText = 'Select BHK Type';
+      document.getElementById('config-filter-description').innerText = 'Choose your floor plan size to automatically set up standard room allocations.';
+      document.getElementById('config-areas-title').innerText = 'Rooms Included';
+      document.getElementById('config-areas-description').innerText = 'Select the rooms to be cleaned. Tap any room to add or remove it from your cleaning plan.';
+      document.getElementById('config-extras-title').innerText = 'Extra Items to Clean';
+      document.getElementById('config-extras-description').innerText = 'Optional additions — tap any furniture or fixtures you would like our team to deep clean.';
+      document.getElementById('config-filter-grid').className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4';
+      document.getElementById('config-extras-section').classList.remove('hidden');
+      document.getElementById('hotel-count-control')?.remove();
+      document.getElementById('config-filter-grid').innerHTML = `
+          ${[1, 2, 3, 4, 5].map((count) => `<button type="button" id="bhk-btn-${count}" onclick="selectBhk(${count})" class="step-card py-6 px-4 rounded-3xl ${count === bookingState.bhk ? 'bg-emerald-600 border-emerald-600 text-white shadow-md scale-[1.02]' : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300'} border-2 flex items-center justify-center text-center transition-all cursor-pointer ${count === 5 ? 'col-span-2 sm:col-span-1' : ''}"><span class="text-xl sm:text-2xl font-black tracking-tight">${count} BHK</span></button>`).join('')}
+        `;
+      document.getElementById('config-filter-section').classList.remove('hidden');
+    }
+
+    const OFFICE_CONFIGS = {
+      'Modern Glass Office': {
+        areas: ['Glass Walls & Partitions', 'Frameless Glass Doors', 'Workstation Desks', 'Glass Conference Room', 'Office Bathrooms', 'Pantry & Coffee Bar'],
+        extras: ['Desks', 'Glass Doors', 'Windows', 'Bathrooms', 'Sofa', 'Carpet', 'Floor Cleaning / Mopping', 'Others']
+      },
+      'Standard Office (Cement walls)': {
+        areas: ['Painted Cement Walls', 'Doors', 'Executive Cabins', 'Workstation Desks', 'Exterior Windows', 'Office Bathrooms'],
+        extras: ['Desks', 'Glass Doors', 'Windows', 'Bathrooms', 'Sofa', 'Carpet', 'Floor Cleaning / Mopping', 'Others']
+      },
+      'Facility (Glass + Cement)': {
+        areas: ['Glass Walls', 'Glass Partitions', 'Painted Concrete Walls', 'Glass Sliders Doors', 'Workstation Bays', 'IT Dust-free Room', 'Bathrooms'],
+        extras: ['Desks', 'Glass Doors', 'Windows', 'Bathrooms', 'Sofa', 'Carpet', 'Floor Cleaning / Mopping', 'Others']
+      }
+    };
+
+    function configureOfficeCleaningPane() {
+      document.getElementById('config-service-label').innerText = 'Office & Company Cleaning';
+      document.getElementById('config-filter-title').innerText = 'Select Office Type';
+      document.getElementById('config-filter-description').innerText = 'Choose the office finish and layout so we can tailor the cleaning plan.';
+      document.getElementById('config-areas-title').innerText = 'Areas to Clean';
+      document.getElementById('config-areas-description').innerText = 'Select the areas included in your office cleaning plan.';
+      document.getElementById('config-extras-title').innerText = 'Extra Items to Clean';
+      document.getElementById('config-extras-description').innerText = 'Select additional furniture, surfaces, and fixtures that need attention.';
+      document.getElementById('config-filter-section').classList.remove('hidden');
+      renderOfficeFilterCards();
+      selectOfficeType(bookingState.officeType || 'Modern Glass Office');
+    }
+
+    function renderOfficeFilterCards() {
+      const container = document.getElementById('config-filter-grid');
+      container.className = 'grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4';
+      container.innerHTML = Object.keys(OFFICE_CONFIGS).map((type) => {
+        const selected = bookingState.officeType === type;
+        return `<button type="button" onclick="selectOfficeType('${type}')" class="step-card min-h-[76px] w-full whitespace-normal rounded-2xl border-2 px-4 py-5 ${selected ? 'bg-emerald-600 border-emerald-600 text-white shadow-md scale-[1.02]' : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300'} flex items-center justify-center text-center transition-all cursor-pointer"><span class="max-w-full break-words text-base leading-tight sm:text-lg font-black tracking-tight">${type}</span></button>`;
+      }).join('');
+    }
+
+    function selectOfficeType(type) {
+      bookingState.officeType = type;
+      bookingState.officeAvailableAreas = OFFICE_CONFIGS[type].areas.slice();
+      bookingState.officeAreas = [OFFICE_CONFIGS[type].areas[0]];
+      bookingState.officeExtraItems = [OFFICE_CONFIGS[type].extras[0]];
+      bookingState.bathrooms = 0;
+      bookingState.lastBathrooms = 1;
+      renderOfficeFilterCards();
+      renderOfficeAreas();
+      renderOfficeExtras();
+    }
+
+    function getOfficeCardClasses(selected) {
+      return selected
+        ? 'step-card py-5 px-4 rounded-3xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02] flex items-center justify-center text-center cursor-pointer transition-all'
+        : 'step-card py-5 px-4 rounded-3xl bg-slate-100 border-2 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 shadow-sm flex items-center justify-center text-center cursor-pointer transition-all';
+    }
+
+    function renderOfficeAreas() {
+      const container = document.getElementById('rooms-grid');
+      container.innerHTML = bookingState.officeAvailableAreas.map((area) => {
+        const isBathroom = area.toLowerCase().includes('bathroom');
+        const selected = bookingState.officeAreas.includes(area);
+        if (isBathroom) {
+          return `
+              <div class="${getOfficeCardClasses(selected)} flex-col justify-center select-none transition-all duration-300" onclick="toggleOfficeArea('${area}')">
+                <div class="flex items-center justify-center gap-2">
+                  <span class="text-base sm:text-lg font-extrabold tracking-tight">${area}</span>
+                  <span class="text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 ${selected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-500'}">
+                    ${selected ? ((bookingState.bathrooms || 1) + ' Selected') : 'Add'}
+                  </span>
+                </div>
+                <div class="expand-drawer w-full ${selected ? 'expanded' : ''}">
+                  <div class="expand-drawer-content pt-3">
+                    <div class="flex items-center justify-center gap-3 bg-white/20 px-3 py-1.5 rounded-full border border-white/30 shadow-inner" onclick="event.stopPropagation()">
+                      <button type="button" onclick="changeOfficeBathroomCount(-1, event)" class="w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-sm transition-transform active:scale-90 cursor-pointer">-</button>
+                      <span id="office-bathroom-count" class="min-w-[1.25rem] text-center font-black">${bookingState.bathrooms || 1}</span>
+                      <button type="button" onclick="changeOfficeBathroomCount(1, event)" class="w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-sm transition-transform active:scale-90 cursor-pointer">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+        }
+        return `<button type="button" onclick="toggleOfficeArea('${area}')" class="${getOfficeCardClasses(selected)}"><span class="text-base sm:text-lg font-extrabold tracking-tight">${area}</span></button>`;
+      }).join('');
+    }
+
+    function toggleOfficeArea(area) {
+      const index = bookingState.officeAreas.indexOf(area);
+      if (index > -1) {
+        bookingState.officeAreas.splice(index, 1);
+        if (area.toLowerCase().includes('bathroom')) {
+          bookingState.bathrooms = 0;
+        }
+      } else {
+        bookingState.officeAreas.push(area);
+        if (area.toLowerCase().includes('bathroom') && !bookingState.bathrooms) {
+          bookingState.bathrooms = 1;
+        }
+      }
+      renderOfficeAreas();
+      updateLiveSummary();
+    }
+
+    function changeOfficeBathroomCount(delta, e) {
+      if (e) e.stopPropagation();
+      bookingState.bathrooms = Math.max(0, Math.min(20, (bookingState.bathrooms || 0) + delta));
+      if (bookingState.bathrooms > 0) {
+        if (!bookingState.officeExtraItems.includes('Bathrooms')) {
+          bookingState.officeExtraItems.push('Bathrooms');
+        }
+      } else {
+        const bIdx = bookingState.officeAreas.findIndex(a => a.toLowerCase().includes('bathroom'));
+        if (bIdx > -1) bookingState.officeAreas.splice(bIdx, 1);
+      }
+      renderOfficeAreas();
+      renderOfficeExtras();
+      updateLiveSummary();
+    }
+
+    function renderOfficeExtras() {
+      const container = document.getElementById('extra-items-grid');
+      const extras = OFFICE_CONFIGS[bookingState.officeType].extras;
+      container.innerHTML = extras.map((item) => {
+        if (item === 'Bathrooms') {
+          const selected = bookingState.officeExtraItems.includes('Bathrooms');
+          return `
+              <div onclick="toggleOfficeExtra('Bathrooms')" class="${getOfficeCardClasses(selected)} flex-col justify-center select-none transition-all duration-300">
+                <div class="flex items-center justify-center gap-2">
+                  <span class="text-base sm:text-lg font-extrabold tracking-tight">Bathrooms</span>
+                  <span class="text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 ${selected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-500'}">
+                    ${selected ? ((bookingState.bathrooms || 1) + ' Selected') : 'Add'}
+                  </span>
+                </div>
+                <div class="expand-drawer w-full ${selected ? 'expanded' : ''}">
+                  <div class="expand-drawer-content pt-3">
+                    <div class="flex items-center justify-center gap-3 bg-white/20 px-3 py-1.5 rounded-full border border-white/30 shadow-inner" onclick="event.stopPropagation()">
+                      <button type="button" onclick="changeOfficeBathroomCount(-1, event)" class="w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-sm transition-transform active:scale-90 cursor-pointer">-</button>
+                      <span class="min-w-[1.25rem] text-center font-black">${bookingState.bathrooms || 1}</span>
+                      <button type="button" onclick="changeOfficeBathroomCount(1, event)" class="w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-sm transition-transform active:scale-90 cursor-pointer">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+        }
+        const selected = bookingState.officeExtraItems.includes(item);
+        return `<button type="button" onclick="toggleOfficeExtra('${item}')" class="${getOfficeCardClasses(selected)}"><span class="text-base sm:text-lg font-extrabold tracking-tight">${item}</span></button>`;
+      }).join('');
+    }
+
+    function toggleOfficeExtra(item) {
+      const index = bookingState.officeExtraItems.indexOf(item);
+      if (index > -1) {
+        bookingState.officeExtraItems.splice(index, 1);
+        if (item === 'Bathrooms') bookingState.bathrooms = 0;
+      } else {
+        bookingState.officeExtraItems.push(item);
+        if (item === 'Bathrooms' && !bookingState.bathrooms) bookingState.bathrooms = 1;
+      }
+      renderOfficeExtras();
+      updateLiveSummary();
+    }
+
+    const RESTAURANT_CONFIGS = {
+      'Cafe Shopfront': {
+        areas: ['Glass Facade', 'Walls', 'Glass Sensor Doors', 'Normal Doors', 'Dining Halls & Tables', 'Kitchen', 'Customer Restroom'],
+        extras: ['Dining Tables', 'Windows', 'Grease Trap', 'Floor Cleaning / Mopping', 'Others']
+      },
+      'Dine-in': {
+        areas: ['Dining Walls', 'Dining Tables & Chairs', 'Kitchen Wall Degreasing', 'Hood & Grease Trap', 'Entrance Doors', 'Washrooms', 'Bathrooms'],
+        extras: ['Dining Tables', 'Windows', 'Grease Trap', 'Floor Cleaning / Mopping', 'Others']
+      },
+      'Banquet / Food Court': {
+        areas: ['Storefront Glass Walls', 'Plaster & Cement Walls', 'Commercial Kitchen Wash', 'Buffet & Dining Area', 'Restrooms'],
+        extras: ['Dining Tables', 'Windows', 'Grease Trap', 'Floor Cleaning / Mopping', 'Others']
+      }
+    };
+
+    const HOTEL_CONFIG = {
+      'Home': {
+        areas: ['Bed & Linen Care', 'Walls', 'Bathrooms', 'Chairs'],
+        extras: ['Bed', 'Sofa', 'Desk', 'Windows', 'Mirrors', 'Curtains', 'Balcony', 'Floor Cleaning / Mopping', 'Others']
+      },
+      'Rooms': {
+        areas: ['Bed & Linen Care', 'Walls', 'Bathrooms', 'Chairs'],
+        extras: ['Bed', 'Sofa', 'Desk', 'Windows', 'Mirrors', 'Curtains', 'Balcony', 'Floor Cleaning / Mopping', 'Others']
+      }
+    };
+
+    const AC_CONFIGS = {
+      'A/C Problem / Complaint': ['Low / No Cooling Issue', 'Water Leakage / Dripping', 'Heavy Noise / Vibration', 'Bad Odor / Stale Air', 'Power Tripping / Not On', 'Ice Freezing on Coils', 'Gas Filling', 'Repair Service', 'Outdoor Unit Complaint'],
+      'Single AC Unit Wash': ['A/C Cleaning', 'Gas Check & Top-up', 'General Service', 'Outdoor Unit Cleaning']
+    };
+
+    const RETAIL_CONFIG = {
+      areas: ['Glass Walls & Partitions', 'Cement Walls', 'Glass Slider Doors', 'Normal Doors', 'Desks', 'Floor Cleaning'],
+      extras: ['Windows', 'Bathroom', 'Sofa', 'Carpet', 'Floor Cleaning / Mopping', 'Others']
+    };
+
+    function configureGenericPane(serviceLabel, filterTitle, filterDescription, areasTitle, areasDescription, extras, types, defaultType) {
+      document.getElementById('config-service-label').innerText = serviceLabel;
+      document.getElementById('config-filter-title').innerText = filterTitle;
+      document.getElementById('config-filter-description').innerText = filterDescription;
+      document.getElementById('config-areas-title').innerText = areasTitle;
+      document.getElementById('config-areas-description').innerText = areasDescription;
+      document.getElementById('config-extras-title').innerText = 'Extra Items to Clean';
+      document.getElementById('config-extras-description').innerText = 'Select additional items, surfaces, and fixtures that need attention.';
+      document.getElementById('config-filter-section').classList.remove('hidden');
+      document.getElementById('config-areas-section').classList.remove('hidden');
+      document.getElementById('config-extras-section').classList.toggle('hidden', !extras);
+      document.getElementById('hotel-count-control')?.remove();
+      bookingState.configExtras = extras || [];
+      bookingState.configType = defaultType || types[0];
+      renderGenericFilterCards(types);
+      selectGenericType(bookingState.configType);
+    }
+
+    function configureRestaurantCleaningPane() {
+      configureGenericPane('Restaurant Cleaning', 'Select Restaurant Type', 'Choose the type of food service space to tailor the cleaning plan.', 'Areas to Clean', 'Select the restaurant areas included in your cleaning plan.', RESTAURANT_CONFIGS['Cafe Shopfront'].extras, Object.keys(RESTAURANT_CONFIGS), 'Cafe Shopfront');
+    }
+
+    function configureHotelCleaningPane() {
+      configureGenericPane('Hotel Cleaning', 'Select Room Type', 'Choose whether the booking covers a home or hotel rooms.', 'Areas to Clean', 'Select the room and hospitality areas included in your cleaning plan.', HOTEL_CONFIG['Home'].extras, Object.keys(HOTEL_CONFIG), 'Home');
+      renderHotelCountControl();
+    }
+
+    function configureAcCleaningPane() {
+      configureGenericPane('A/C Complaints', 'Select A/C Service Type', 'Choose the type of A/C service or complaint that needs attention.', 'A/C Service Details', 'Select the specific A/C work required. No extra items are needed for A/C services.', null, Object.keys(AC_CONFIGS), 'A/C Problem / Complaint');
+    }
+
+    function configureRetailCleaningPane() {
+      document.getElementById('config-service-label').innerText = 'Retails & Shops Cleaning';
+      document.getElementById('config-filter-title').innerText = 'Shop Cleaning Plan';
+      document.getElementById('config-filter-description').innerText = 'Select the areas and additional items that need cleaning.';
+      document.getElementById('config-areas-title').innerText = 'Areas to Clean';
+      document.getElementById('config-areas-description').innerText = 'Select the shop surfaces and areas included in your cleaning plan.';
+      document.getElementById('config-filter-section').classList.add('hidden');
+      document.getElementById('config-areas-section').classList.remove('hidden');
+      document.getElementById('config-extras-section').classList.remove('hidden');
+      document.getElementById('hotel-count-control')?.remove();
+      bookingState.configType = 'Retail Shop';
+      bookingState.configAvailableAreas = RETAIL_CONFIG.areas.slice();
+      bookingState.configAreas = [RETAIL_CONFIG.areas[0]];
+      bookingState.configExtras = RETAIL_CONFIG.extras.slice();
+      bookingState.configExtraItems = [RETAIL_CONFIG.extras[0]];
+      bookingState.bathrooms = 0;
+      renderGenericAreas();
+      renderGenericExtras();
+    }
+
+    function renderGenericFilterCards(types) {
+      const container = document.getElementById('config-filter-grid');
+      container.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4';
+      container.innerHTML = types.map((type) => {
+        const selected = bookingState.configType === type;
+        return `<button type="button" onclick="selectGenericType('${type}')" class="step-card min-h-[72px] w-full whitespace-normal rounded-2xl border-2 px-4 py-4 ${selected ? 'bg-emerald-600 border-emerald-600 text-white shadow-md scale-[1.02]' : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300'} flex items-center justify-center text-center transition-all cursor-pointer"><span class="max-w-full break-words text-base leading-tight sm:text-lg font-black tracking-tight">${type}</span></button>`;
+      }).join('');
+    }
+
+    function selectGenericType(type) {
+      bookingState.configType = type;
+      if (bookingState.service === 'A/C Complaints') {
+        bookingState.configAvailableAreas = AC_CONFIGS[type].slice();
+        bookingState.configAreas = [AC_CONFIGS[type][0]];
+        bookingState.configExtraItems = [];
+      } else {
+        const config = bookingState.service === 'Restaurant Cleaning' ? RESTAURANT_CONFIGS[type] : HOTEL_CONFIG[type];
+        bookingState.configAvailableAreas = config.areas.slice();
+        bookingState.configAreas = [config.areas[0]];
+        bookingState.configExtras = config.extras.slice();
+        bookingState.configExtraItems = [config.extras[0]];
+      }
+      bookingState.bathrooms = 0;
+      renderGenericFilterCards(bookingState.service === 'Restaurant Cleaning' ? Object.keys(RESTAURANT_CONFIGS) : bookingState.service === 'Hotel Cleaning' ? Object.keys(HOTEL_CONFIG) : Object.keys(AC_CONFIGS));
+      renderGenericAreas();
+      renderGenericExtras();
+      if (bookingState.service === 'Hotel Cleaning') renderHotelCountControl();
+    }
+
+    function renderHotelCountControl() {
+      const grid = document.getElementById('config-filter-grid');
+      const control = document.getElementById('hotel-count-control');
+      if (control) control.remove();
+      grid.insertAdjacentHTML('afterend', `<div id="hotel-count-control" class="mt-4 flex items-center justify-center gap-3"><label for="hotel-room-count" class="text-sm font-semibold text-slate-700">How many ${bookingState.configType === 'Home' ? 'homes' : 'rooms'}?</label><input id="hotel-room-count" type="number" min="1" max="100" value="${bookingState.hotelRoomCount}" onchange="bookingState.hotelRoomCount = Math.max(1, Math.min(100, Number(this.value) || 1))" class="w-24 rounded-xl border border-slate-200 px-3 py-2 text-center font-bold outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"></div>`);
+    }
+
+    function renderGenericAreas() {
+      const container = document.getElementById('rooms-grid');
+      container.innerHTML = bookingState.configAvailableAreas.map((area) => {
+        const selected = bookingState.configAreas.includes(area);
+        const hasCount = /bathroom|restroom|washroom/i.test(area);
+        if (hasCount) {
+          return `
+              <div onclick="toggleGenericBathroomArea('${area}')" class="${getOfficeCardClasses(selected)} flex-col justify-center select-none transition-all duration-300">
+                <div class="flex items-center justify-center gap-2">
+                  <span class="text-base sm:text-lg font-extrabold tracking-tight">${area}</span>
+                  <span class="text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 ${selected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-500'}">
+                    ${selected ? ((bookingState.bathrooms || 1) + ' Selected') : 'Add'}
+                  </span>
+                </div>
+                <div class="expand-drawer w-full ${selected ? 'expanded' : ''}">
+                  <div class="expand-drawer-content pt-3">
+                    <div class="flex items-center justify-center gap-3 bg-white/20 px-3 py-1.5 rounded-full border border-white/30 shadow-inner" onclick="event.stopPropagation()">
+                      <button type="button" onclick="changeGenericBathroomCount(-1, event)" class="w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-sm transition-transform active:scale-90 cursor-pointer">-</button>
+                      <span class="min-w-[1.25rem] text-center font-black">${bookingState.bathrooms || 1}</span>
+                      <button type="button" onclick="changeGenericBathroomCount(1, event)" class="w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-sm transition-transform active:scale-90 cursor-pointer">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+        }
+        return `<button type="button" onclick="toggleGenericArea('${area}')" class="${getOfficeCardClasses(selected)}"><span class="text-base sm:text-lg font-extrabold tracking-tight">${area}</span></button>`;
+      }).join('');
+    }
+
+    function toggleGenericArea(area) {
+      const index = bookingState.configAreas.indexOf(area);
+      if (index > -1) bookingState.configAreas.splice(index, 1);
+      else bookingState.configAreas.push(area);
+      renderGenericAreas();
+      updateLiveSummary();
+    }
+
+    function toggleGenericBathroomArea(area) {
+      const index = bookingState.configAreas.indexOf(area);
+      if (index > -1) {
+        bookingState.configAreas.splice(index, 1);
+        bookingState.bathrooms = 0;
+      } else {
+        bookingState.configAreas.push(area);
+        if (!bookingState.bathrooms) bookingState.bathrooms = 1;
+      }
+      renderGenericAreas();
+      renderGenericExtras();
+      updateLiveSummary();
+    }
+
+    function changeGenericBathroomCount(delta, e) {
+      if (e) e.stopPropagation();
+      bookingState.bathrooms = Math.max(0, Math.min(100, (bookingState.bathrooms || 0) + delta));
+      if (bookingState.bathrooms === 0) {
+        const bIdx = bookingState.configAreas.findIndex(a => /bathroom|restroom|washroom/i.test(a));
+        if (bIdx > -1) bookingState.configAreas.splice(bIdx, 1);
+      } else {
+        const hasB = bookingState.configAreas.some(a => /bathroom|restroom|washroom/i.test(a));
+        if (!hasB) {
+          const avail = bookingState.configAvailableAreas.find(a => /bathroom|restroom|washroom/i.test(a));
+          if (avail) bookingState.configAreas.push(avail);
+        }
+      }
+      renderGenericAreas();
+      renderGenericExtras();
+      updateLiveSummary();
+    }
+
+    function renderGenericExtras() {
+      const container = document.getElementById('extra-items-grid');
+      if (!bookingState.configExtras || !bookingState.configExtras.length) {
+        container.innerHTML = '';
+        return;
+      }
+      container.innerHTML = bookingState.configExtras.map((item) => {
+        const selected = bookingState.configExtraItems.includes(item);
+        if (/bathroom/i.test(item)) {
+          return `
+              <div onclick="toggleGenericExtra('${item}')" class="${getOfficeCardClasses(selected)} flex-col justify-center select-none transition-all duration-300">
+                <div class="flex items-center justify-center gap-2">
+                  <span class="text-base sm:text-lg font-extrabold tracking-tight">${item}</span>
+                  <span class="text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 ${selected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-500'}">
+                    ${selected ? ((bookingState.bathrooms || 1) + ' Selected') : 'Add'}
+                  </span>
+                </div>
+                <div class="expand-drawer w-full ${selected ? 'expanded' : ''}">
+                  <div class="expand-drawer-content pt-3">
+                    <div class="flex items-center justify-center gap-3 bg-white/20 px-3 py-1.5 rounded-full border border-white/30 shadow-inner" onclick="event.stopPropagation()">
+                      <button type="button" onclick="changeGenericBathroomCount(-1, event)" class="w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-sm transition-transform active:scale-90 cursor-pointer">-</button>
+                      <span class="min-w-[1.25rem] text-center font-black">${bookingState.bathrooms || 1}</span>
+                      <button type="button" onclick="changeGenericBathroomCount(1, event)" class="w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-sm transition-transform active:scale-90 cursor-pointer">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+        }
+        return `<button type="button" onclick="toggleGenericExtra('${item}')" class="${getOfficeCardClasses(selected)}"><span class="text-base sm:text-lg font-extrabold tracking-tight">${item}</span></button>`;
+      }).join('');
+    }
+
+    function toggleGenericExtra(item) {
+      const index = bookingState.configExtraItems.indexOf(item);
+      if (index > -1) {
+        bookingState.configExtraItems.splice(index, 1);
+        if (/bathroom/i.test(item)) bookingState.bathrooms = 0;
+      } else {
+        bookingState.configExtraItems.push(item);
+        if (/bathroom/i.test(item) && !bookingState.bathrooms) bookingState.bathrooms = 1;
+      }
+      renderGenericExtras();
+      updateLiveSummary();
+    }
+
+    // Home Cleaning: Select BHK (1 to 5)
+    function selectBhk(bhkCount) {
+      bookingState.bhk = bhkCount;
+
+      // Initialize all rooms as selected by default for the chosen BHK
+      bookingState.selectedRooms = ['Hall', 'Kitchen'];
+      for (let r = 1; r <= bhkCount; r++) {
+        bookingState.selectedRooms.push(`Room ${r}`);
+      }
+
+      // Update BHK cards: Green for selected, Gray for unselected
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`bhk-btn-${i}`);
+        if (btn) {
+          if (i === bhkCount) {
+            btn.className = 'step-card py-6 px-4 rounded-3xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02] flex items-center justify-center text-center transition-all cursor-pointer';
+            btn.innerHTML = `<span class="text-xl sm:text-2xl font-black text-white tracking-tight">${i} BHK</span>`;
+          } else {
+            btn.className = 'step-card py-6 px-4 rounded-3xl bg-slate-100 border-2 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 hover:text-slate-900 shadow-sm flex items-center justify-center text-center transition-all cursor-pointer';
+            btn.innerHTML = `<span class="text-xl sm:text-2xl font-black text-slate-700 tracking-tight">${i} BHK</span>`;
+          }
+        }
+      }
+
+      // Default reasonable bathroom count
+      if (bookingState.bathrooms === undefined || bookingState.bathrooms === null) {
+        bookingState.bathrooms = Math.min(bhkCount, 3);
+      }
+
+      renderRoomCards();
+      updateLiveSummary();
+    }
+
+    // Toggle individual room selection (Hall, Kitchen, Room 1, Room 2, etc.)
+    function toggleRoom(roomName) {
+      if (!bookingState.selectedRooms) {
+        bookingState.selectedRooms = [];
+      }
+      const idx = bookingState.selectedRooms.indexOf(roomName);
+      const isNowSelected = (idx === -1);
+      if (idx > -1) {
+        bookingState.selectedRooms.splice(idx, 1);
+      } else {
+        bookingState.selectedRooms.push(roomName);
+      }
+
+      // Fast in-place DOM update without re-rendering the whole grid
+      const cleanId = roomName.replace(/\s+/g, '-');
+      const btn = document.getElementById(`room-btn-${cleanId}`);
+      if (btn) {
+        if (isNowSelected) {
+          btn.className = 'step-card relative py-6 px-4 rounded-3xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02] flex items-center justify-center text-center cursor-pointer transition-all duration-200';
+          const span = btn.querySelector('span');
+          if (span) span.className = 'text-xl sm:text-2xl font-extrabold text-white tracking-tight';
+        } else {
+          btn.className = 'step-card relative py-6 px-4 rounded-3xl bg-slate-100 border-2 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 hover:text-slate-900 shadow-sm flex items-center justify-center text-center cursor-pointer transition-all duration-200';
+          const span = btn.querySelector('span');
+          if (span) span.className = 'text-xl sm:text-2xl font-extrabold text-slate-700 tracking-tight';
+        }
+      } else {
+        renderRoomCards();
+      }
+      updateLiveSummary();
+    }
+
+    // Render Room Cards (Green when selected, Gray when unselected)
+    function renderRoomCards() {
+      const container = document.getElementById('rooms-grid');
+      if (!container) return;
+
+      const bhk = bookingState.bhk || 2;
+      let html = '';
+
+      // Helper function to get card classes: Green for selected, Clean Gray for unselected
+      const getCardClasses = (isSelected) => {
+        if (isSelected) {
+          return {
+            container: 'step-card relative py-6 px-4 rounded-3xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02] flex items-center justify-center text-center cursor-pointer transition-all duration-200',
+            text: 'text-xl sm:text-2xl font-extrabold text-white tracking-tight'
+          };
+        } else {
+          return {
+            container: 'step-card relative py-6 px-4 rounded-3xl bg-slate-100 border-2 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 hover:text-slate-900 shadow-sm flex items-center justify-center text-center cursor-pointer transition-all duration-200',
+            text: 'text-xl sm:text-2xl font-extrabold text-slate-700 tracking-tight'
+          };
+        }
+      };
+
+      // Hall (Selectable)
+      const isHallSelected = bookingState.selectedRooms.includes('Hall');
+      const hallStyles = getCardClasses(isHallSelected);
+      html += `
+          <button type="button" 
+                  id="room-btn-Hall"
+                  onclick="toggleRoom('Hall')"
+                  class="${hallStyles.container}">
+            <span class="${hallStyles.text}">Hall</span>
+          </button>
+        `;
+
+      // Kitchen (Selectable)
+      const isKitchenSelected = bookingState.selectedRooms.includes('Kitchen');
+      const kitchenStyles = getCardClasses(isKitchenSelected);
+      html += `
+          <button type="button" 
+                  id="room-btn-Kitchen"
+                  onclick="toggleRoom('Kitchen')"
+                  class="${kitchenStyles.container}">
+            <span class="${kitchenStyles.text}">Kitchen</span>
+          </button>
+        `;
+
+      // Dynamic Room 1, Room 2, ... based on BHK (Selectable)
+      for (let i = 1; i <= bhk; i++) {
+        const roomName = `Room ${i}`;
+        const cleanId = roomName.replace(/\s+/g, '-');
+        const isRoomSelected = bookingState.selectedRooms.includes(roomName);
+        const roomStyles = getCardClasses(isRoomSelected);
+        html += `
+            <button type="button" 
+                    id="room-btn-${cleanId}"
+                    onclick="toggleRoom('${roomName}')"
+                    class="${roomStyles.container}">
+              <span class="${roomStyles.text}">${roomName}</span>
+            </button>
+          `;
+      }
+
+      // Bathroom Card with smooth expand drawer
+      const isBathActive = bookingState.bathrooms > 0;
+      html += `
+          <div id="room-card-bathroom" 
+              onclick="toggleBathroom(event)" 
+              class="step-card expandable-card group relative py-5 px-4 rounded-3xl ${isBathActive ? 'bg-emerald-600 border-emerald-600 text-white shadow-md scale-[1.02]' : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 shadow-sm'} border-2 flex flex-col items-center justify-center text-center cursor-pointer select-none transition-all duration-300 ease-out">
+            
+            <div class="flex items-center justify-center gap-2">
+              <span id="bath-card-title" class="text-lg sm:text-xl font-extrabold tracking-tight ${isBathActive ? 'text-white' : 'text-slate-700'}">Bathroom</span>
+              <span id="bath-status-pill" class="text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 ${isBathActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-500'}">
+                ${isBathActive ? (bookingState.bathrooms + ' Selected') : 'Add'}
+              </span>
+            </div>
+
+            <!-- Smooth Expandable Drawer using CSS Grid 0fr -> 1fr -->
+            <div id="bath-expand-drawer" class="expand-drawer w-full ${isBathActive ? 'expanded' : ''}">
+              <div class="expand-drawer-content pt-3">
+                <div class="flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-white/30 shadow-inner" onclick="event.stopPropagation()">
+                  <button type="button" 
+                          onclick="changeBathroomCount(-1, event)" 
+                          class="counter-btn w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-base flex items-center justify-center shadow-sm cursor-pointer" title="Decrease">
+                    -
+                  </button>
+                  <span id="bathroom-count-val" class="text-lg font-black text-white min-w-[1.25rem] text-center counter-pop">
+                    ${bookingState.bathrooms || 1}
+                  </span>
+                  <button type="button" 
+                          onclick="changeBathroomCount(1, event)" 
+                          class="counter-btn w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-base flex items-center justify-center shadow-sm cursor-pointer" title="Increase">
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      container.innerHTML = html;
+    }
+
+    // Toggle Bathroom Card selection on click with smooth animation
+    function toggleBathroom(e) {
+      if (e) e.stopPropagation();
+      const card = document.getElementById('room-card-bathroom');
+      const drawer = document.getElementById('bath-expand-drawer');
+      const pill = document.getElementById('bath-status-pill');
+      const title = document.getElementById('bath-card-title');
+      const countVal = document.getElementById('bathroom-count-val');
+
+      if (!card || !drawer) {
+        if (bookingState.bathrooms > 0) {
+          bookingState.lastBathrooms = bookingState.bathrooms;
+          bookingState.bathrooms = 0;
+        } else {
+          bookingState.bathrooms = bookingState.lastBathrooms || 1;
+        }
+        renderRoomCards();
+        updateLiveSummary();
+        return;
+      }
+
+      if (bookingState.bathrooms > 0) {
+        // Collapsing smoothly
+        bookingState.lastBathrooms = bookingState.bathrooms;
+        bookingState.bathrooms = 0;
+        drawer.classList.remove('expanded');
+        card.className = 'step-card expandable-card group relative py-5 px-4 rounded-3xl bg-slate-100 border-2 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer select-none transition-all duration-300 ease-out';
+        if (title) title.className = 'text-lg sm:text-xl font-extrabold tracking-tight text-slate-700';
+        if (pill) {
+          pill.className = 'text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 bg-slate-200 text-slate-500';
+          pill.innerText = 'Add';
+        }
+      } else {
+        // Expanding smoothly
+        bookingState.bathrooms = bookingState.lastBathrooms || 1;
+        card.className = 'step-card expandable-card group relative py-5 px-4 rounded-3xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02] flex flex-col items-center justify-center text-center cursor-pointer select-none transition-all duration-300 ease-out';
+        if (title) title.className = 'text-lg sm:text-xl font-extrabold tracking-tight text-white';
+        if (countVal) countVal.innerText = bookingState.bathrooms;
+        if (pill) {
+          pill.className = 'text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 bg-white/20 text-white';
+          pill.innerText = `${bookingState.bathrooms} Selected`;
+        }
+        drawer.classList.add('expanded');
+      }
+      updateLiveSummary();
+    }
+
+    // Adjust bathroom counter (can decrement down to 0 to deselect)
+    function changeBathroomCount(delta, e) {
+      if (e) e.stopPropagation();
+      const current = bookingState.bathrooms || 0;
+      const next = Math.max(0, Math.min(10, current + delta));
+      bookingState.bathrooms = next;
+
+      if (next > 0) {
+        bookingState.lastBathrooms = next;
+        const countVal = document.getElementById('bathroom-count-val');
+        const pill = document.getElementById('bath-status-pill');
+        if (countVal) {
+          countVal.innerText = next;
+          countVal.classList.add('scale-125');
+          setTimeout(() => countVal.classList.remove('scale-125'), 140);
+        }
+        if (pill) pill.innerText = `${next} Selected`;
+      } else {
+        // Reduced to 0 -> smooth collapse!
+        toggleBathroom(e);
+      }
+      updateLiveSummary();
+    }
+
+    // Extra items configuration: defines which cards expand with steppers or text inputs
+    const EXTRA_ITEMS_CONFIG = [
+      { name: 'Sofa', type: 'counter', unit: 'Sofa' },
+      { name: 'Bed', type: 'toggle' },
+      { name: 'Windows', type: 'counter', unit: 'Window' },
+      { name: 'Balcony', type: 'counter', unit: 'Balcony' },
+      { name: 'Carpet', type: 'toggle' },
+      { name: 'Curtains', type: 'toggle' },
+      { name: 'Floor Cleaning / Mopping', type: 'toggle' },
+      { name: 'Others', type: 'text' }
+    ];
+
+    // Render Extra Items with smooth expandable card drawers
+    function renderExtraItems() {
+      const container = document.getElementById('extra-items-grid');
+      if (!container) return;
+
+      let html = '';
+      EXTRA_ITEMS_CONFIG.forEach((cfg, index) => {
+        const item = cfg.name;
+        const cleanId = item.replace(/[^a-zA-Z0-9]/g, '-');
+        const isSelected = bookingState.extraItems.includes(item);
+        const colSpan = (index === EXTRA_ITEMS_CONFIG.length - 1) ? 'col-span-2 sm:col-span-1' : '';
+
+        if (cfg.type === 'counter') {
+          const count = (bookingState.extraCounts && bookingState.extraCounts[item]) || 1;
+          html += `
+              <div id="extra-card-${cleanId}" 
+                  onclick="toggleExtraItem('${item}', event)" 
+                  class="step-card expandable-card group relative py-5 px-4 rounded-3xl ${isSelected ? 'bg-emerald-600 border-emerald-600 text-white shadow-md scale-[1.02]' : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 shadow-sm'} border-2 flex flex-col items-center justify-center text-center cursor-pointer select-none transition-all duration-300 ease-out ${colSpan}">
+                
+                <div class="flex items-center justify-center gap-2">
+                  <span id="extra-title-${cleanId}" class="text-lg sm:text-xl font-extrabold tracking-tight ${isSelected ? 'text-white' : 'text-slate-700'}">${item}</span>
+                  <span id="extra-pill-${cleanId}" class="text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-500'}">
+                    ${isSelected ? (count + ' Selected') : 'Add'}
+                  </span>
+                </div>
+
+                <!-- Smooth Expandable Counter Drawer -->
+                <div id="extra-drawer-${cleanId}" class="expand-drawer w-full ${isSelected ? 'expanded' : ''}">
+                  <div class="expand-drawer-content pt-3">
+                    <div class="flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-white/30 shadow-inner" onclick="event.stopPropagation()">
+                      <button type="button" 
+                              onclick="changeExtraCount('${item}', -1, event)" 
+                              class="counter-btn w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-base flex items-center justify-center shadow-sm cursor-pointer" title="Decrease">
+                        -
+                      </button>
+                      <span id="extra-count-val-${cleanId}" class="text-lg font-black text-white min-w-[1.25rem] text-center counter-pop">
+                        ${count}
+                      </span>
+                      <button type="button" 
+                              onclick="changeExtraCount('${item}', 1, event)" 
+                              class="counter-btn w-7 h-7 rounded-full bg-white text-emerald-800 hover:bg-emerald-50 font-black text-base flex items-center justify-center shadow-sm cursor-pointer" title="Increase">
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+        } else if (cfg.type === 'text') {
+          const customText = (bookingState.customExtras && bookingState.customExtras[item]) || '';
+          html += `
+              <div id="extra-card-${cleanId}" 
+                  onclick="toggleExtraItem('${item}', event)" 
+                  class="step-card expandable-card group relative py-5 px-4 rounded-3xl ${isSelected ? 'bg-emerald-600 border-emerald-600 text-white shadow-md scale-[1.02]' : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 shadow-sm'} border-2 flex flex-col items-center justify-center text-center cursor-pointer select-none transition-all duration-300 ease-out ${colSpan}">
+                
+                <div class="flex items-center justify-center gap-2">
+                  <span id="extra-title-${cleanId}" class="text-lg sm:text-xl font-extrabold tracking-tight ${isSelected ? 'text-white' : 'text-slate-700'}">${item}</span>
+                  <span id="extra-pill-${cleanId}" class="text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-500'}">
+                    ${isSelected ? 'Active' : 'Add'}
+                  </span>
+                </div>
+
+                <!-- Smooth Expandable Text Input Drawer -->
+                <div id="extra-drawer-${cleanId}" class="expand-drawer w-full ${isSelected ? 'expanded' : ''}">
+                  <div class="expand-drawer-content pt-3" onclick="event.stopPropagation()">
+                    <input type="text" 
+                          id="custom-other-input" 
+                          placeholder="Specify (e.g. Fridge, Shoe rack, Attic)..." 
+                          value="${customText}" 
+                          oninput="updateCustomOther(this.value)"
+                          class="w-full text-xs font-semibold px-3 py-2 rounded-xl bg-white/20 backdrop-blur-sm border border-white/40 text-white placeholder-white/70 outline-none focus:bg-white focus:text-slate-900 focus:placeholder-slate-400 transition-all shadow-inner">
+                  </div>
+                </div>
+              </div>
+            `;
+        } else {
+          // Standard toggle card
+          html += `
+              <button type="button" 
+                      id="extra-card-${cleanId}"
+                      onclick="toggleExtraItem('${item}', event)"
+                      class="step-card py-6 px-4 rounded-3xl ${isSelected ? 'bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02]' : 'bg-slate-100 border-2 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 hover:text-slate-900 shadow-sm'} flex items-center justify-center text-center cursor-pointer transition-all ${colSpan}">
+                <span class="text-lg sm:text-xl font-extrabold tracking-tight">${item}</span>
+              </button>
+            `;
+        }
+      });
+
+      container.innerHTML = html;
+    }
+
+    // Toggle Extra Item in-place with silky smooth animation
+    function toggleExtraItem(itemName, e) {
+      if (e) e.stopPropagation();
+      const cfg = EXTRA_ITEMS_CONFIG.find(c => c.name === itemName) || { name: itemName, type: 'toggle' };
+      const cleanId = itemName.replace(/[^a-zA-Z0-9]/g, '-');
+      const card = document.getElementById(`extra-card-${cleanId}`);
+      const drawer = document.getElementById(`extra-drawer-${cleanId}`);
+      const pill = document.getElementById(`extra-pill-${cleanId}`);
+      const title = document.getElementById(`extra-title-${cleanId}`);
+      const colSpan = (itemName === 'Others') ? 'col-span-2 sm:col-span-1' : '';
+
+      const idx = bookingState.extraItems.indexOf(itemName);
+      const isCurrentlySelected = (idx > -1);
+
+      if (cfg.type === 'counter') {
+        const countVal = document.getElementById(`extra-count-val-${cleanId}`);
+        if (isCurrentlySelected) {
+          // Deselect & smooth collapse
+          bookingState.extraItems.splice(idx, 1);
+          if (drawer) drawer.classList.remove('expanded');
+          if (card) card.className = `step-card expandable-card group relative py-5 px-4 rounded-3xl bg-slate-100 border-2 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer select-none transition-all duration-300 ease-out ${colSpan}`;
+          if (title) title.className = 'text-lg sm:text-xl font-extrabold tracking-tight text-slate-700';
+          if (pill) {
+            pill.className = 'text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 bg-slate-200 text-slate-500';
+            pill.innerText = 'Add';
+          }
+        } else {
+          // Select & smooth expand
+          bookingState.extraItems.push(itemName);
+          const currentCount = (bookingState.extraCounts && bookingState.extraCounts[itemName]) || 1;
+          bookingState.extraCounts[itemName] = currentCount;
+          if (countVal) countVal.innerText = currentCount;
+          if (card) card.className = `step-card expandable-card group relative py-5 px-4 rounded-3xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02] flex flex-col items-center justify-center text-center cursor-pointer select-none transition-all duration-300 ease-out ${colSpan}`;
+          if (title) title.className = 'text-lg sm:text-xl font-extrabold tracking-tight text-white';
+          if (pill) {
+            pill.className = 'text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 bg-white/20 text-white';
+            pill.innerText = `${currentCount} Selected`;
+          }
+          if (drawer) drawer.classList.add('expanded');
+        }
+      } else if (cfg.type === 'text') {
+        if (isCurrentlySelected) {
+          bookingState.extraItems.splice(idx, 1);
+          if (drawer) drawer.classList.remove('expanded');
+          if (card) card.className = `step-card expandable-card group relative py-5 px-4 rounded-3xl bg-slate-100 border-2 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer select-none transition-all duration-300 ease-out ${colSpan}`;
+          if (title) title.className = 'text-lg sm:text-xl font-extrabold tracking-tight text-slate-700';
+          if (pill) {
+            pill.className = 'text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 bg-slate-200 text-slate-500';
+            pill.innerText = 'Add';
+          }
+        } else {
+          bookingState.extraItems.push(itemName);
+          if (card) card.className = `step-card expandable-card group relative py-5 px-4 rounded-3xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02] flex flex-col items-center justify-center text-center cursor-pointer select-none transition-all duration-300 ease-out ${colSpan}`;
+          if (title) title.className = 'text-lg sm:text-xl font-extrabold tracking-tight text-white';
+          if (pill) {
+            pill.className = 'text-[10px] uppercase font-black px-2 py-0.5 rounded-full transition-all duration-300 bg-white/20 text-white';
+            pill.innerText = 'Active';
+          }
+          if (drawer) drawer.classList.add('expanded');
+          const input = document.getElementById('custom-other-input');
+          if (input) setTimeout(() => input.focus(), 150);
+        }
+      } else {
+        // Toggle card in-place
+        if (isCurrentlySelected) {
+          bookingState.extraItems.splice(idx, 1);
+          if (card) {
+            card.className = `step-card py-6 px-4 rounded-3xl bg-slate-100 border-2 border-slate-200 text-slate-700 hover:bg-slate-200/70 hover:border-slate-300 hover:text-slate-900 shadow-sm flex items-center justify-center text-center cursor-pointer transition-all ${colSpan}`;
+            const span = card.querySelector('span');
+            if (span) span.className = 'text-lg sm:text-xl font-extrabold text-slate-700 tracking-tight';
+          }
+        } else {
+          bookingState.extraItems.push(itemName);
+          if (card) {
+            card.className = `step-card py-6 px-4 rounded-3xl bg-emerald-600 border-2 border-emerald-600 text-white shadow-md scale-[1.02] flex items-center justify-center text-center cursor-pointer transition-all ${colSpan}`;
+            const span = card.querySelector('span');
+            if (span) span.className = 'text-lg sm:text-xl font-extrabold text-white tracking-tight';
+          }
+        }
+      }
+
+      updateLiveSummary();
+    }
+
+    // Adjust expandable extra item counter
+    function changeExtraCount(itemName, delta, e) {
+      if (e) e.stopPropagation();
+      const current = (bookingState.extraCounts && bookingState.extraCounts[itemName]) || 1;
+      const next = Math.max(0, Math.min(10, current + delta));
+      bookingState.extraCounts[itemName] = next;
+
+      const cleanId = itemName.replace(/[^a-zA-Z0-9]/g, '-');
+      const countVal = document.getElementById(`extra-count-val-${cleanId}`);
+      const pill = document.getElementById(`extra-pill-${cleanId}`);
+
+      if (next > 0) {
+        if (countVal) {
+          countVal.innerText = next;
+          countVal.classList.add('scale-125');
+          setTimeout(() => countVal.classList.remove('scale-125'), 140);
+        }
+        if (pill) pill.innerText = `${next} Selected`;
+      } else {
+        // Reduced to 0 -> smooth collapse!
+        toggleExtraItem(itemName, e);
+      }
+      updateLiveSummary();
+    }
+
+    function updateCustomOther(val) {
+      if (!bookingState.customExtras) bookingState.customExtras = {};
+      bookingState.customExtras['Others'] = val.trim();
+      updateLiveSummary();
+    }
+
+    // Confirm the selected service configuration and continue to Step 3
+    function confirmConfigurationAndProceed() {
+      const bhkPill = document.getElementById('summary-bhk-pill');
+      if (bookingState.service === 'Office & Company Cleaning') {
+        const selectedCount = bookingState.officeAreas.length;
+        const extraCount = bookingState.officeExtraItems.length;
+        const bathSummary = bookingState.bathrooms > 0 ? `${bookingState.bathrooms} Bath` : '0 Bath';
+        if (bhkPill) bhkPill.innerText = `${bookingState.officeType} (${selectedCount} Areas, ${bathSummary}, ${extraCount} Extras)`;
+      } else {
+        const roomCount = bookingState.selectedRooms ? bookingState.selectedRooms.length : 0;
+        const bathSummary = bookingState.bathrooms > 0 ? `${bookingState.bathrooms} Bath` : '0 Bath';
+        if (bhkPill) bhkPill.innerText = `${bookingState.bhk} BHK (${roomCount} Rooms, ${bathSummary})`;
+      }
+      if (bhkPill) bhkPill.classList.remove('hidden');
+      updateLiveSummary();
+
+      goToStep(3);
+    }
+
+    // Handle Back button on Step 3
+    function handleBackFromStep3() {
+      if (bookingState.service === 'Home Cleaning' || bookingState.service === 'Office & Company Cleaning' || bookingState.service === 'Restaurant Cleaning' || bookingState.service === 'Hotel Cleaning' || bookingState.service === 'A/C Complaints' || bookingState.service === 'Retails & Shops Cleaning') {
+        goToStep('home-config');
+      } else {
+        goToStep(2);
+      }
+    }
+
+    function updateLiveSummary() {
+      const cityEl = document.getElementById('summary-live-city');
+      const serviceEl = document.getElementById('summary-live-service');
+      const detailsEl = document.getElementById('summary-live-details');
+      const slotEl = document.getElementById('summary-live-slot');
+
+      if (cityEl) cityEl.innerText = bookingState.location || 'Not selected';
+      if (serviceEl) serviceEl.innerText = bookingState.service || 'Not selected';
+
+      if (detailsEl) {
+        if (bookingState.service === 'Home Cleaning') {
+          const roomCount = bookingState.selectedRooms ? bookingState.selectedRooms.length : 0;
+          const roomList = bookingState.selectedRooms && bookingState.selectedRooms.length > 0 ? bookingState.selectedRooms.join(', ') : 'No rooms';
+          const bathText = (bookingState.bathrooms > 0) ? `${bookingState.bathrooms} Bathrooms` : 'No Bathrooms';
+
+          let extrasFormatted = [];
+          if (bookingState.extraItems && bookingState.extraItems.length > 0) {
+            extrasFormatted = bookingState.extraItems.map(it => {
+              if (it === 'Others') {
+                return (bookingState.customExtras && bookingState.customExtras['Others']) ? `Others (${bookingState.customExtras['Others']})` : 'Others';
+              }
+              if (bookingState.extraCounts && bookingState.extraCounts[it]) {
+                return `${it} (${bookingState.extraCounts[it]})`;
+              }
+              return it;
+            });
+          }
+          const extrasText = extrasFormatted.length > 0 ? ` • Extras: ${extrasFormatted.join(', ')}` : '';
+          detailsEl.innerText = `${bookingState.bhk || 2} BHK • ${roomCount} Rooms (${roomList}) • ${bathText}${extrasText}`;
+        } else if (bookingState.service === 'Office & Company Cleaning') {
+          const areaCount = bookingState.officeAreas ? bookingState.officeAreas.length : 0;
+          const bathText = (bookingState.bathrooms > 0) ? ` • ${bookingState.bathrooms} Bathrooms` : '';
+          const extrasText = (bookingState.officeExtraItems && bookingState.officeExtraItems.length > 0) ? ` • Extras: ${bookingState.officeExtraItems.join(', ')}` : '';
+          detailsEl.innerText = `${bookingState.officeType || 'Office'} • ${areaCount} Areas${bathText}${extrasText}`;
+        } else if (bookingState.service === 'Restaurant Cleaning' || bookingState.service === 'Hotel Cleaning' || bookingState.service === 'A/C Complaints' || bookingState.service === 'Retails & Shops Cleaning') {
+          const countLabel = bookingState.service === 'Hotel Cleaning' ? ` • ${bookingState.hotelRoomCount} ${bookingState.configType === 'Home' ? 'Homes' : 'Rooms'}` : '';
+          const bathLabel = bookingState.bathrooms > 0 ? ` • ${bookingState.bathrooms} Bathrooms` : '';
+          const extrasLabel = (bookingState.configExtraItems && bookingState.configExtraItems.length > 0) ? ` • Extras: ${bookingState.configExtraItems.join(', ')}` : '';
+          const areasCount = bookingState.configAreas ? bookingState.configAreas.length : 0;
+          detailsEl.innerText = `${bookingState.configType || bookingState.service}${countLabel} • ${areasCount} Selected Areas${bathLabel}${extrasLabel}`;
+        } else {
+          detailsEl.innerText = 'Standard service package';
+        }
+      }
+
+      if (slotEl) {
+        const dateInput = document.getElementById('preferred-date');
+        const timeInput = document.getElementById('preferred-time');
+        const todayButton = document.getElementById('today-btn');
+        const isToday = todayButton && todayButton.classList.contains('bg-emerald-600');
+        let dateStr = 'Today';
+        if (!isToday && dateInput && dateInput.value) {
+          try {
+            const parts = dateInput.value.split('-');
+            if (parts.length === 3) {
+              const d = new Date(parts[0], parts[1] - 1, parts[2]);
+              dateStr = d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+            } else {
+              dateStr = dateInput.value;
+            }
+          } catch (e) {
+            dateStr = dateInput.value;
+          }
+        }
+        const slotStr = (timeInput && timeInput.value) ? timeInput.value : 'Morning (9:00 AM - 12:00 PM)';
+        slotEl.innerText = `${dateStr} • ${slotStr}`;
+      }
+    }
+
+    function goToStep(stepNumber) {
+      // Hide all panes
+      document.getElementById('step-1').classList.add('hidden');
+      document.getElementById('step-2').classList.add('hidden');
+      document.getElementById('step-home-config').classList.add('hidden');
+      document.getElementById('step-3').classList.add('hidden');
+      document.getElementById('step-4').classList.add('hidden');
+
+      // Update tracker
+      const fill = document.getElementById('progress-bar-fill');
+      const label = document.getElementById('step-indicator-label');
+      const percentage = document.getElementById('step-percentage');
+
+      if (stepNumber === 1) {
+        document.getElementById('step-1').classList.remove('hidden');
+        fill.style.width = '25%';
+        label.innerText = 'Step 1 of 3: Select Location';
+        percentage.innerText = '25%';
+      } else if (stepNumber === 2) {
+        document.getElementById('step-2').classList.remove('hidden');
+        fill.style.width = '50%';
+        label.innerText = 'Step 2 of 3: Select Service Type';
+        percentage.innerText = '50%';
+      } else if (stepNumber === 'home-config') {
+        document.getElementById('step-home-config').classList.remove('hidden');
+        fill.style.width = '70%';
+        label.innerText = `Customize: ${bookingState.service || 'Service'} Breakdown`;
+        percentage.innerText = '70%';
+      } else if (stepNumber === 3) {
+        document.getElementById('step-3').classList.remove('hidden');
+        fill.style.width = '100%';
+        label.innerText = 'Step 3 of 3: Schedule & Address';
+        percentage.innerText = '100%';
+
+        // Ensure customer details are automatically filled from logged in user
+        autofillCustomerDetails();
+        updateLiveSummary();
+      } else if (stepNumber === 4) {
+        document.getElementById('step-4').classList.remove('hidden');
+        fill.style.width = '100%';
+        fill.classList.replace('bg-emerald-500', 'bg-emerald-600');
+        label.innerText = 'Completed: Booking Confirmed';
+        percentage.innerText = '100%';
+      }
+
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      // Gather form inputs
+      bookingState.notes = document.getElementById('service-notes').value.trim();
+      bookingState.date = document.getElementById('preferred-date').value;
+      bookingState.timeSlot = document.getElementById('preferred-time').value;
+      bookingState.name = document.getElementById('customer-name').value.trim();
+      bookingState.phone = document.getElementById('customer-phone').value.trim();
+      bookingState.email = document.getElementById('customer-email').value.trim();
+      bookingState.address = document.getElementById('customer-address').value.trim();
+
+      // Generate client-side booking ID (C0001-YYMMDD format)
+      const now = new Date();
+      const yy = String(now.getFullYear()).slice(-2);
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const randomSeq = String(Math.floor(1 + Math.random() * 9999)).padStart(4, '0');
+      bookingState.bookingId = `C${randomSeq}-${yy}${mm}${dd}`;
+
+      // Format full service string
+      let fullServiceDisplay = bookingState.service;
+      if (bookingState.service === 'Home Cleaning' && bookingState.bhk) {
+        const roomsFormatted = (bookingState.selectedRooms && bookingState.selectedRooms.length > 0)
+          ? bookingState.selectedRooms.join(', ')
+          : 'None';
+        const bathDisplay = bookingState.bathrooms > 0 ? `${bookingState.bathrooms} Bathrooms` : 'No Bathrooms';
+        fullServiceDisplay += ` (${bookingState.bhk} BHK: ${roomsFormatted}, ${bathDisplay})`;
+        if (bookingState.extraItems.length > 0) {
+          const extrasList = bookingState.extraItems.map(it => {
+            if (it === 'Others' && bookingState.customExtras && bookingState.customExtras['Others']) {
+              return `Others (${bookingState.customExtras['Others']})`;
+            }
+            if (bookingState.extraCounts && bookingState.extraCounts[it]) {
+              return `${it} (${bookingState.extraCounts[it]})`;
+            }
+            return it;
+          }).join(', ');
+          fullServiceDisplay += ` + Extras: ${extrasList}`;
+        }
+      } else if (bookingState.service === 'Office & Company Cleaning') {
+        const officeBaths = bookingState.bathrooms > 0 ? `, ${bookingState.bathrooms} Bathrooms` : '';
+        fullServiceDisplay += ` (${bookingState.officeType}: ${bookingState.officeAreas.join(', ')}${officeBaths})`;
+        if (bookingState.officeExtraItems.length > 0) {
+          fullServiceDisplay += ` + Extras: ${bookingState.officeExtraItems.join(', ')}`;
+        }
+      } else if (bookingState.service === 'Restaurant Cleaning' || bookingState.service === 'Hotel Cleaning' || bookingState.service === 'A/C Complaints' || bookingState.service === 'Retails & Shops Cleaning') {
+        const bathDisplay = bookingState.bathrooms > 0 ? `, ${bookingState.bathrooms} Bathrooms` : '';
+        const countDisplay = bookingState.service === 'Hotel Cleaning' ? `, ${bookingState.hotelRoomCount} ${bookingState.configType === 'Home' ? 'Home' : 'Rooms'}` : '';
+        fullServiceDisplay += ` (${bookingState.configType}: ${bookingState.configAreas.join(', ')}${countDisplay}${bathDisplay})`;
+        if (bookingState.configExtraItems.length > 0) {
+          fullServiceDisplay += ` + Extras: ${bookingState.configExtraItems.join(', ')}`;
+        }
+      }
+
+      // Construct clean, service-isolated booking payload
+      const bookingPayload = {
+        name: bookingState.name,
+        phone: bookingState.phone,
+        email: bookingState.email,
+        location: bookingState.location,
+        address: bookingState.address,
+        googleMapsUrl: bookingState.googleMapsUrl || '',
+        latitude: bookingState.latitude || null,
+        longitude: bookingState.longitude || null,
+        date: bookingState.date,
+        timeSlot: bookingState.timeSlot,
+        notes: bookingState.notes || '',
+        service: bookingState.service,
+        serviceSummary: fullServiceDisplay
+      };
+
+      if (bookingState.service === 'Home Cleaning') {
+        bookingPayload.bhk = bookingState.bhk || 1;
+        bookingPayload.selectedRooms = bookingState.selectedRooms || [];
+        bookingPayload.bathrooms = bookingState.bathrooms || 0;
+        bookingPayload.extraItems = bookingState.extraItems || [];
+        bookingPayload.extraCounts = bookingState.extraCounts || {};
+        bookingPayload.customExtras = bookingState.customExtras || {};
+      } else if (bookingState.service === 'Office & Company Cleaning') {
+        bookingPayload.officeType = bookingState.officeType || '';
+        bookingPayload.officeAreas = bookingState.officeAreas || [];
+        bookingPayload.bathrooms = bookingState.bathrooms || 0;
+        bookingPayload.officeExtraItems = bookingState.officeExtraItems || [];
+      } else if (['Restaurant Cleaning', 'Hotel Cleaning', 'A/C Complaints', 'Retails & Shops Cleaning'].includes(bookingState.service)) {
+        bookingPayload.configType = bookingState.configType || '';
+        bookingPayload.configAreas = bookingState.configAreas || [];
+        bookingPayload.bathrooms = bookingState.bathrooms || 0;
+        bookingPayload.configExtraItems = bookingState.configExtraItems || [];
+        if (bookingState.service === 'Hotel Cleaning') {
+          bookingPayload.hotelRoomCount = bookingState.hotelRoomCount || 1;
+        }
+      }
+
+      const submitButton = document.querySelector('#booking-form button[type="submit"]');
+      const originalButtonHTML = submitButton ? submitButton.innerHTML : '';
+
+      // Generate consistent booking ID if not set (C0001-YYMMDD format)
+      const nowFallback = new Date();
+      const yyFb = String(nowFallback.getFullYear()).slice(-2);
+      const mmFb = String(nowFallback.getMonth() + 1).padStart(2, '0');
+      const ddFb = String(nowFallback.getDate()).padStart(2, '0');
+      const randomSeqFb = String(Math.floor(1 + Math.random() * 9999)).padStart(4, '0');
+      const generatedId = bookingState.bookingId || `C${randomSeqFb}-${yyFb}${mmFb}${ddFb}`;
+      bookingState.bookingId = generatedId;
+
+      // Construct complete booking record for local & remote sync
+      const fullBookingRecord = {
+        ...bookingPayload,
+        id: generatedId,
+        bookingId: generatedId,
+        documentId: generatedId,
+        customerName: bookingState.name,
+        customerPhone: bookingState.phone,
+        customerEmail: bookingState.email,
+        service: fullServiceDisplay,
+        serviceTitle: fullServiceDisplay,
+        status: 'new',
+        amount: 0,
+        createdAt: new Date().toISOString()
+      };
+
+      // Always save to persistent local store so Admin page sees it immediately
+      try {
+        const stored = JSON.parse(localStorage.getItem('zs_bookings') || '[]');
+        const filtered = stored.filter(b => b.bookingId !== generatedId && b.id !== generatedId);
+        filtered.unshift(fullBookingRecord);
+        localStorage.setItem('zs_bookings', JSON.stringify(filtered));
+
+        // Real-time broadcast to Admin Console (0ms instant cross-tab notification)
+        try {
+          const bc = new BroadcastChannel('zerospot_bookings');
+          bc.postMessage({ type: 'NEW_BOOKING', booking: fullBookingRecord });
+          bc.close();
+        } catch (bcErr) { }
+      } catch (err) {
+        console.warn('Could not store booking locally:', err);
+      }
+
+      try {
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.innerHTML = '<span>Confirming booking...</span>';
+        }
+
+        const authToken = (window.ZS_Auth && window.ZS_Auth.getToken && window.ZS_Auth.getToken())
+          || sessionStorage.getItem('zs_id_token')
+          || localStorage.getItem('zs_id_token')
+          || '';
+
+        const bookingSaveResponse = await fetch(`${API_BASE}/api/bookings`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(authToken ? { Authorization: `Bearer ${authToken}` } : {})
+          },
+          body: JSON.stringify(fullBookingRecord)
+        });
+
+        const bookingSaveData = await bookingSaveResponse.json().catch(() => ({}));
+
+        if (bookingSaveResponse.ok && bookingSaveData && bookingSaveData.bookingId) {
+          bookingState.bookingId = bookingSaveData.bookingId;
+          fullBookingRecord.bookingId = bookingSaveData.bookingId;
+          fullBookingRecord.id = bookingSaveData.bookingId;
+          fullBookingRecord.documentId = bookingSaveData.bookingId;
+
+          // Update local storage with backend-assigned ID
+          try {
+            const stored = JSON.parse(localStorage.getItem('zs_bookings') || '[]');
+            const idx = stored.findIndex(b => b.id === generatedId || b.bookingId === generatedId);
+            if (idx !== -1) {
+              stored[idx] = fullBookingRecord;
+              localStorage.setItem('zs_bookings', JSON.stringify(stored));
+            }
+
+            // Broadcast ID update to Admin console
+            try {
+              const bc = new BroadcastChannel('zerospot_bookings');
+              bc.postMessage({ type: 'UPDATE_BOOKING', booking: fullBookingRecord });
+              bc.close();
+            } catch (bcErr) { }
+          } catch (e) { }
+        }
+      } catch (error) {
+        console.warn('Backend network sync bypassed or failed. Stored locally for Admin portal sync:', error);
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.innerHTML = originalButtonHTML;
+        }
+      }
+
+      // Cache updated contact details into persistent cookie & browser storage
+      try {
+        const u = getAuthenticatedUser();
+        if (u && window.ZS_Auth) {
+          u.phone = bookingState.phone;
+          u.address = bookingState.address;
+          window.ZS_Auth.saveSession(u);
+        }
+      } catch (e) { }
+
+      // Populate confirmation pane
+      document.getElementById('confirm-name').innerText = bookingState.name;
+      document.getElementById('confirm-city').innerText = bookingState.location;
+      document.getElementById('confirm-id').innerText = bookingState.bookingId;
+      document.getElementById('confirm-service').innerText = fullServiceDisplay;
+      document.getElementById('confirm-location-val').innerText = bookingState.location;
+      document.getElementById('confirm-email').innerText = bookingState.email;
+      document.getElementById('confirm-phone').innerText = bookingState.phone;
+      document.getElementById('confirm-date').innerText = bookingState.date;
+      document.getElementById('confirm-time').innerText = bookingState.timeSlot;
+      document.getElementById('confirm-address').innerText = bookingState.address;
+
+      // Generate WhatsApp link pre-filled with all details
+      let waMessage = `*New ZeroSpot Appointment Booking* %0A` +
+        `---------------------------%0A` +
+        `*Booking ID:* ${bookingState.bookingId}%0A` +
+        `*Name:* ${encodeURIComponent(bookingState.name)}%0A` +
+        `*Phone:* ${encodeURIComponent(bookingState.phone)}%0A` +
+        `*Email:* ${encodeURIComponent(bookingState.email)}%0A` +
+        `*City:* ${encodeURIComponent(bookingState.location)}%0A` +
+        `*Service:* ${encodeURIComponent(bookingState.service)}%0A`;
+
+      if (bookingState.service === 'Home Cleaning' && bookingState.bhk) {
+        const roomsSelectedList = (bookingState.selectedRooms && bookingState.selectedRooms.length > 0)
+          ? bookingState.selectedRooms.join(', ')
+          : 'None selected';
+        const bathCountText = bookingState.bathrooms > 0 ? `${bookingState.bathrooms}` : '0 (None)';
+        waMessage += `*Home Configuration:* ${bookingState.bhk} BHK (%0A` +
+          `  - Selected Rooms: ${encodeURIComponent(roomsSelectedList)}%0A` +
+          `  - Bathrooms: ${bathCountText}%0A` +
+          `)%0A`;
+        if (bookingState.extraItems.length > 0) {
+          const extrasList = bookingState.extraItems.map(it => {
+            if (it === 'Others' && bookingState.customExtras && bookingState.customExtras['Others']) {
+              return `Others (${bookingState.customExtras['Others']})`;
+            }
+            if (bookingState.extraCounts && bookingState.extraCounts[it]) {
+              return `${it} (${bookingState.extraCounts[it]})`;
+            }
+            return it;
+          }).join(', ');
+          waMessage += `*Extra Items to Clean:* ${encodeURIComponent(extrasList)}%0A`;
+        }
+      } else if (bookingState.service === 'Office & Company Cleaning') {
+        waMessage += `*Office Type:* ${encodeURIComponent(bookingState.officeType)}%0A` +
+          `*Selected Areas:* ${encodeURIComponent(bookingState.officeAreas.join(', '))}%0A` +
+          `*Bathrooms:* ${bookingState.bathrooms}%0A`;
+        if (bookingState.officeExtraItems.length > 0) {
+          waMessage += `*Extra Items to Clean:* ${encodeURIComponent(bookingState.officeExtraItems.join(', '))}%0A`;
+        }
+      } else if (bookingState.service === 'Restaurant Cleaning' || bookingState.service === 'Hotel Cleaning' || bookingState.service === 'A/C Complaints' || bookingState.service === 'Retails & Shops Cleaning') {
+        waMessage += `*Configuration:* ${encodeURIComponent(bookingState.configType)}%0A` +
+          `*Selected Areas:* ${encodeURIComponent(bookingState.configAreas.join(', '))}%0A` +
+          `*Bathrooms / Restrooms:* ${bookingState.bathrooms}%0A`;
+        if (bookingState.service === 'Hotel Cleaning') {
+          waMessage += `*Number of ${bookingState.configType === 'Home' ? 'Home' : 'Rooms'}:* ${bookingState.hotelRoomCount}%0A`;
+        }
+        if (bookingState.configExtraItems.length > 0) {
+          waMessage += `*Extra Items to Clean:* ${encodeURIComponent(bookingState.configExtraItems.join(', '))}%0A`;
+        }
+      }
+
+      waMessage += `*Date:* ${encodeURIComponent(bookingState.date)}%0A` +
+        `*Time Slot:* ${encodeURIComponent(bookingState.timeSlot)}%0A` +
+        `*Address:* ${encodeURIComponent(bookingState.address)}%0A` +
+        (bookingState.googleMapsUrl ? `*Google Maps Navigation:* ${encodeURIComponent(bookingState.googleMapsUrl)}%0A` : '') +
+        (bookingState.notes ? `*Notes:* ${encodeURIComponent(bookingState.notes)}%0A` : '');
+
+      const waUrl = `https://wa.me/918940051100?text=${waMessage}`;
+      const waShareBtn = document.getElementById('whatsapp-share-btn');
+      if (waShareBtn) waShareBtn.href = waUrl;
+
+      // Switch to Step 4
+      goToStep(4);
+    }
+
+    // Expose all inline handlers to window for reliable execution
+    window.selectLocation = selectLocation;
+    window.goToStep = goToStep;
+    window.handleServicePick = handleServicePick;
+    window.selectBhk = selectBhk;
+    window.toggleBathroom = toggleBathroom;
+    window.changeBathroomCount = changeBathroomCount;
+    window.toggleExtraItem = toggleExtraItem;
+    window.changeExtraCount = changeExtraCount;
+    window.selectBookingDay = selectBookingDay;
+    window.selectTimeSlot = selectTimeSlot;
+    window.setQuickDate = setQuickDate;
+    window.setWeekendQuickDate = setWeekendQuickDate;
+    window.handleFormSubmit = handleFormSubmit;
+  </script>
+</body>
+
+</html>

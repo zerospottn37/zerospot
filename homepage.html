@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeroSpot — Sparkling Clean Results, Everytime</title>
+  <meta name="description"
+    content="Hospital-grade mechanized deep cleaning, certified A/C services, and specialized hygiene care for luxury residences, corporate offices, and boutique hotels in Coimbatore and Pudukkottai.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+
+  <!-- Fonts: Plus Jakarta Sans & Geist -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Geist"', 'sans-serif'],
+            heading: ['"Plus Jakarta Sans"', '"Geist"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              teal: '#4fd1c5',
+              cyan: '#38bdf8',
+              navy: '#061325',
+              green: '#10b981',
+              greenDark: '#059669',
+              greenDeep: '#047857',
+              greenLight: '#ecfdf5',
+              blue: '#075cf8',
+              blueDark: '#1d4ed8',
+              blueDeep: '#1e3a8a',
+              blueLight: '#eff6ff',
+              slate: '#0f172a',
+            }
+          },
+          letterSpacing: {
+            widestLogo: '0.22em',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Professional Typography & Design System */
+    body {
+      background-color: #040d1a;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      letter-spacing: -0.012em;
+    }
+
+    /* Ambient animated backdrop simulating the microscopic cellular curves */
+    .hero-bg {
+      background-image: 
+        radial-gradient(ellipse 90% 70% at 75% 35%, rgba(147, 197, 253, 0.42) 0%, rgba(30, 58, 138, 0.28) 45%, transparent 75%),
+        radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.7) 0%, rgba(2, 6, 23, 0.95) 100%),
+        url('assets/hero.png');
+      background-size: cover;
+      background-position: center 38%;
+      background-repeat: no-repeat;
+    }
+
+    /* Soft organic refractive blur layer */
+    .depth-blur-overlay {
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+      background: linear-gradient(
+        135deg, 
+        rgba(5, 18, 38, 0.35) 0%, 
+        rgba(8, 28, 58, 0.2) 50%, 
+        rgba(3, 10, 22, 0.5) 100%
+      );
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .font-heading {
+      font-family: 'Geist', 'Geist Sans', system-ui, -apple-system, sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    /* Hero Entrance Styles (Immediate Display) */
+    .hero-title-text,
+    .hero-desc-text,
+    .hero-actions-box,
+    .hero-footer-bar {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================================================
+       FLOATING EXPANDED NAVBAR WITH BLENDED BORDER RADIUS (NOT SHRUNK PILL)
+       ========================================================================= */
+    #navbar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      transition: padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 1.4rem 1.75rem;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    #navbar-inner {
+      width: 100%;
+      max-width: 86rem;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        min-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 1.05rem 1.75rem;
+      min-height: 74px;
+      border-radius: 22px;
+      border: 1px solid transparent;
+      /* 100% transparent stroke at top */
+      background-color: transparent;
+      /* 100% transparent container at top */
+      box-shadow: none;
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+    }
+
+    /* Scrolled State: Width remains expanded, floating with prominent drop shadow */
+    #navbar-container.is-floating {
+      padding: 0.85rem 1.75rem;
+    }
+
+    #navbar-container.is-floating #navbar-inner {
+      max-width: 86rem;
+      background-color: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-color: rgba(226, 232, 240, 0.85);
+      /* Prominent drop shadow behind white navbar */
+      box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.16), 0 8px 20px -4px rgba(15, 23, 42, 0.08);
+      border-radius: 22px;
+      padding: 0.85rem 1.75rem;
+      min-height: 68px;
+    }
+
+    /* Scrolled Navigation Text Colors */
+    #navbar-container.is-floating .nav-link-item {
+      color: #334155;
+    }
+
+    #navbar-container.is-floating .nav-link-item:hover {
+      color: #059669;
+    }
+
+    #navbar-container.is-floating #nav-brand-title {
+      color: #0f172a;
+    }
+
+    #navbar-container.is-floating #nav-brand-sub {
+      color: #059669;
+    }
+
+    #navbar-container.is-floating #mobile-menu-btn {
+      color: #0f172a;
+    }
+
+    /* Top Transparent State */
+    .nav-link-item {
+      color: rgba(255, 255, 255, 0.9);
+      transition: color 0.2s ease;
+    }
+
+    .nav-link-item:hover {
+      color: #ffffff;
+      opacity: 0.8;
+    }
+
+    /* Solid Green Buttons (Navbar Login & Book Service - Solid Only, No Gradient) */
+    #nav-auth-btn,
+    .nav-solid-green-btn {
+      background-color: #10b981 !important;
+      color: #ffffff !important;
+      border: 1px solid #10b981 !important;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease !important;
+    }
+
+    #nav-auth-btn:hover,
+    .nav-solid-green-btn:hover {
+      background-color: #059669 !important;
+      border-color: #059669 !important;
+      color: #ffffff !important;
+    }
+
+    /* Card Interactive Elevations */
+    .service-hover-card {
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s ease;
+    }
+
+    .service-hover-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.08);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-white">
+
+  <!-- =========================================================================
+       HERO SECTION (MATCHING DEMO EXACTLY WITH ZEROSPOT ASSETS & TITLES)
+       ========================================================================= -->
+  <section id="home" class="hero-bg relative min-h-screen w-full flex flex-col justify-between overflow-hidden select-none">
+    <!-- Depth & Optical Blur Gradient Layer -->
+    <div class="depth-blur-overlay absolute inset-0 pointer-events-none"></div>
+
+    <!-- Soft Vignette & Atmospheric Glow -->
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
+
+    <!-- Top Header inside Hero -->
+    <header id="navbar-container" class="relative z-20 w-full px-6 sm:px-12 md:px-16 pt-8 pb-4 flex items-center justify-between">
+      <!-- Top Left: ZeroSpot Logo & Brand Wordmark -->
+      <a href="#home" class="group flex items-center gap-3.5 no-underline focus:outline-none focus:ring-2 focus:ring-cyan-400/50 rounded-lg p-1">
+        <!-- ZeroSpot Official Transparent Logo -->
+        <img src="assets/logo-transparent.png" alt="ZeroSpot Logo"
+          class="h-8 md:h-9 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+          onerror="this.onerror=null; this.src='assets/favicon.png';">
+
+        <!-- Brand Wordmark -->
+        <span class="tracking-widestLogo text-sm md:text-base uppercase text-white font-medium">
+          <span class="font-bold tracking-widestLogo text-white">ZERO</span><span class="font-light tracking-widestLogo text-emerald-400">SPOT</span>
+        </span>
+      </a>
+
+      <!-- Center Minimal Navigation (Desktop) -->
+      <nav class="hidden lg:flex items-center gap-8 text-xs font-medium tracking-wider uppercase text-white/70">
+        <a href="#services" class="hover:text-white transition-colors duration-200">services</a>
+        <a href="#about" class="hover:text-white transition-colors duration-200">approach</a>
+        <a href="#how" class="hover:text-white transition-colors duration-200">how it works</a>
+        <a href="#locations" class="hover:text-white transition-colors duration-200">locations</a>
+        <a href="#testimonials" class="hover:text-white transition-colors duration-200">reviews</a>
+      </nav>
+
+      <!-- Top Right: Login & Book Service CTA Button -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a href="login.html" id="nav-auth-btn"
+          class="hidden sm:inline-flex text-xs sm:text-sm text-white/80 hover:text-white font-medium tracking-wide transition-colors duration-200">
+          login
+        </a>
+
+        <!-- Book service CTA Button with arrow badge matching demo -->
+        <a href="appointment.html" onclick="return handleBookService(event);"
+           class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 text-slate-100 hover:text-white text-xs sm:text-sm font-medium backdrop-blur-md border border-white/10 shadow-lg shadow-black/20 transition-all duration-300 group">
+          <span>Book service</span>
+          <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:bg-white text-slate-900">
+            <svg class="w-3 h-3 text-white group-hover:text-slate-950 transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+            </svg>
+          </span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition"
+          aria-label="Toggle Navigation">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu"
+      class="hidden lg:hidden fixed top-24 left-4 right-4 z-50 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl space-y-4 text-white">
+      <a href="#services" class="block text-base font-semibold hover:text-cyan-400 mobile-nav-link">services</a>
+      <a href="#about" class="block text-base font-semibold hover:text-cyan-400 mobile-nav-link">approach</a>
+      <a href="#how" class="block text-base font-semibold hover:text-cyan-400 mobile-nav-link">how it works</a>
+      <a href="#locations" class="block text-base font-semibold hover:text-cyan-400 mobile-nav-link">locations</a>
+      <a href="#testimonials" class="block text-base font-semibold hover:text-cyan-400 mobile-nav-link">client reviews</a>
+      <div class="pt-4 border-t border-white/10 flex flex-col gap-3">
+        <a href="login.html" id="mobile-auth-btn"
+          class="inline-flex items-center justify-center w-full py-2.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-white font-medium text-sm transition-colors">
+          login
+        </a>
+        <a href="appointment.html" onclick="return handleBookService(event);"
+          class="inline-flex items-center justify-center w-full py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-md transition-colors">
+          book service
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom Left: Hero Title & Discover Platform -->
+    <div class="relative z-20 w-full px-6 sm:px-12 md:px-16 pb-12 md:pb-16 flex flex-col justify-end">
+      
+      <!-- Primary Heading -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.08] max-w-4xl drop-shadow-sm">
+        Sparkling clean results.<br>
+        <span class="font-normal text-white">Every single time.</span>
+      </h1>
+
+      <p class="mt-4 text-xs sm:text-sm md:text-base text-white/75 max-w-xl font-light tracking-wide leading-relaxed">
+        Hospital-grade mechanized deep cleaning &amp; precision A/C power jet wash engineering for luxury residences, corporate offices, and boutique hotels.
+      </p>
+
+      <!-- Bottom Secondary Navigation ("Discover our platform" style) -->
+      <div class="mt-8 flex items-center">
+        <a href="#services" class="group inline-flex items-center gap-2.5 text-xs sm:text-sm text-white/80 hover:text-white transition-colors duration-200 focus:outline-none">
+          <span class="font-normal tracking-wide">Discover our platform</span>
+          <span class="w-5 h-5 rounded-full bg-white/10 group-hover:bg-white/20 border border-white/20 flex items-center justify-center transition-transform duration-300 group-hover:translate-y-0.5">
+            <svg class="w-3 h-3 text-white/90" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <main>
+
+
+    <!-- =========================================================================
+         SECTION 1: STORY CARD & 4-COLUMN BENEFIT PILLARS (Green & Blue Accents)
+         No Badges/Pills • Clean Professional Typography
+         ========================================================================= -->
+    <section id="about" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+
+      <!-- Asymmetric Editorial Card (Ice Mint with Emerald & Blue Accents) -->
+      <div
+        class="rounded-3xl bg-gradient-to-br from-emerald-50 via-teal-50/70 to-blue-50/50 p-8 sm:p-12 md:p-16 border border-emerald-200/60 text-slate-900 shadow-lg shadow-emerald-500/5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+          <!-- Left Image -->
+          <div
+            class="lg:col-span-5 overflow-hidden rounded-2xl aspect-[4/5] sm:aspect-square lg:aspect-[4/5] shadow-lg bg-black/5 group">
+            <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=800&q=85"
+              alt="ZeroSpot verified specialist"
+              class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+          </div>
+
+          <!-- Right Content -->
+          <div class="lg:col-span-7 flex flex-col justify-center">
+            <h2
+              class="text-3xl sm:text-5xl md:text-6xl font-heading font-bold text-slate-900 leading-[1.12] tracking-tight">
+              At ZeroSpot, everything is crafted around your space.
+            </h2>
+
+            <div class="mt-6 sm:mt-8 space-y-4 text-slate-700 text-base sm:text-lg font-normal leading-relaxed">
+              <p>
+                With background-verified specialist crews and hospital-grade mechanized equipment, our teams take the
+                time to understand how each property functions—ensuring deep, spotless hygiene throughout every square
+                foot.
+              </p>
+              <p>
+                Space care goes beyond ordinary dusting. We eliminate deep-seated allergens, eradicate hard-water
+                scaling, and revitalize fabrics and A/C airflow so your home and workspace feel entirely renewed.
+              </p>
+            </div>
+
+            <!-- Direct CTA -->
+            <div class="mt-8 sm:mt-10">
+              <a href="appointment.html"
+                class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-brand-blue transition shadow-md">
+                <span>Book Service</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Hairline Divided Benefit Metrics (4 Columns, No Pills) -->
+      <div class="mt-14 sm:mt-20">
+        <h3 class="text-3xl sm:text-5xl font-heading text-slate-900 tracking-tight font-bold">
+          Adapted to your standards
+        </h3>
+
+        <!-- Subtle Full-Width Divider Line -->
+        <div class="w-full h-px bg-slate-200 mt-6 sm:mt-8 mb-10 sm:mb-14"></div>
+
+        <!-- 4 Columns with Vertical Hairline Dividers -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0">
+
+          <div class="lg:pr-8">
+            <div
+              class="w-10 h-10 rounded-2xl bg-emerald-100 text-brand-greenDark flex items-center justify-center font-bold text-sm mb-4">
+              01
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2">Hospital-Grade Care</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Bio-enzymatic compounds, rotary floor scrubbers, and certified sanitization formulations for spotless
+              hygiene.
+            </p>
+          </div>
+
+          <div class="lg:px-8 lg:border-l lg:border-slate-200">
+            <div
+              class="w-10 h-10 rounded-2xl bg-blue-100 text-brand-blue flex items-center justify-center font-bold text-sm mb-4">
+              02
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2">Verified Specialists</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Background-checked, uniformed crews trained in 5-star hospitality protocols with digital supervisor
+              sign-offs.
+            </p>
+          </div>
+
+          <div class="lg:px-8 lg:border-l lg:border-slate-200">
+            <div
+              class="w-10 h-10 rounded-2xl bg-emerald-100 text-brand-greenDark flex items-center justify-center font-bold text-sm mb-4">
+              03
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2">Zero Advance Policy</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Scope verified on arrival. You only settle after your 100% inspection and approval on site.
+            </p>
+          </div>
+
+          <div class="lg:pl-8 lg:border-l lg:border-slate-200">
+            <div
+              class="w-10 h-10 rounded-2xl bg-blue-100 text-brand-blue flex items-center justify-center font-bold text-sm mb-4">
+              04
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2">GST Email Invoicing</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Official digital invoices delivered instantly to your email with dynamic UPI QR code and payment receipt.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================================
+         SECTION 2: SPECIALIZED SERVICES SHOWCASE (Green & Blue Accents)
+         6 Clean Editorial Cards • No Badge Pills
+         ========================================================    <!-- =========================================================================
+         SECTION 2: SPECIALIZED SERVICES SHOWCASE (Green & Blue Accents)
+         6 Clean Professional Cards • No Badge Pills • Blended Corners
+         ========================================================================= -->
+    <section id="services" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+
+      <div class="max-w-3xl mb-12 sm:mb-16">
+        <h2 class="text-4xl sm:text-6xl font-heading text-slate-900 font-bold tracking-tight leading-tight">
+          Our Services
+        </h2>
+        <p class="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
+          Select your service to review full scope details, inclusions, and schedule your doorstep arrival slot.
+        </p>
+      </div>
+
+      <!-- 6 Service Cards Grid (Minimal Scandinavian Editorial Cards) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+        <!-- Card 1: Home Cleaning (Solid Light Mint / Emerald Pastel) -->
+        <div
+          class="service-hover-card rounded-3xl bg-[#ecfdf5] border border-[#a7f3d0] p-8 sm:p-9 flex flex-col justify-between cursor-pointer min-h-[240px] group hover:border-[#6ee7b7] transition-all shadow-sm"
+          onclick="handleBookService(event, 'Home Cleaning')">
+          <div>
+            <span class="text-xs font-semibold text-emerald-700 lowercase block mb-2.5">01 / residential</span>
+            <h3 class="text-2xl sm:text-3xl font-heading text-slate-900 font-bold mb-3 lowercase">home cleaning</h3>
+            <p class="text-slate-700 text-sm leading-relaxed lowercase">
+              deep room-by-room sanitization, kitchen steam cleansing, mechanized floor rotary scrub, and window
+              detailing.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-5 border-t border-[#a7f3d0]/70 mt-6">
+            <span class="text-xs font-medium text-emerald-800 lowercase">flats &bull; villas</span>
+            <span class="text-emerald-900 text-sm font-semibold group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Office & Corporate (Solid Light Blue Pastel) -->
+        <div
+          class="service-hover-card rounded-3xl bg-[#eff6ff] border border-[#bfdbfe] p-8 sm:p-9 flex flex-col justify-between cursor-pointer min-h-[240px] group hover:border-[#93c5fd] transition-all shadow-sm"
+          onclick="handleBookService(event, 'Office & Company Cleaning')">
+          <div>
+            <span class="text-xs font-semibold text-blue-700 lowercase block mb-2.5">02 / commercial</span>
+            <h3 class="text-2xl sm:text-3xl font-heading text-slate-900 font-bold mb-3 lowercase">office &amp; corporate
+            </h3>
+            <p class="text-slate-700 text-sm leading-relaxed lowercase">
+              workstation disinfection, boardroom detailing, pantry care, and after-hours executive hygiene.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-5 border-t border-[#bfdbfe]/70 mt-6">
+            <span class="text-xs font-medium text-blue-800 lowercase">desks &bull; boardrooms</span>
+            <span class="text-blue-900 text-sm font-semibold group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Restaurant Cleaning (Solid Light Warm Amber Pastel) -->
+        <div
+          class="service-hover-card rounded-3xl bg-[#fffbeb] border border-[#fde68a] p-8 sm:p-9 flex flex-col justify-between cursor-pointer min-h-[240px] group hover:border-[#fcd34d] transition-all shadow-sm"
+          onclick="handleBookService(event, 'Restaurant Cleaning')">
+          <div>
+            <span class="text-xs font-semibold text-amber-700 lowercase block mb-2.5">03 / hospitality</span>
+            <h3 class="text-2xl sm:text-3xl font-heading text-slate-900 font-bold mb-3 lowercase">restaurant cleaning
+            </h3>
+            <p class="text-slate-700 text-sm leading-relaxed lowercase">
+              heavy grease stripping, kitchen exhaust scrubbing, food-grade dining sanitization, and audit readiness.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-5 border-t border-[#fde68a]/70 mt-6">
+            <span class="text-xs font-medium text-amber-800 lowercase">exhausts &bull; dining</span>
+            <span class="text-amber-900 text-sm font-semibold group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Hotel & Suites (Solid Light Soft Violet Pastel) -->
+        <div
+          class="service-hover-card rounded-3xl bg-[#f5f3ff] border border-[#ddd6fe] p-8 sm:p-9 flex flex-col justify-between cursor-pointer min-h-[240px] group hover:border-[#c4b5fd] transition-all shadow-sm"
+          onclick="handleBookService(event, 'Hotel Cleaning')">
+          <div>
+            <span class="text-xs font-semibold text-purple-700 lowercase block mb-2.5">04 / hospitality</span>
+            <h3 class="text-2xl sm:text-3xl font-heading text-slate-900 font-bold mb-3 lowercase">hotel &amp; suites
+            </h3>
+            <p class="text-slate-700 text-sm leading-relaxed lowercase">
+              5-star turnover housekeeping, pristine linen turnaround, marble restoration, and luxury suite
+              presentation.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-5 border-t border-[#ddd6fe]/70 mt-6">
+            <span class="text-xs font-medium text-purple-800 lowercase">suites &bull; lobbies</span>
+            <span class="text-purple-900 text-sm font-semibold group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </div>
+
+        <!-- Card 5: A/C Services (Solid Light Fresh Teal Pastel) -->
+        <div
+          class="service-hover-card rounded-3xl bg-[#f0fdfa] border border-[#99f6e4] p-8 sm:p-9 flex flex-col justify-between cursor-pointer min-h-[240px] group hover:border-[#5eead4] transition-all shadow-sm"
+          onclick="handleBookService(event, 'A/C Services')">
+          <div>
+            <span class="text-xs font-semibold text-teal-700 lowercase block mb-2.5">05 / cooling care</span>
+            <h3 class="text-2xl sm:text-3xl font-heading text-slate-900 font-bold mb-3 lowercase">a/c services</h3>
+            <p class="text-slate-700 text-sm leading-relaxed lowercase">
+              deep antibacterial coil chemical jet wash, filter replacement, drain line flushing, and airflow
+              optimization.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-5 border-t border-[#99f6e4]/70 mt-6">
+            <span class="text-xs font-medium text-teal-800 lowercase">split &bull; cassette</span>
+            <span class="text-teal-900 text-sm font-semibold group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </div>
+
+        <!-- Card 6: Retail & Showrooms (Solid Light Rose Pastel) -->
+        <div
+          class="service-hover-card rounded-3xl bg-[#fff1f2] border border-[#fecdd3] p-8 sm:p-9 flex flex-col justify-between cursor-pointer min-h-[240px] group hover:border-[#fda4af] transition-all shadow-sm"
+          onclick="handleBookService(event, 'Retails & Shops Cleaning')">
+          <div>
+            <span class="text-xs font-semibold text-rose-700 lowercase block mb-2.5">06 / commercial</span>
+            <h3 class="text-2xl sm:text-3xl font-heading text-slate-900 font-bold mb-3 lowercase">retail &amp; showrooms
+            </h3>
+            <p class="text-slate-700 text-sm leading-relaxed lowercase">
+              high-traffic display vitrine washing, fitting room sanitization, streakless mirrors, and customer-ready
+              sparkle.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-5 border-t border-[#fecdd3]/70 mt-6">
+            <span class="text-xs font-medium text-rose-800 lowercase">vitrines &bull; floors</span>
+            <span class="text-rose-900 text-sm font-semibold group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Additional Specialized Services Ribbon -->
+      <div class="mt-12 rounded-2xl bg-white border border-slate-200/80 p-6 sm:p-8 text-center shadow-xs">
+        <span class="text-xs font-bold uppercase tracking-[0.22em] text-slate-400 block mb-3">
+          Additional Specialized Disciplines
+        </span>
+        <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold text-slate-700">
+          <span>Bathroom Hard-Water Descaling</span>
+          <span class="text-slate-300">&bull;</span>
+          <span>Water Tank &amp; Sump Cleaning</span>
+          <span class="text-slate-300">&bull;</span>
+          <span>Rooftop Solar Panel Cleaning</span>
+          <span class="text-slate-300">&bull;</span>
+          <span>Sofa &amp; Carpet Shampoo Extraction</span>
+          <span class="text-slate-300">&bull;</span>
+          <span>High Glass Facade Detailing</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================================
+         SECTION 3: THREE STEPS PROCESS ("How It Works")
+         ========================================================================= -->
+    <section id="how" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-10 bg-slate-100/70 border-y border-slate-200">
+      <div class="max-w-7xl mx-auto">
+
+        <div class="max-w-3xl mb-12 sm:mb-16">
+          <h2 class="text-4xl sm:text-6xl font-heading text-slate-900 font-bold tracking-tight leading-tight">
+            How clean spaces work
+          </h2>
+          <p class="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
+            Zero ambiguity, zero upfront advance. We manage the entire sequence from digital intake to post-service
+            verification.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <!-- Step 1 -->
+          <div class="rounded-3xl bg-white p-8 sm:p-10 shadow-sm border border-slate-200 flex flex-col justify-between">
+            <div>
+              <span class="font-heading text-5xl font-black text-brand-blue/30 block mb-6">01</span>
+              <h3 class="text-xl font-bold text-slate-900 mb-3">Specify Your Space</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Choose your space category, pick your preferred arrival window (including 90-minute express), and submit
+                your request online.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-slate-100 text-xs font-bold uppercase tracking-wider text-brand-blue">
+              Step 01 &bull; Digital Intake
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="rounded-3xl bg-white p-8 sm:p-10 shadow-sm border border-slate-200 flex flex-col justify-between">
+            <div>
+              <span class="font-heading text-5xl font-black text-brand-green/40 block mb-6">02</span>
+              <h3 class="text-xl font-bold text-slate-900 mb-3">Verified Arrival</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Our operations lead arrives with certified mechanized equipment, confirms exact scope on site, and
+                executes the 54-point hygiene checklist.
+              </p>
+            </div>
+            <div
+              class="mt-8 pt-4 border-t border-slate-100 text-xs font-bold uppercase tracking-wider text-brand-greenDark">
+              Step 02 &bull; On-Site Precision
+            </div>
+          </div>
+
+          <!-- Step 3 (Updated: Once service is completed, payment can be made online, secure & invoice via email) -->
+          <div class="rounded-3xl bg-white p-8 sm:p-10 shadow-sm border border-slate-200 flex flex-col justify-between">
+            <div>
+              <span class="font-heading text-5xl font-black text-brand-green/40 block mb-6">03</span>
+              <h3 class="text-xl font-bold text-slate-900 mb-3">Secure Online Payment &amp; Email Invoice</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Once the service is completed, payment can be made online through fully secure channels (UPI QR, Card,
+                or Net Banking). Your official GST invoice and receipt will be provided directly through email.
+              </p>
+            </div>
+            <div
+              class="mt-8 pt-4 border-t border-slate-100 text-xs font-bold uppercase tracking-wider text-brand-greenDark">
+              Step 03 &bull; Online Payment &amp; Email Invoice
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         SECTION 4: ACTIVE LOCATIONS (Pudukkottai & Coimbatore)
+         Dual Image Gateways with Green & Blue Action Accents
+         ========================================================================= -->
+    <section id="locations" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+
+      <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+        <h2 class="text-4xl sm:text-6xl font-heading text-slate-900 font-bold tracking-tight leading-tight">
+          Available in Pudukkottai &amp; Coimbatore
+        </h2>
+        <p class="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
+          ZeroSpot operates dedicated on-ground crews ready for residential villas, modern apartments, corporate
+          workspaces, and commercial venues.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- Pudukkottai Gateway Card -->
+        <div
+          class="group relative rounded-3xl overflow-hidden min-h-[480px] sm:min-h-[540px] flex flex-col justify-between p-8 sm:p-12 shadow-xl border border-slate-200">
+          <img src="https://www.hlimg.com/images/places2see/738X538/r3_1538130035m.jpg?w=700&dpr=1.3"
+            alt="Pudukkottai City & Architecture"
+            class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/50 to-slate-950/20 pointer-events-none">
+          </div>
+
+          <div class="relative z-10">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">
+              Heritage &amp; Townships
+            </span>
+          </div>
+
+          <div class="relative z-10">
+            <h3 class="text-3xl sm:text-5xl font-heading text-white font-bold mb-3">
+              Pudukkottai
+            </h3>
+            <p class="text-white/90 text-sm sm:text-base leading-relaxed max-w-md mb-6 font-normal">
+              Specialized deep cleaning for heritage residences, traditional bungalows, apartments, A/C maintenance, and
+              hard-water bathroom stain eradication.
+            </p>
+            <a href="appointment.html?location=Pudukkottai"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-green text-slate-950 font-bold text-sm hover:brightness-110 transition shadow-md">
+              <span>Book Service</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Coimbatore Gateway Card -->
+        <div
+          class="group relative rounded-3xl overflow-hidden min-h-[480px] sm:min-h-[540px] flex flex-col justify-between p-8 sm:p-12 shadow-xl border border-slate-200">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaVcQ6J8FNq5U_5fme-SsFNMLYB1gk6ib9zU2R-TtFqriQEgh6UpQfDPY&s=10"
+            alt="Coimbatore City Landscape"
+            class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1000&q=80';">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/50 to-slate-950/20 pointer-events-none">
+          </div>
+
+          <div class="relative z-10">
+            <span class="text-xs font-bold uppercase tracking-wider text-cyan-300">
+              IT Corridors &amp; Luxury Estates
+            </span>
+          </div>
+
+          <div class="relative z-10">
+            <h3 class="text-3xl sm:text-5xl font-heading text-white font-bold mb-3">
+              Coimbatore
+            </h3>
+            <p class="text-white/90 text-sm sm:text-base leading-relaxed max-w-md mb-6 font-normal">
+              Full mechanized fleet servicing gated communities, tech corridors, restaurants, boutique hotels, HVAC
+              maintenance, and move-in turnovers.
+            </p>
+            <a href="appointment.html?location=Coimbatore"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-blue text-white font-bold text-sm hover:brightness-110 transition shadow-md">
+              <span>Book Service</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================================
+         SECTION 5: CUSTOMER REVIEWS & VOICES
+         ========================================================================= -->
+    <section id="testimonials" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-10 bg-white border-t border-slate-200">
+      <div class="max-w-7xl mx-auto">
+
+        <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+          <h2 class="text-4xl sm:text-6xl font-heading text-slate-900 font-bold tracking-tight leading-tight">
+            What our clients experience
+          </h2>
+          <p class="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
+            Authentic words on our care, hygiene standards, and precision across residences and commercial sites.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+
+          <!-- Review 1 -->
+          <div
+            class="rounded-3xl bg-slate-50 p-8 sm:p-10 border border-slate-200 flex flex-col justify-between hover:border-emerald-300 transition-colors">
+            <div>
+              <span class="text-4xl font-serif text-brand-green leading-none block mb-4">&ldquo;</span>
+              <p class="text-slate-800 text-base sm:text-lg font-medium leading-relaxed">
+                Zerospot cleaning persons work is good. Nice team and professional, they did good work. Thank you
+                ZeroSpot.
+              </p>
+            </div>
+            <div
+              class="mt-8 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <span>Verified Customer</span>
+              <span class="text-brand-greenDark">★★★★★ 5.0</span>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div
+            class="rounded-3xl bg-slate-50 p-8 sm:p-10 border border-slate-200 flex flex-col justify-between hover:border-blue-300 transition-colors">
+            <div>
+              <span class="text-4xl font-serif text-brand-blue leading-none block mb-4">&ldquo;</span>
+              <p class="text-slate-800 text-base sm:text-lg font-medium leading-relaxed">
+                Truly perfect cleaning from top to bottom. Stubborn bathroom stains and hard-water scale that wouldn’t
+                budge for months were completely eliminated. The floor looks restored to brand new.
+              </p>
+            </div>
+            <div
+              class="mt-8 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <span>Homeowner &bull; Coimbatore</span>
+              <span class="text-brand-blue">★★★★★ 5.0</span>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div
+            class="rounded-3xl bg-slate-50 p-8 sm:p-10 border border-slate-200 flex flex-col justify-between hover:border-emerald-300 transition-colors">
+            <div>
+              <span class="text-4xl font-serif text-brand-green leading-none block mb-4">&ldquo;</span>
+              <p class="text-slate-800 text-base sm:text-lg font-medium leading-relaxed">
+                The A/C chemical wash and coil service made a tremendous difference right away. Cooling improved
+                immediately, airflow is crisp, and they worked cleanly without dripping or staining the walls.
+              </p>
+            </div>
+            <div
+              class="mt-8 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <span>Pudukkottai Resident</span>
+              <span class="text-brand-greenDark">★★★★★ 5.0</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         SECTION 6: CONSULTATION / "THE RIGHT FIT?" (Green & Blue Accents)
+         ========================================================================= -->
+    <section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+      <div
+        class="rounded-3xl bg-gradient-to-br from-slate-900 via-brand-navy to-slate-950 p-8 sm:p-12 md:p-16 text-white shadow-2xl shadow-slate-950/20 border border-slate-800">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+          <div class="lg:col-span-6 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-emerald-400 mb-3 block">Direct
+                Assistance</span>
+              <h2
+                class="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white leading-[1.08] tracking-tight">
+                The right fit for your space?
+              </h2>
+              <p class="mt-6 text-slate-300 text-base sm:text-lg leading-relaxed max-w-md">
+                You don't need everything figured out before talking to us. We'll walk you through how our protocols
+                work and answer any custom scope questions.
+              </p>
+            </div>
+
+            <div class="mt-8 sm:mt-12 flex flex-wrap items-center gap-4">
+              <a href="tel:+918940051100"
+                class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-brand-green text-slate-950 font-bold text-sm hover:brightness-110 transition shadow-md">
+                <span>Call +91 89400 51100</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+
+              <a href="https://wa.me/918940051100?text=Hello%20Zero%20Spot%2C%20I%20need%20assistance%20with%20a%20service"
+                target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm tracking-wide transition shadow-xs">
+                <svg class="w-4 h-4 text-emerald-400 fill-current" viewBox="0 0 24 24">
+                  <path
+                    d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.883 3.18 0 5.767-2.587 5.767-5.766.001-3.18-2.585-5.77-5.767-5.77zm0-2.172c4.378 0 7.938 3.56 7.939 7.938 0 4.38-3.56 7.94-7.939 7.94-1.341 0-2.61-.341-3.725-.947l-4.306 1.13 1.15-4.197c-.694-1.183-1.058-2.533-1.058-3.926 0-4.378 3.56-7.938 7.939-7.938z" />
+                </svg>
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
+
+            <p class="mt-6 text-xs text-slate-400 font-semibold tracking-wide">
+              Serving residential &amp; commercial spaces daily 8:00 AM – 9:00 PM.
+            </p>
+          </div>
+
+          <div class="lg:col-span-6">
+            <div
+              class="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-white/10 bg-white/5 group">
+              <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=85"
+                alt="ZeroSpot Consultation"
+                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =========================================================================
+       SECTION 7: DEEP MIDNIGHT BLUE FOOTER
+       ========================================================================= -->
+  <footer class="bg-brand-navy text-white pt-16 sm:pt-20 pb-12 px-4 sm:px-6 lg:px-10 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
+
+        <!-- Left Column -->
+        <div class="lg:col-span-5">
+          <div class="flex items-center gap-3 mb-6">
+            <img src="assets/logo-transparent.png" alt="ZeroSpot Logo"
+              class="h-10 w-10 object-contain brightness-0 invert">
+            <div>
+              <span
+                class="text-2xl font-heading font-extrabold tracking-tight text-white block leading-none">ZeroSpot</span>
+              <span class="text-[9px] font-bold tracking-[0.24em] text-emerald-400 uppercase">Cleaning &amp;
+                Solution</span>
+            </div>
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-4">
+            Stay connected with spotless living
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6 max-w-md">
+            Receive seasonal hygiene guides, A/C monsoon maintenance reminders, and priority inspection access.
+          </p>
+
+          <form class="space-y-3 max-w-md"
+            onsubmit="event.preventDefault(); alert('Thank you for connecting with ZeroSpot!'); this.reset();">
+            <input type="text" placeholder="Full name" required
+              class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white placeholder-slate-400 text-sm outline-none focus:border-brand-green">
+            <input type="email" placeholder="Email address" required
+              class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white placeholder-slate-400 text-sm outline-none focus:border-brand-green">
+            <button type="submit"
+              class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-brand-green to-brand-blue text-white font-bold text-sm hover:brightness-110 transition shadow-md">
+              Submit Inquiry
+            </button>
+          </form>
+        </div>
+
+        <!-- Right: 3 Column Links -->
+        <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+
+          <div>
+            <h4 class="text-xs font-extrabold uppercase tracking-widest text-emerald-400 mb-4">Services</h4>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li><a href="#services" class="hover:text-white transition">Home Cleaning</a></li>
+              <li><a href="#services" class="hover:text-white transition">Office Care</a></li>
+              <li><a href="#services" class="hover:text-white transition">Restaurant Kitchens</a></li>
+              <li><a href="#services" class="hover:text-white transition">A/C Services</a></li>
+              <li><a href="#services" class="hover:text-white transition">Hotel Turnovers</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-extrabold uppercase tracking-widest text-emerald-400 mb-4">Company</h4>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li><a href="#about" class="hover:text-white transition">Our Approach</a></li>
+              <li><a href="#how" class="hover:text-white transition">How It Works</a></li>
+              <li><a href="#locations" class="hover:text-white transition">Locations</a></li>
+              <li><a href="#testimonials" class="hover:text-white transition">Client Reviews</a></li>
+              <li><a href="terms.html" class="hover:text-white transition">Terms &amp; Policies</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-extrabold uppercase tracking-widest text-emerald-400 mb-4">Direct Desk</h4>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li><a href="tel:+918940051100" class="hover:text-white transition">+91 89400 51100</a></li>
+              <li><a href="mailto:zerospottn37@gmail.com" class="hover:text-white transition">zerospottn37@gmail.com</a>
+              </li>
+              <li><a href="login.html" class="hover:text-white transition">Customer Portal</a></li>
+              <li><a href="admin-login.html" class="hover:text-white transition">Admin Sign In</a></li>
+            </ul>
+            <div class="mt-5 text-xs text-emerald-400 font-semibold">
+              <span>Daily 8:00 AM – 9:00 PM</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <p>&copy; 2026 ZeroSpot Care &amp; Clean Systems. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <span>Coimbatore &bull; Pudukkottai</span>
+          <button type="button" onclick="window.ZS_CookieBanner && window.ZS_CookieBanner.openPreferencesModal();"
+            class="hover:text-white transition cursor-pointer">Manage Cookies</button>
+          <a href="#home" class="hover:text-white transition">Back to Top ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- =========================================================================
+       SCRIPTS: FLOATING NAVBAR, MOBILE DRAWER & USER SESSION
+       ========================================================================= -->
+  <script src="cookie-manager.js"></script>
+  <script>
+    // 1. Floating Navbar Scroll Behavior (Keeps Width Expanded, Blended Border Radius & Drop Shadow)
+    const navContainer = document.getElementById('navbar-container');
+
+    function handleScroll() {
+      const currentY = window.scrollY;
+
+      // Scrolled beyond top 40px: Transform into floating expanded card
+      if (currentY > 40) {
+        navContainer.classList.add('is-floating');
+      } else {
+        navContainer.classList.remove('is-floating');
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    // 3. Mobile Menu Toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+
+    // 4. Book Service Authentication Check:
+    // User must be logged in to book service. Once logged in, persistent cookies
+    // and browser cache keep them signed in across browser sessions.
+    function handleBookService(event, serviceName) {
+      if (event && event.preventDefault) event.preventDefault();
+
+      const user = (window.ZS_Auth && window.ZS_Auth.getUser()) ||
+        (() => {
+          try {
+            const raw = sessionStorage.getItem("zs_user") || localStorage.getItem("zs_user");
+            return raw ? JSON.parse(raw) : null;
+          } catch (e) { return null; }
+        })();
+
+      let targetUrl = "appointment.html";
+      if (serviceName) {
+        targetUrl += `?service=${encodeURIComponent(serviceName)}`;
+      }
+
+      if (!user) {
+        // Not logged in -> go to login page with return parameter
+        window.location.href = `login.html?redirect=${encodeURIComponent(targetUrl)}`;
+      } else {
+        // Logged in -> go straight to appointment booking without re-authenticating
+        window.location.href = targetUrl;
+      }
+      return false;
+    }
+
+    // 5. Check saved persistent user session & cookie cache
+    document.addEventListener("DOMContentLoaded", () => {
+      const authBtn = document.getElementById('nav-auth-btn');
+      const mobileAuthBtn = document.getElementById('mobile-auth-btn');
+      const user = (window.ZS_Auth && window.ZS_Auth.getUser()) ||
+        (() => {
+          try {
+            const raw = sessionStorage.getItem("zs_user") || localStorage.getItem("zs_user");
+            return raw ? JSON.parse(raw) : null;
+          } catch (e) { return null; }
+        })();
+
+      if (user) {
+        const displayName = user.name || user.displayName || (user.email ? user.email.split('@')[0] : 'account');
+        if (authBtn) {
+          authBtn.textContent = displayName;
+          authBtn.title = `Signed in as ${displayName} • Click to book service`;
+          authBtn.href = "appointment.html";
+        }
+        if (mobileAuthBtn) {
+          mobileAuthBtn.textContent = `account (${displayName})`;
+          mobileAuthBtn.href = "appointment.html";
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>

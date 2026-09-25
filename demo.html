@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coutumes • Label de bijoux masculins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coutumes: {
+                            bg: '#FAF8F5',
+                            surface: '#F4F0EA',
+                            card: '#FFFFFF',
+                            dark: '#141413',
+                            muted: '#706D66',
+                            border: '#E6E1DA',
+                            accent: '#8E7B68',
+                            gold: '#C5A880'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        'widest-plus': '0.22em',
+                        'editorial': '0.15em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #141413;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background-color: #141413;
+            color: #FAF8F5;
+        }
+
+        .serif-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 28s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .product-img-zoom {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .product-card:hover .product-img-zoom {
+            transform: scale(1.05);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: #141413;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col justify-between">
+
+    <div
+        class="bg-coutumes-dark text-coutumes-bg text-[11px] tracking-editorial py-2 px-4 uppercase font-light text-center border-b border-coutumes-dark overflow-hidden relative">
+        <div class="marquee-track flex gap-12 whitespace-nowrap">
+            <span>Free shipping over 150,00 € in Europe</span>
+            <span>•</span>
+            <span>Handcrafted in Tuscany & Family workshops</span>
+            <span>•</span>
+            <span>925 Sterling Silver & Natural Stones</span>
+            <span>•</span>
+            <span>Free returns within 30 days</span>
+            <span>•</span>
+            <span>2-Year jewelry warranty</span>
+            <span>•</span>
+            <span>Free shipping over 150,00 € in Europe</span>
+            <span>•</span>
+            <span>Handcrafted in Tuscany & Family workshops</span>
+            <span>•</span>
+            <span>925 Sterling Silver & Natural Stones</span>
+            <span>•</span>
+            <span>Free returns within 30 days</span>
+            <span>•</span>
+            <span>2-Year jewelry warranty</span>
+        </div>
+    </div>
+
+    <header id="main-header"
+        class="sticky top-0 z-40 bg-coutumes-bg/95 backdrop-blur-md border-b border-coutumes-border transition-all duration-300">
+        <div class="max-w-[1600px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+
+            <!-- Mobile menu button -->
+            <button onclick="toggleMobileNav()"
+                class="lg:hidden p-2 text-coutumes-dark hover:opacity-70 focus:outline-none" aria-label="Toggle menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+
+            <!-- Left navigation desktop -->
+            <nav
+                class="hidden lg:flex items-center space-x-8 text-[12px] uppercase tracking-widest text-coutumes-dark/90 font-medium">
+                <div class="relative group">
+                    <a href="#collections"
+                        class="nav-link relative py-1 hover:text-coutumes-dark transition-colors">Jewelry</a>
+                    <!-- Dropdown -->
+                    <div class="absolute top-full left-0 hidden group-hover:block pt-4 w-56 z-50">
+                        <div
+                            class="bg-coutumes-bg border border-coutumes-border p-4 shadow-xl flex flex-col space-y-3 text-[11px] font-normal tracking-wider">
+                            <a href="#collections"
+                                class="hover:underline text-coutumes-muted hover:text-coutumes-dark">All Jewelry</a>
+                            <a href="#collections"
+                                class="hover:underline text-coutumes-muted hover:text-coutumes-dark">Bracelets</a>
+                            <a href="#collections"
+                                class="hover:underline text-coutumes-muted hover:text-coutumes-dark">Rings</a>
+                            <a href="#collections"
+                                class="hover:underline text-coutumes-muted hover:text-coutumes-dark">Necklaces</a>
+                            <a href="#collections"
+                                class="hover:underline text-coutumes-muted hover:text-coutumes-dark">Pendants</a>
+                            <div class="border-t border-coutumes-border pt-2 text-coutumes-dark font-medium">September
+                                Edition</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#categories"
+                    class="nav-link relative py-1 hover:text-coutumes-dark transition-colors">Accessories</a>
+                <a href="#craft" class="nav-link relative py-1 hover:text-coutumes-dark transition-colors">Create your
+                    own</a>
+                <a href="#story" class="nav-link relative py-1 hover:text-coutumes-dark transition-colors">About</a>
+            </nav>
+
+            <!-- Center Brand Logo -->
+            <div class="flex flex-col items-center">
+                <a href="#"
+                    class="text-2xl md:text-3xl font-serif tracking-[0.25em] font-medium uppercase text-coutumes-dark hover:opacity-90 transition-opacity">
+                    COUTUMES
+                </a>
+                <span
+                    class="text-[9px] tracking-[0.3em] uppercase text-coutumes-muted font-light -mt-1 hidden sm:block">
+                    PARIS
+                </span>
+            </div>
+
+            <!-- Right menu: Search, Magazine, Currency, Cart -->
+            <div class="flex items-center space-x-4 md:space-x-6 text-[12px] uppercase tracking-widest font-medium">
+                <button onclick="toggleSearchModal()"
+                    class="hidden md:flex items-center gap-1.5 hover:text-coutumes-muted transition-colors"
+                    aria-label="Search">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <span class="text-[11px]">Search</span>
+                </button>
+                <a href="#boutique"
+                    class="hidden lg:inline-block hover:text-coutumes-muted transition-colors text-[11px]">
+                    Magazine
+                </a>
+                <button onclick="toggleCurrencyModal()"
+                    class="hover:text-coutumes-muted transition-colors text-[11px] flex items-center gap-1 border-b border-coutumes-dark/40 pb-0.5"
+                    id="currency-badge">
+                    FR EUR
+                </button>
+                <!-- Shopping Cart Trigger -->
+                <button onclick="toggleCartDrawer(true)"
+                    class="flex items-center gap-2 hover:opacity-80 transition-opacity text-coutumes-dark group"
+                    aria-label="Open Cart">
+                    <span class="text-[11px] hidden sm:inline">Bag</span>
+                    <div class="relative flex items-center justify-center">
+                        <svg class="w-5 h-5 text-coutumes-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3"
+                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <span id="cart-counter"
+                            class="absolute -top-1.5 -right-2 bg-coutumes-dark text-coutumes-bg text-[9px] font-semibold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <div id="mobile-nav"
+        class="fixed inset-0 z-50 bg-coutumes-bg transform -translate-y-full transition-transform duration-500 ease-in-out lg:hidden flex flex-col justify-between p-6">
+        <div class="flex justify-between items-center border-b border-coutumes-border pb-4">
+            <div class="text-xl font-serif tracking-[0.2em] font-semibold">COUTUMES</div>
+            <button onclick="toggleMobileNav()" class="p-2 text-coutumes-dark focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-6 text-xl font-serif uppercase tracking-widest my-auto text-coutumes-dark">
+            <a href="#collections" onclick="toggleMobileNav()" class="hover:text-coutumes-accent">Jewelry</a>
+            <a href="#categories" onclick="toggleMobileNav()" class="hover:text-coutumes-accent">Accessories</a>
+            <a href="#story" onclick="toggleMobileNav()" class="hover:text-coutumes-accent">Our Story</a>
+            <a href="#craft" onclick="toggleMobileNav()" class="hover:text-coutumes-accent">Craftmanship</a>
+            <a href="#boutique" onclick="toggleMobileNav()" class="hover:text-coutumes-accent">Boutique Paris</a>
+        </div>
+        <div
+            class="border-t border-coutumes-border pt-6 flex justify-between items-center text-xs tracking-widest uppercase">
+            <button onclick="toggleCurrencyModal(); toggleMobileNav();" class="text-coutumes-muted">FR / EUR
+                (€)</button>
+            <button onclick="toggleSearchModal(); toggleMobileNav();" class="flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Search
+            </button>
+        </div>
+    </div>
+
+    <main>
+        <section class="relative w-full border-b border-coutumes-border bg-coutumes-surface overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[82vh]">
+                <!-- Left Editorial Text Content -->
+                <div class="lg:col-span-6 flex flex-col justify-center px-6 sm:px-12 lg:px-20 py-16 lg:py-24 z-10">
+                    <div class="inline-flex items-center space-x-3 mb-6">
+                        <span class="w-8 h-[1px] bg-coutumes-dark/40"></span>
+                        <span class="text-[11px] uppercase tracking-widest-plus font-medium text-coutumes-muted">Edition
+                            • September Edition</span>
+                    </div>
+
+                    <h1
+                        class="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight text-coutumes-dark leading-[1.08] mb-8">
+                        New routines, <br class="hidden sm:inline">
+                        <span class="italic font-normal">new mornings,</span> <br class="hidden sm:inline">
+                        new beginnings.
+                    </h1>
+
+                    <p class="text-coutumes-muted font-light text-sm sm:text-base max-w-md leading-relaxed mb-10">
+                        The last light of summer still warm on your skin. Refined 925 sterling silver, warm brass, and
+                        natural stones to carry into the season ahead.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+                        <a href="#collections"
+                            class="inline-flex items-center justify-center px-8 py-4 bg-coutumes-dark text-coutumes-bg text-[12px] uppercase tracking-widest font-medium hover:bg-coutumes-dark/90 transition-all shadow-sm">
+                            Discover the Collection
+                        </a>
+                        <a href="#story"
+                            class="inline-flex items-center justify-center px-6 py-4 border border-coutumes-dark/30 text-coutumes-dark text-[12px] uppercase tracking-widest hover:border-coutumes-dark transition-all">
+                            Our Story
+                        </a>
+                    </div>
+
+                    <div
+                        class="mt-14 pt-8 border-t border-coutumes-border/80 grid grid-cols-2 gap-6 text-[11px] uppercase tracking-wider text-coutumes-muted font-light">
+                        <div>
+                            <span class="block font-medium text-coutumes-dark">Handmade</span>
+                            <span>In Tuscan Workshops</span>
+                        </div>
+                        <div>
+                            <span class="block font-medium text-coutumes-dark">Materials</span>
+                            <span>Recycled 925 Silver</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Visual Collage -->
+                <div class="lg:col-span-6 relative h-[500px] lg:h-auto overflow-hidden bg-stone-200">
+                    <img src="https://images.unsplash.com/photo-1611042553365-9b101441c135?q=80&w=1600&auto=format&fit=crop"
+                        alt="Coutumes men jewelry aesthetic - sterling silver ring and linen shirt"
+                        class="w-full h-full object-cover object-center"
+                        onerror="this.src='https://placehold.co/1000x1200/222/FFF?text=COUTUMES+EDITION'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-coutumes-dark/30 via-transparent to-transparent">
+                    </div>
+                    <div
+                        class="absolute bottom-6 left-6 right-6 flex justify-between items-end text-white text-[11px] tracking-widest uppercase">
+                        <span>01 / September Lookbook</span>
+                        <span class="backdrop-blur-sm bg-black/30 px-3 py-1 border border-white/20">Paris • Le
+                            Marais</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="categories"
+            class="py-16 md:py-24 border-b border-coutumes-border max-w-[1600px] mx-auto px-4 sm:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-[11px] uppercase tracking-widest font-medium text-coutumes-muted block mb-2">The
+                        Essentials</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-coutumes-dark font-light">Iconic Categories</h2>
+                </div>
+                <p class="text-coutumes-muted text-xs md:text-sm tracking-wide max-w-sm mt-4 md:mt-0 font-light">
+                    Simple, beautiful pieces designed to become, over time, the daily rituals you hold on to.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Bracelets -->
+                <div
+                    class="group relative overflow-hidden bg-coutumes-surface aspect-[4/5] flex flex-col justify-end p-6 border border-coutumes-border/60">
+                    <img src="https://images.unsplash.com/photo-1611591475841-86d7eef9f270?q=80&w=800&auto=format&fit=crop"
+                        alt="Coutumes Bracelets"
+                        class="absolute inset-0 w-full h-full object-cover product-img-zoom group-hover:scale-105"
+                        onerror="this.src='https://placehold.co/600x800/E8E3DC/141413?text=BRACELETS'">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-coutumes-dark/70 via-coutumes-dark/10 to-transparent">
+                    </div>
+                    <div class="relative z-10 text-white flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] tracking-widest uppercase text-white/80 block mb-1">Ritual</span>
+                            <h3 class="font-serif text-2xl tracking-wide font-normal">Bracelets</h3>
+                        </div>
+                        <a href="#collections" onclick="filterCategory('Bracelets')"
+                            class="text-[11px] uppercase tracking-widest text-white underline underline-offset-4 hover:opacity-80">
+                            Discover
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Necklaces -->
+                <div
+                    class="group relative overflow-hidden bg-coutumes-surface aspect-[4/5] flex flex-col justify-end p-6 border border-coutumes-border/60">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop"
+                        alt="Coutumes Necklaces"
+                        class="absolute inset-0 w-full h-full object-cover product-img-zoom group-hover:scale-105"
+                        onerror="this.src='https://placehold.co/600x800/E8E3DC/141413?text=NECKLACES'">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-coutumes-dark/70 via-coutumes-dark/10 to-transparent">
+                    </div>
+                    <div class="relative z-10 text-white flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] tracking-widest uppercase text-white/80 block mb-1">Subtle</span>
+                            <h3 class="font-serif text-2xl tracking-wide font-normal">Necklaces</h3>
+                        </div>
+                        <a href="#collections" onclick="filterCategory('Necklaces')"
+                            class="text-[11px] uppercase tracking-widest text-white underline underline-offset-4 hover:opacity-80">
+                            Discover
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Rings -->
+                <div
+                    class="group relative overflow-hidden bg-coutumes-surface aspect-[4/5] flex flex-col justify-end p-6 border border-coutumes-border/60">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800&auto=format&fit=crop"
+                        alt="Coutumes Rings"
+                        class="absolute inset-0 w-full h-full object-cover product-img-zoom group-hover:scale-105"
+                        onerror="this.src='https://placehold.co/600x800/E8E3DC/141413?text=RINGS'">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-coutumes-dark/70 via-coutumes-dark/10 to-transparent">
+                    </div>
+                    <div class="relative z-10 text-white flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] tracking-widest uppercase text-white/80 block mb-1">Patina</span>
+                            <h3 class="font-serif text-2xl tracking-wide font-normal">Rings</h3>
+                        </div>
+                        <a href="#collections" onclick="filterCategory('Rings')"
+                            class="text-[11px] uppercase tracking-widest text-white underline underline-offset-4 hover:opacity-80">
+                            Discover
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pendants / Leather -->
+                <div
+                    class="group relative overflow-hidden bg-coutumes-surface aspect-[4/5] flex flex-col justify-end p-6 border border-coutumes-border/60">
+                    <img src="https://images.unsplash.com/photo-1620656798579-1984d9e87dfa?q=80&w=800&auto=format&fit=crop"
+                        alt="Coutumes Pendants and Leather"
+                        class="absolute inset-0 w-full h-full object-cover product-img-zoom group-hover:scale-105"
+                        onerror="this.src='https://placehold.co/600x800/E8E3DC/141413?text=PENDANTS'">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-coutumes-dark/70 via-coutumes-dark/10 to-transparent">
+                    </div>
+                    <div class="relative z-10 text-white flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] tracking-widest uppercase text-white/80 block mb-1">Details</span>
+                            <h3 class="font-serif text-2xl tracking-wide font-normal">Pendants</h3>
+                        </div>
+                        <a href="#collections" onclick="filterCategory('Pendants')"
+                            class="text-[11px] uppercase tracking-widest text-white underline underline-offset-4 hover:opacity-80">
+                            Discover
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="collections" class="py-16 md:py-24 max-w-[1600px] mx-auto px-4 sm:px-8">
+            <div
+                class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 pb-6 border-b border-coutumes-border">
+                <div>
+                    <span
+                        class="text-[11px] uppercase tracking-widest font-medium text-coutumes-muted block mb-1">Curated
+                        Pieces</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-coutumes-dark font-light">September Selection</h2>
+                </div>
+
+                <!-- Filter tabs -->
+                <div
+                    class="flex flex-wrap gap-2 md:gap-4 mt-6 sm:mt-0 text-[11px] uppercase tracking-widest font-medium">
+                    <button onclick="filterProducts('all')"
+                        class="cat-filter-btn px-3 py-1.5 border border-coutumes-dark bg-coutumes-dark text-coutumes-bg transition-colors"
+                        data-cat="all">All</button>
+                    <button onclick="filterProducts('Rings')"
+                        class="cat-filter-btn px-3 py-1.5 border border-coutumes-border hover:border-coutumes-dark transition-colors"
+                        data-cat="Rings">Rings</button>
+                    <button onclick="filterProducts('Bracelets')"
+                        class="cat-filter-btn px-3 py-1.5 border border-coutumes-border hover:border-coutumes-dark transition-colors"
+                        data-cat="Bracelets">Bracelets</button>
+                    <button onclick="filterProducts('Necklaces')"
+                        class="cat-filter-btn px-3 py-1.5 border border-coutumes-border hover:border-coutumes-dark transition-colors"
+                        data-cat="Necklaces">Necklaces</button>
+                    <button onclick="filterProducts('Leather')"
+                        class="cat-filter-btn px-3 py-1.5 border border-coutumes-border hover:border-coutumes-dark transition-colors"
+                        data-cat="Leather">Accessories</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+                <!-- Products will be dynamically populated by JavaScript -->
+            </div>
+        </section>
+
+        <section id="story" class="border-t border-b border-coutumes-border bg-coutumes-surface py-20 lg:py-28">
+            <div class="max-w-[1500px] mx-auto px-4 sm:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                    <div class="lg:col-span-5 order-2 lg:order-1">
+                        <span class="text-[11px] uppercase tracking-widest-plus text-coutumes-muted block mb-4">OUR
+                            STORY • [01]</span>
+                        <h2
+                            class="font-serif text-3xl sm:text-4xl lg:text-5xl text-coutumes-dark font-light leading-tight mb-8">
+                            Jewelry designed to become, over time, the rituals you hold on to.
+                        </h2>
+                        <div class="space-y-5 text-coutumes-muted font-light text-sm sm:text-base leading-relaxed">
+                            <p>
+                                Coutumes was founded by <strong class="text-coutumes-dark font-normal">Edouard and
+                                    Arthur</strong>. Passionate about well-made clothing, sharp cuts, and beautiful
+                                materials, they turned their attention to jewelry with one goal: to create the pieces
+                                they themselves wanted to wear.
+                            </p>
+                            <p>
+                                A silver ring worn like a favorite shirt, a discreet necklace tucked under a tee-shirt,
+                                or a set stone piece that elevates an outfit. Simple, beautiful pieces, handmade in
+                                family-run workshops in Italy and France.
+                            </p>
+                            <p>
+                                Crafted in 925 silver, brass, or natural stones, they bring subtle rhythm and character
+                                to everyday life. You wear them one day, set them aside, find them again the next.
+                            </p>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-coutumes-border/80 flex items-center space-x-8">
+                            <div>
+                                <span class="font-serif text-2xl text-coutumes-dark">925</span>
+                                <p class="text-[10px] uppercase tracking-widest text-coutumes-muted mt-1">Sterling
+                                    Silver</p>
+                            </div>
+                            <div class="h-8 w-[1px] bg-coutumes-border"></div>
+                            <div>
+                                <span class="font-serif text-2xl text-coutumes-dark">Tuscany</span>
+                                <p class="text-[10px] uppercase tracking-widest text-coutumes-muted mt-1">Artisan
+                                    Workshops</p>
+                            </div>
+                            <div class="h-8 w-[1px] bg-coutumes-border"></div>
+                            <div>
+                                <span class="font-serif text-2xl text-coutumes-dark">2 Years</span>
+                                <p class="text-[10px] uppercase tracking-widest text-coutumes-muted mt-1">Piece Warranty
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 order-1 lg:order-2 grid grid-cols-12 gap-4">
+                        <div class="col-span-7 overflow-hidden aspect-[4/5] border border-coutumes-border/60">
+                            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=900&auto=format&fit=crop"
+                                alt="Artisan crafting jewelry in workshop"
+                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                onerror="this.src='https://placehold.co/800x1000/222/FFF?text=CRAFT'">
+                        </div>
+                        <div class="col-span-5 flex flex-col justify-between gap-4">
+                            <div class="overflow-hidden aspect-square border border-coutumes-border/60">
+                                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600&auto=format&fit=crop"
+                                    alt="Silver rings detail with natural patina"
+                                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                    onerror="this.src='https://placehold.co/600x600/333/FFF?text=SILVER+PATINA'">
+                            </div>
+                            <div class="p-6 bg-coutumes-bg border border-coutumes-border flex flex-col justify-center">
+                                <span
+                                    class="text-[10px] uppercase tracking-widest text-coutumes-muted block mb-1">Philosophy</span>
+                                <p class="font-serif italic text-lg text-coutumes-dark">"Creating pieces that last,
+                                    evolve with wear, and grow more beautiful over time."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="boutique"
+            class="py-20 lg:py-28 max-w-[1600px] mx-auto px-4 sm:px-8 border-b border-coutumes-border">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                <div class="lg:col-span-6 relative aspect-[16/10] overflow-hidden border border-coutumes-border">
+                    <img src="https://images.unsplash.com/photo-1582037928769-181f2644ecb7?q=80&w=1200&auto=format&fit=crop"
+                        alt="Coutumes Marais Boutique Paris interior" class="w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/1200x800/E8E3DC/141413?text=BOUTIQUE+PARIS'">
+                    <div
+                        class="absolute bottom-4 left-4 bg-coutumes-bg/95 backdrop-blur-sm px-4 py-2 border border-coutumes-border text-[11px] uppercase tracking-wider">
+                        Architecture by ASL • Paris 75003
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 lg:pl-10">
+                    <div class="inline-flex items-center space-x-3 mb-4">
+                        <span class="w-6 h-[1px] bg-coutumes-dark/40"></span>
+                        <span class="text-[11px] uppercase tracking-widest-plus font-medium text-coutumes-muted">Our
+                            Space</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-4xl text-coutumes-dark font-light mb-6">
+                        50 Rue des Francs Bourgeois, <br>Paris 75003
+                    </h2>
+                    <p class="text-coutumes-muted font-light text-sm sm:text-base leading-relaxed mb-8 max-w-lg">
+                        A warm space in the heart of Le Marais, Paris. Here, you can take the time to try, compose, and
+                        choose the piece of jewelry that truly becomes your own. Every detail of the boutique has been
+                        designed to offer a welcoming, personal, and accessible experience.
+                    </p>
+
+                    <div
+                        class="grid grid-cols-2 gap-6 text-xs text-coutumes-muted border-t border-b border-coutumes-border py-6 mb-8">
+                        <div>
+                            <span class="block uppercase tracking-widest text-coutumes-dark font-medium mb-1">Opening
+                                Hours</span>
+                            <p>Monday - Saturday: 10:30am - 7:30pm</p>
+                            <p>Sunday: 12:00pm - 7:00pm</p>
+                        </div>
+                        <div>
+                            <span class="block uppercase tracking-widest text-coutumes-dark font-medium mb-1">In-Store
+                                Services</span>
+                            <p>Ring Sizing & Customization</p>
+                            <p>Complimentary Suede Pouch & Wrapping</p>
+                        </div>
+                    </div>
+
+                    <a href="https://maps.google.com/?q=50+rue+des+francs+bourgeois+75003+paris" target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 px-8 py-4 bg-coutumes-dark text-coutumes-bg text-[11px] uppercase tracking-widest hover:opacity-90 transition-opacity">
+                        <span>Get Directions</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="border-b border-coutumes-border bg-coutumes-surface py-12">
+            <div class="max-w-[1600px] mx-auto px-4 sm:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+
+                    <div class="flex flex-col items-center p-2">
+                        <svg class="w-6 h-6 text-coutumes-dark mb-3" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                                d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z">
+                            </path>
+                        </svg>
+                        <h4 class="text-[11px] uppercase tracking-widest font-semibold text-coutumes-dark mb-1">Free
+                            Returns</h4>
+                        <p class="text-[11px] text-coutumes-muted font-light">Within 30 days, hassle-free</p>
+                    </div>
+
+                    <div class="flex flex-col items-center p-2">
+                        <svg class="w-6 h-6 text-coutumes-dark mb-3" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                        <h4 class="text-[11px] uppercase tracking-widest font-semibold text-coutumes-dark mb-1">Free
+                            Shipping</h4>
+                        <p class="text-[11px] text-coutumes-muted font-light">Complimentary over 150 €</p>
+                    </div>
+
+                    <div class="flex flex-col items-center p-2">
+                        <svg class="w-6 h-6 text-coutumes-dark mb-3" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                        <h4 class="text-[11px] uppercase tracking-widest font-semibold text-coutumes-dark mb-1">2-Year
+                            Warranty</h4>
+                        <p class="text-[11px] text-coutumes-muted font-light">Guaranteed craftsmanship</p>
+                    </div>
+
+                    <div class="flex flex-col items-center p-2">
+                        <svg class="w-6 h-6 text-coutumes-dark mb-3" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                            </path>
+                        </svg>
+                        <h4 class="text-[11px] uppercase tracking-widest font-semibold text-coutumes-dark mb-1">Alma
+                            Payments</h4>
+                        <p class="text-[11px] text-coutumes-muted font-light">Pay in 3x without interest</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 max-w-[800px] mx-auto px-4 text-center">
+            <span
+                class="text-[11px] uppercase tracking-widest-plus font-medium text-coutumes-muted block mb-3">Newsletter</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-coutumes-dark font-light mb-4">Join the Coutumes Club</h3>
+            <p class="text-coutumes-muted text-xs sm:text-sm font-light max-w-md mx-auto mb-8">
+                Receive early access to seasonal editions, private Marais events, and new rituals.
+            </p>
+
+            <form id="newsletter-form" onsubmit="handleNewsletterSubmit(event)" class="max-w-md mx-auto">
+                <div class="flex border-b border-coutumes-dark pb-2">
+                    <input type="email" required placeholder="Your email address"
+                        class="w-full bg-transparent text-sm focus:outline-none placeholder:text-coutumes-muted/60 text-coutumes-dark tracking-wide">
+                    <button type="submit"
+                        class="text-[11px] uppercase tracking-widest font-medium text-coutumes-dark hover:opacity-70 whitespace-nowrap pl-4">
+                        Subscribe
+                    </button>
+                </div>
+                <p class="text-[10px] text-coutumes-muted font-light mt-3 text-left">
+                    By clicking Subscribe, I declare that I have read and accepted Coutumes Privacy Policy.
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="bg-coutumes-dark text-coutumes-bg border-t border-coutumes-dark pt-16 pb-12">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-8">
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-10 pb-16 border-b border-white/10 text-xs tracking-wider">
+                <!-- Col 1: Brand Info -->
+                <div class="col-span-2">
+                    <div class="text-2xl font-serif tracking-[0.25em] font-medium uppercase mb-4">COUTUMES</div>
+                    <p class="text-white/60 font-light text-xs max-w-sm leading-relaxed mb-6">
+                        Coutumes is a men's jewelry label creating pieces for today's man: eclectic, accessible, and
+                        quietly refined. Handmade in Tuscany and Parisian studios.
+                    </p>
+                    <div class="text-[11px] text-white/50 tracking-widest uppercase">
+                        50 Rue des Francs Bourgeois, 75003 Paris
+                    </div>
+                </div>
+
+                <!-- Col 2: Our Brand -->
+                <div>
+                    <h5 class="uppercase tracking-widest font-medium text-white/90 mb-4 text-[11px]">Our Brand</h5>
+                    <ul class="space-y-2.5 font-light text-white/60 text-[11px]">
+                        <li><a href="#craft" class="hover:text-white transition-colors">Craftmanship</a></li>
+                        <li><a href="#story" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#boutique" class="hover:text-white transition-colors">Our Store</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Magazine</a></li>
+                        <li><a href="https://instagram.com" target="_blank"
+                                class="hover:text-white transition-colors">Instagram</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Collections -->
+                <div>
+                    <h5 class="uppercase tracking-widest font-medium text-white/90 mb-4 text-[11px]">Collections</h5>
+                    <ul class="space-y-2.5 font-light text-white/60 text-[11px]">
+                        <li><a href="#collections" onclick="filterCategory('September')"
+                                class="hover:text-white transition-colors">September Edition</a></li>
+                        <li><a href="#collections" onclick="filterProducts('all')"
+                                class="hover:text-white transition-colors">Best Sellers</a></li>
+                        <li><a href="#collections" onclick="filterCategory('Rings')"
+                                class="hover:text-white transition-colors">Silver 925 Rings</a></li>
+                        <li><a href="#collections" onclick="filterCategory('Bracelets')"
+                                class="hover:text-white transition-colors">Natural Stones</a></li>
+                        <li><a href="#collections" onclick="filterCategory('Leather')"
+                                class="hover:text-white transition-colors">Leather Lanyards</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Help -->
+                <div>
+                    <h5 class="uppercase tracking-widest font-medium text-white/90 mb-4 text-[11px]">Customer Care</h5>
+                    <ul class="space-y-2.5 font-light text-white/60 text-[11px]">
+                        <li><a href="#"
+                                onclick="showInfoToast('Shipping policy: Free over 150 € via Colissimo & Chronopost')"
+                                class="hover:text-white transition-colors">Shipping Policy</a></li>
+                        <li><a href="#" onclick="showInfoToast('Return window: 30 days prepaid label included')"
+                                class="hover:text-white transition-colors">Free Returns (30D)</a></li>
+                        <li><a href="#" onclick="showInfoToast('Ring Size Guide: Available in all product views')"
+                                class="hover:text-white transition-colors">Size Guide</a></li>
+                        <li><a href="#" onclick="showInfoToast('2-Year jewelry warranty against manufacturing defects')"
+                                class="hover:text-white transition-colors">2-Year Warranty</a></li>
+                        <li><a href="mailto:contact@coutumes.com"
+                                class="hover:text-white transition-colors">contact@coutumes.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Credits & Country Selector -->
+            <div
+                class="pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-white/40 tracking-widest uppercase gap-4">
+                <div class="flex items-center space-x-6">
+                    <span>© 2026 COUTUMES PARIS. ALL RIGHTS RESERVED.</span>
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleCurrencyModal()"
+                        class="hover:text-white flex items-center gap-1.5 border border-white/20 px-2.5 py-1">
+                        <span>Region:</span>
+                        <span id="footer-country-label" class="text-white">France (EUR €)</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <div id="cart-drawer-overlay" onclick="toggleCartDrawer(false)"
+        class="fixed inset-0 bg-coutumes-dark/50 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    </div>
+
+    <aside id="cart-drawer"
+        class="fixed top-0 right-0 h-full w-full sm:w-[460px] bg-coutumes-bg z-50 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-out border-l border-coutumes-border">
+        <!-- Header -->
+        <div class="p-6 border-b border-coutumes-border flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <h3 class="font-serif text-2xl text-coutumes-dark font-light">Shopping Bag</h3>
+                <span id="cart-drawer-count" class="text-xs uppercase tracking-widest text-coutumes-muted">(0
+                    items)</span>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="p-1 text-coutumes-dark hover:opacity-60 focus:outline-none"
+                aria-label="Close cart">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Free Shipping Progress Tracker -->
+        <div class="px-6 py-4 bg-coutumes-surface border-b border-coutumes-border">
+            <div class="text-[11px] tracking-wider text-coutumes-dark mb-2 flex justify-between">
+                <span id="shipping-progress-text">You're 150,00 € away from free shipping</span>
+                <span id="shipping-progress-percent" class="font-medium">0%</span>
+            </div>
+            <div class="w-full h-1 bg-coutumes-border overflow-hidden rounded-full">
+                <div id="shipping-progress-bar" class="h-full bg-coutumes-dark transition-all duration-500 w-0"></div>
+            </div>
+        </div>
+
+        <!-- Cart Items Body -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-6">
+            <!-- Injected by JavaScript -->
+            <div id="empty-cart-state"
+                class="h-full flex flex-col items-center justify-center text-center text-coutumes-muted py-12">
+                <svg class="w-12 h-12 stroke-[1] mb-4 text-coutumes-muted/60" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z">
+                    </path>
+                </svg>
+                <p class="font-serif text-xl text-coutumes-dark mb-1">Your bag is empty</p>
+                <p class="text-xs tracking-wider max-w-xs mb-6">Discover our 925 sterling silver rings and Tuscan
+                    leather pieces.</p>
+                <button onclick="toggleCartDrawer(false)"
+                    class="px-6 py-3 bg-coutumes-dark text-coutumes-bg text-[11px] uppercase tracking-widest hover:opacity-90">
+                    Start Shopping
+                </button>
+            </div>
+        </div>
+
+        <!-- Gift Bag Add-on Option -->
+        <div
+            class="px-6 py-3.5 border-t border-coutumes-border bg-coutumes-surface/60 flex items-center justify-between text-xs">
+            <div class="flex items-center space-x-3">
+                <input type="checkbox" id="gift-bag-toggle" onchange="toggleGiftBag(this.checked)"
+                    class="accent-coutumes-dark w-4 h-4 rounded cursor-pointer">
+                <label for="gift-bag-toggle" class="cursor-pointer">
+                    <span class="font-medium text-coutumes-dark block text-[11px] uppercase tracking-wider">Gift Package
+                        (+5,00 €)</span>
+                    <span class="text-[10px] text-coutumes-muted">Suede pouch, cardboard bag & blank card</span>
+                </label>
+            </div>
+            <span class="font-serif text-coutumes-dark text-sm">+5,00 €</span>
+        </div>
+
+        <!-- Cart Footer / Subtotal / Checkout -->
+        <div class="p-6 border-t border-coutumes-border bg-coutumes-bg">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs uppercase tracking-widest font-medium text-coutumes-muted">Subtotal</span>
+                <span id="cart-subtotal-price" class="font-serif text-2xl text-coutumes-dark">0,00 €</span>
+            </div>
+            <p class="text-[10px] text-coutumes-muted font-light mb-4">
+                Taxes and duties included. Free shipping calculated at next step.
+            </p>
+            <button onclick="handleCheckout()" id="checkout-btn" disabled
+                class="w-full py-4 bg-coutumes-dark disabled:bg-coutumes-dark/30 text-coutumes-bg text-[12px] uppercase tracking-widest font-medium hover:bg-coutumes-dark/90 transition-colors flex items-center justify-center gap-2">
+                <span>Proceed to Checkout</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </button>
+        </div>
+    </aside>
+
+    <div id="quickview-modal"
+        class="fixed inset-0 z-50 bg-coutumes-dark/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div
+            class="bg-coutumes-bg max-w-3xl w-full border border-coutumes-border shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeQuickView()"
+                class="absolute top-4 right-4 z-20 text-coutumes-dark hover:opacity-70 p-1" aria-label="Close modal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+
+            <div id="quickview-content" class="grid grid-cols-1 md:grid-cols-2">
+                <!-- Content will be injected when opened -->
+            </div>
+        </div>
+    </div>
+
+    <div id="search-modal"
+        class="fixed inset-0 z-50 bg-coutumes-bg/98 backdrop-blur-lg hidden flex flex-col p-6 md:p-12 overflow-y-auto">
+        <div class="max-w-4xl w-full mx-auto flex-1 flex flex-col">
+            <div class="flex justify-between items-center border-b border-coutumes-dark pb-4 mb-8">
+                <div class="flex items-center gap-3 w-full">
+                    <svg class="w-5 h-5 text-coutumes-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search rings, bracelets, cuffs, materials..."
+                        class="w-full bg-transparent text-lg md:text-2xl font-serif focus:outline-none placeholder:text-coutumes-muted/50"
+                        oninput="handleSearch(this.value)">
+                </div>
+                <button onclick="toggleSearchModal()" class="p-2 text-coutumes-dark hover:opacity-70">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Quick trending links -->
+            <div class="mb-8">
+                <span class="text-[10px] uppercase tracking-widest text-coutumes-muted block mb-3">Popular
+                    Searches:</span>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="applySearchTag('Silver 925')"
+                        class="px-3 py-1 border border-coutumes-border text-xs uppercase tracking-wider hover:border-coutumes-dark">Silver
+                        925</button>
+                    <button onclick="applySearchTag('Leather Lanyard')"
+                        class="px-3 py-1 border border-coutumes-border text-xs uppercase tracking-wider hover:border-coutumes-dark">Leather
+                        Lanyard</button>
+                    <button onclick="applySearchTag('Signet ring')"
+                        class="px-3 py-1 border border-coutumes-border text-xs uppercase tracking-wider hover:border-coutumes-dark">Signet
+                        ring</button>
+                    <button onclick="applySearchTag('Natural stones')"
+                        class="px-3 py-1 border border-coutumes-border text-xs uppercase tracking-wider hover:border-coutumes-dark">Natural
+                        stones</button>
+                    <button onclick="applySearchTag('Cuff')"
+                        class="px-3 py-1 border border-coutumes-border text-xs uppercase tracking-wider hover:border-coutumes-dark">Cuff</button>
+                </div>
+            </div>
+
+            <!-- Search Results Area -->
+            <div id="search-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 flex-1">
+                <!-- Results injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <div id="currency-modal"
+        class="fixed inset-0 z-50 bg-coutumes-dark/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-coutumes-bg max-w-md w-full border border-coutumes-border p-6 shadow-2xl">
+            <div class="flex justify-between items-center pb-4 border-b border-coutumes-border mb-6">
+                <h4 class="font-serif text-xl text-coutumes-dark">Select Region & Currency</h4>
+                <button onclick="toggleCurrencyModal()" class="text-coutumes-dark hover:opacity-70 p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="space-y-3">
+                <label class="block text-xs uppercase tracking-widest text-coutumes-muted">Country / Region</label>
+                <div class="grid grid-cols-1 gap-2">
+                    <button onclick="setCurrency('EUR', 'France (EUR €)', 1)"
+                        class="w-full text-left px-4 py-3 border border-coutumes-border hover:border-coutumes-dark flex justify-between items-center text-xs tracking-wider">
+                        <span>France (EUR €)</span>
+                        <span class="text-coutumes-muted">Colissimo Free > 150€</span>
+                    </button>
+                    <button onclick="setCurrency('GBP', 'United Kingdom (GBP £)', 0.85)"
+                        class="w-full text-left px-4 py-3 border border-coutumes-border hover:border-coutumes-dark flex justify-between items-center text-xs tracking-wider">
+                        <span>United Kingdom (GBP £)</span>
+                        <span class="text-coutumes-muted">Chronopost Intl</span>
+                    </button>
+                    <button onclick="setCurrency('USD', 'United States (USD $)', 1.08)"
+                        class="w-full text-left px-4 py-3 border border-coutumes-border hover:border-coutumes-dark flex justify-between items-center text-xs tracking-wider">
+                        <span>United States (USD $)</span>
+                        <span class="text-coutumes-muted">FedEx Express</span>
+                    </button>
+                    <button onclick="setCurrency('CHF', 'Switzerland (CHF)', 0.98)"
+                        class="w-full text-left px-4 py-3 border border-coutumes-border hover:border-coutumes-dark flex justify-between items-center text-xs tracking-wider">
+                        <span>Switzerland (CHF)</span>
+                        <span class="text-coutumes-muted">Priority Express</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"
+        class="fixed bottom-6 right-6 z-50 bg-coutumes-dark text-coutumes-bg px-5 py-3 shadow-2xl transform translate-y-24 opacity-0 transition-all duration-300 flex items-center gap-3 border border-coutumes-border/20 text-xs tracking-wider uppercase">
+        <svg class="w-4 h-4 text-coutumes-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <span id="toast-message">Item added to your bag</span>
+    </div>
+
+    <script>
+        // Product catalog authentic to coutumes.com
+        const PRODUCTS = [
+            {
+                id: 'cuff-round-wire',
+                name: 'Fine round wire cuff',
+                category: 'Bracelets',
+                badge: 'September Edition',
+                priceEUR: 160.00,
+                material: 'Recycled 925 Sterling Silver',
+                origin: 'Handmade in Tuscany',
+                image: 'https://images.unsplash.com/photo-1611591475841-86d7eef9f270?q=80&w=800&auto=format&fit=crop',
+                hoverImage: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=800&auto=format&fit=crop',
+                sizes: ['S (16cm)', 'M (17.5cm)', 'L (19cm)'],
+                description: 'Minimalist round profile cuff with tapered ends. Develops a personal patina over time. Designed to slide effortlessly under a tailored shirt cuff.'
+            },
+            {
+                id: 'leather-lanyard-black',
+                name: 'Leather lanyard',
+                category: 'Leather',
+                badge: 'Back In Stock',
+                priceEUR: 95.00,
+                material: 'Grained Italian Calfskin',
+                origin: 'Made in Le Marais, Paris',
+                image: 'https://images.unsplash.com/photo-1620656798579-1984d9e87dfa?q=80&w=800&auto=format&fit=crop',
+                hoverImage: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=800&auto=format&fit=crop',
+                sizes: ['One Size / Grained'],
+                description: 'Grained black calfskin lanyard, tonal hand stitching, round cord looping above the pocket. Fitted with solid brass hardware.'
+            },
+            {
+                id: 'signet-ring-organic',
+                name: 'Thick organic signet ring',
+                category: 'Rings',
+                badge: 'Bestseller',
+                priceEUR: 130.00,
+                material: 'Sterling Silver 925 Plated',
+                origin: 'Handmade in Italy',
+                image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800&auto=format&fit=crop',
+                hoverImage: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop',
+                sizes: ['54', '56', '58', '60', '62', '64'],
+                description: 'Bold, molten texture signet ring. Organic fluid surface that catches natural daylight. Subtly heavy and reassuring on the finger.'
+            },
+            {
+                id: 'pebble-drop-necklace',
+                name: 'Drop pebble necklace',
+                category: 'Necklaces',
+                badge: 'Made in Italy',
+                priceEUR: 180.00,
+                material: 'Solid 925 Silver & Venetian Chain',
+                origin: 'Tuscan Workshop',
+                image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop',
+                hoverImage: 'https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?q=80&w=800&auto=format&fit=crop',
+                sizes: ['50cm', '55cm', '60cm'],
+                description: 'Hand-sculpted pebble pendant suspended on a discreet Venetian box chain. Ideal worn close to the collarbone or tucked under a t-shirt.'
+            },
+            {
+                id: 'stone-bracelet-onyx',
+                name: 'Two-tone bead bracelet',
+                category: 'Bracelets',
+                badge: 'Natural Stones',
+                priceEUR: 110.00,
+                material: 'Matte Black Onyx & Tiger Eye',
+                origin: 'Hand-strung in France',
+                image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop',
+                hoverImage: 'https://images.unsplash.com/photo-1611591475841-86d7eef9f270?q=80&w=800&auto=format&fit=crop',
+                sizes: ['S (17cm)', 'M (18.5cm)', 'L (20cm)'],
+                description: 'Natural mineral beads selected for deep earth tones and tactile matte finish. Secured with a custom 925 silver cylinder clasp.'
+            },
+            {
+                id: 'intertwined-silver-ring',
+                name: 'Intertwined ring',
+                category: 'Rings',
+                badge: 'September Edition',
+                priceEUR: 145.00,
+                material: 'Solid 925 Sterling Silver',
+                origin: 'Crafted in Arezzo, Italy',
+                image: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=800&auto=format&fit=crop',
+                hoverImage: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800&auto=format&fit=crop',
+                sizes: ['54', '56', '58', '60', '62'],
+                description: 'Two interlocking bands symbolizing shared rituals. Smooth inner profile for second-skin comfort throughout the day.'
+            },
+            {
+                id: 'leather-lanyard-camel',
+                name: 'Grained camel lanyard',
+                category: 'Leather',
+                badge: 'Exclusive',
+                priceEUR: 95.00,
+                material: 'Tuscan Vegetable-tanned Leather',
+                origin: 'Parisian Studio',
+                image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=800&auto=format&fit=crop',
+                hoverImage: 'https://images.unsplash.com/photo-1620656798579-1984d9e87dfa?q=80&w=800&auto=format&fit=crop',
+                sizes: ['One Size / Camel'],
+                description: 'Warm camel leather, edge-painted by hand in Le Marais. Loops over denim pockets or keys for an elevated utilitarian detail.'
+            },
+            {
+                id: 'pearl-irregular-bracelet',
+                name: 'Irregular pearl bracelet',
+                category: 'Bracelets',
+                badge: 'Restocked',
+                priceEUR: 90.00,
+                material: 'Natural Freshwater Baroque Pearls',
+                origin: 'RJC Certified Workshop',
+                image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800&auto=format&fit=crop',
+                hoverImage: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop',
+                sizes: ['S (17cm)', 'M (19cm)'],
+                description: 'Non-conformist baroque pearls with silver accent cylinder. Disrupts traditional formal codes with casual modern swagger.'
+            }
+        ];
+
+        let cart = [];
+        let includeGiftBag = false;
+        let activeCurrency = { code: 'EUR', label: 'France (EUR €)', symbol: '€', rate: 1.0 };
+        const FREE_SHIPPING_THRESHOLD = 150.0;
+
+        // Helper: Format Price with active currency
+        function formatPrice(amountEUR) {
+            const converted = amountEUR * activeCurrency.rate;
+            if (activeCurrency.code === 'EUR') {
+                return converted.toFixed(2).replace('.', ',') + ' €';
+            } else if (activeCurrency.code === 'GBP') {
+                return '£' + converted.toFixed(2);
+            } else if (activeCurrency.code === 'USD') {
+                return '$' + converted.toFixed(2);
+            } else if (activeCurrency.code === 'CHF') {
+                return 'CHF ' + converted.toFixed(2);
+            }
+            return converted.toFixed(2) + ' ' + activeCurrency.code;
+        }
+
+        function renderProducts(productList = PRODUCTS) {
+            const container = document.getElementById('products-container');
+            if (!container) return;
+
+            if (productList.length === 0) {
+                container.innerHTML = `
+          <div class="col-span-full py-16 text-center text-coutumes-muted">
+            <p class="font-serif text-2xl text-coutumes-dark mb-2">No matching pieces found</p>
+            <p class="text-xs uppercase tracking-wider">Try adjusting your search terms or filter</p>
+          </div>
+        `;
+                return;
+            }
+
+            container.innerHTML = productList.map(item => `
+        <div class="product-card group flex flex-col justify-between" data-id="${item.id}">
+          <div class="relative bg-coutumes-surface aspect-[4/5] overflow-hidden border border-coutumes-border/80 mb-4 cursor-pointer" onclick="openQuickView('${item.id}')">
+            <!-- Badges -->
+            <div class="absolute top-3 left-3 z-10">
+              <span class="bg-coutumes-bg/90 backdrop-blur-xs text-coutumes-dark text-[9px] uppercase tracking-widest px-2 py-1 font-medium border border-coutumes-border">
+                ${item.badge}
+              </span>
+            </div>
+
+            <!-- Primary Image -->
+            <img 
+              src="${item.image}" 
+              alt="${item.name}" 
+              class="w-full h-full object-cover product-img-zoom group-hover:scale-105"
+              onerror="this.src='https://placehold.co/600x750/FAF8F5/141413?text=${encodeURIComponent(item.name)}'"
+            >
+
+            <!-- Quick Add Overlay Button -->
+            <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-coutumes-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+              <button onclick="event.stopPropagation(); quickAddToCart('${item.id}')" class="w-full py-2.5 bg-coutumes-bg text-coutumes-dark text-[10px] uppercase tracking-widest font-semibold hover:bg-coutumes-dark hover:text-coutumes-bg transition-colors">
+                Quick Add
+              </button>
+              <button onclick="event.stopPropagation(); openQuickView('${item.id}')" class="px-3 py-2.5 bg-white/30 backdrop-blur-md text-white hover:bg-white/50 transition-colors" title="View details">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details -->
+          <div>
+            <div class="flex justify-between items-start mb-1">
+              <h3 onclick="openQuickView('${item.id}')" class="text-xs uppercase tracking-widest font-medium text-coutumes-dark hover:text-coutumes-accent cursor-pointer transition-colors">
+                ${item.name}
+              </h3>
+              <span class="font-serif text-sm text-coutumes-dark font-medium ml-2 whitespace-nowrap">
+                ${formatPrice(item.priceEUR)}
+              </span>
+            </div>
+            <p class="text-[11px] text-coutumes-muted font-light tracking-wide">${item.material}</p>
+          </div>
+        </div>
+      `).join('');
+        }
+
+        function filterProducts(category) {
+            document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+                if (btn.dataset.cat === category) {
+                    btn.classList.add('bg-coutumes-dark', 'text-coutumes-bg');
+                    btn.classList.remove('border-coutumes-border');
+                } else {
+                    btn.classList.remove('bg-coutumes-dark', 'text-coutumes-bg');
+                    btn.classList.add('border-coutumes-border');
+                }
+            });
+
+            if (category === 'all') {
+                renderProducts(PRODUCTS);
+            } else {
+                const filtered = PRODUCTS.filter(p => p.category === category);
+                renderProducts(filtered);
+            }
+        }
+
+        function filterCategory(catName) {
+            const target = document.getElementById('collections');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+            setTimeout(() => {
+                filterProducts(catName);
+            }, 200);
+        }
+
+        function toggleCartDrawer(open = null) {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-drawer-overlay');
+            const isCurrentlyOpen = !drawer.classList.contains('translate-x-full');
+            const shouldOpen = open !== null ? open : !isCurrentlyOpen;
+
+            if (shouldOpen) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function quickAddToCart(productId, size = null) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            const chosenSize = size || product.sizes[0];
+            const existingIndex = cart.findIndex(item => item.id === productId && item.size === chosenSize);
+
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    priceEUR: product.priceEUR,
+                    material: product.material,
+                    image: product.image,
+                    size: chosenSize,
+                    quantity: 1
+                });
+            }
+
+            updateCartUI();
+            showToast(`Added "${product.name}" to your bag`);
+            toggleCartDrawer(true);
+        }
+
+        function updateCartQuantity(index, delta) {
+            if (!cart[index]) return;
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function removeCartItem(index) {
+            if (!cart[index]) return;
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleGiftBag(checked) {
+            includeGiftBag = checked;
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const counterBadge = document.getElementById('cart-counter');
+            const drawerCount = document.getElementById('cart-drawer-count');
+            const subtotalEl = document.getElementById('cart-subtotal-price');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const progressBar = document.getElementById('shipping-progress-bar');
+            const progressText = document.getElementById('shipping-progress-text');
+            const progressPercent = document.getElementById('shipping-progress-percent');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            counterBadge.innerText = totalItems;
+            drawerCount.innerText = `(${totalItems} item${totalItems === 1 ? '' : 's'})`;
+
+            let subtotalEUR = cart.reduce((sum, item) => sum + (item.priceEUR * item.quantity), 0);
+            if (includeGiftBag && totalItems > 0) {
+                subtotalEUR += 5.0;
+            }
+
+            subtotalEl.innerText = formatPrice(subtotalEUR);
+
+            // Shipping threshold logic (150 EUR)
+            const diff = FREE_SHIPPING_THRESHOLD - subtotalEUR;
+            if (totalItems === 0) {
+                progressBar.style.width = '0%';
+                progressPercent.innerText = '0%';
+                progressText.innerText = `You're ${formatPrice(FREE_SHIPPING_THRESHOLD)} away from free shipping`;
+                checkoutBtn.disabled = true;
+            } else if (diff <= 0) {
+                progressBar.style.width = '100%';
+                progressPercent.innerText = '100%';
+                progressText.innerText = `Free delivery unlocked across Europe`;
+                checkoutBtn.disabled = false;
+            } else {
+                const pct = Math.min(100, Math.round((subtotalEUR / FREE_SHIPPING_THRESHOLD) * 100));
+                progressBar.style.width = `${pct}%`;
+                progressPercent.innerText = `${pct}%`;
+                progressText.innerText = `You're ${formatPrice(diff)} away from free shipping`;
+                checkoutBtn.disabled = false;
+            }
+
+            // Render cart items list
+            if (cart.length === 0) {
+                container.innerHTML = `
+          <div class="h-full flex flex-col items-center justify-center text-center text-coutumes-muted py-12">
+            <svg class="w-12 h-12 stroke-[1] mb-4 text-coutumes-muted/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+            </svg>
+            <p class="font-serif text-xl text-coutumes-dark mb-1">Your bag is empty</p>
+            <p class="text-xs tracking-wider max-w-xs mb-6 font-light">Discover our 925 sterling silver rings and Tuscan leather pieces.</p>
+            <button onclick="toggleCartDrawer(false)" class="px-6 py-3 bg-coutumes-dark text-coutumes-bg text-[11px] uppercase tracking-widest hover:opacity-90">
+              Discover Jewelry
+            </button>
+          </div>
+        `;
+            } else {
+                container.innerHTML = cart.map((item, index) => `
+          <div class="flex gap-4 pb-6 border-b border-coutumes-border/70 items-center">
+            <img 
+              src="${item.image}" 
+              alt="${item.name}" 
+              class="w-20 h-24 object-cover bg-coutumes-surface border border-coutumes-border"
+              onerror="this.src='https://placehold.co/100x120/FAF8F5/141413?text=COUTUMES'"
+            >
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start mb-1">
+                <h4 class="text-xs uppercase tracking-widest font-medium text-coutumes-dark truncate">${item.name}</h4>
+                <button onclick="removeCartItem(${index})" class="text-coutumes-muted hover:text-coutumes-dark p-1 ml-2" title="Remove">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+              </div>
+              <p class="text-[11px] text-coutumes-muted mb-2 font-light">Size: ${item.size}</p>
+              <div class="flex justify-between items-center">
+                <!-- Quantity adjusters -->
+                <div class="flex items-center border border-coutumes-border">
+                  <button onclick="updateCartQuantity(${index}, -1)" class="px-2 py-0.5 text-xs text-coutumes-muted hover:text-coutumes-dark focus:outline-none">-</button>
+                  <span class="px-2 text-xs font-medium text-coutumes-dark">${item.quantity}</span>
+                  <button onclick="updateCartQuantity(${index}, 1)" class="px-2 py-0.5 text-xs text-coutumes-muted hover:text-coutumes-dark focus:outline-none">+</button>
+                </div>
+                <span class="font-serif text-sm text-coutumes-dark font-medium">${formatPrice(item.priceEUR * item.quantity)}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+            }
+        }
+
+        function openQuickView(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            const modal = document.getElementById('quickview-modal');
+            const content = document.getElementById('quickview-content');
+
+            let selectedSize = product.sizes[0];
+
+            content.innerHTML = `
+        <div class="relative bg-coutumes-surface aspect-[4/5] md:aspect-auto">
+          <img 
+            src="${product.image}" 
+            alt="${product.name}" 
+            class="w-full h-full object-cover"
+            onerror="this.src='https://placehold.co/800x1000/FAF8F5/141413?text=COUTUMES'"
+          >
+          <span class="absolute top-4 left-4 bg-coutumes-bg px-2.5 py-1 text-[9px] uppercase tracking-widest border border-coutumes-border font-medium">
+            ${product.origin}
+          </span>
+        </div>
+        <div class="p-8 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] uppercase tracking-widest text-coutumes-muted block mb-1">${product.category}</span>
+            <h2 class="font-serif text-2xl md:text-3xl text-coutumes-dark mb-2">${product.name}</h2>
+            <div class="font-serif text-xl text-coutumes-dark mb-6">${formatPrice(product.priceEUR)}</div>
+
+            <p class="text-xs text-coutumes-muted font-light leading-relaxed mb-6">
+              ${product.description}
+            </p>
+
+            <div class="mb-6">
+              <label class="block text-[11px] uppercase tracking-widest font-medium text-coutumes-dark mb-2">
+                Select Option / Size:
+              </label>
+              <div class="flex flex-wrap gap-2" id="qv-size-selector">
+                ${product.sizes.map((s, i) => `
+                  <button 
+                    onclick="selectModalSize('${s}', this)" 
+                    class="qv-size-btn text-xs px-3 py-1.5 border ${i === 0 ? 'border-coutumes-dark bg-coutumes-dark text-coutumes-bg' : 'border-coutumes-border hover:border-coutumes-dark'}"
+                  >
+                    ${s}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="space-y-2 border-t border-coutumes-border pt-4 text-[11px] text-coutumes-muted font-light">
+              <p>• <strong>Material:</strong> ${product.material}</p>
+              <p>• <strong>Craftsmanship:</strong> ${product.origin}</p>
+              <p>• <strong>Packaging:</strong> Protected suede pouch & presentation card</p>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-coutumes-border">
+            <button 
+              id="qv-add-btn" 
+              onclick="quickAddToCart('${product.id}', '${selectedSize}'); closeQuickView();" 
+              class="w-full py-4 bg-coutumes-dark text-coutumes-bg text-[11px] uppercase tracking-widest font-medium hover:bg-coutumes-dark/90 transition-all flex justify-center items-center gap-2"
+            >
+              <span>Add to Bag • ${formatPrice(product.priceEUR)}</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function selectModalSize(size, element) {
+            document.querySelectorAll('.qv-size-btn').forEach(btn => {
+                btn.classList.remove('border-coutumes-dark', 'bg-coutumes-dark', 'text-coutumes-bg');
+                btn.classList.add('border-coutumes-border');
+            });
+            element.classList.add('border-coutumes-dark', 'bg-coutumes-dark', 'text-coutumes-bg');
+            element.classList.remove('border-coutumes-border');
+        }
+
+        function closeQuickView() {
+            document.getElementById('quickview-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function toggleSearchModal() {
+            const modal = document.getElementById('search-modal');
+            const isHidden = modal.classList.contains('hidden');
+            if (isHidden) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => document.getElementById('search-input').focus(), 100);
+                handleSearch('');
+            } else {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function applySearchTag(term) {
+            const input = document.getElementById('search-input');
+            input.value = term;
+            handleSearch(term);
+        }
+
+        function handleSearch(query) {
+            const q = query.toLowerCase().trim();
+            const resultsContainer = document.getElementById('search-results');
+
+            const filtered = q === ''
+                ? PRODUCTS.slice(0, 3)
+                : PRODUCTS.filter(p =>
+                    p.name.toLowerCase().includes(q) ||
+                    p.category.toLowerCase().includes(q) ||
+                    p.material.toLowerCase().includes(q) ||
+                    p.origin.toLowerCase().includes(q)
+                );
+
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = `
+          <div class="col-span-full py-12 text-center text-coutumes-muted">
+            <p class="font-serif text-xl text-coutumes-dark mb-1">No results for "${query}"</p>
+            <p class="text-xs">Try searching for "silver", "ring", or "lanyard"</p>
+          </div>
+        `;
+                return;
+            }
+
+            resultsContainer.innerHTML = filtered.map(item => `
+        <div class="border border-coutumes-border p-3 flex gap-3 items-center cursor-pointer hover:border-coutumes-dark transition-colors" onclick="toggleSearchModal(); openQuickView('${item.id}')">
+          <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover bg-coutumes-surface">
+          <div>
+            <span class="text-[9px] uppercase tracking-widest text-coutumes-muted block">${item.category}</span>
+            <h4 class="text-xs uppercase tracking-wider text-coutumes-dark font-medium">${item.name}</h4>
+            <div class="font-serif text-sm text-coutumes-dark mt-1">${formatPrice(item.priceEUR)}</div>
+          </div>
+        </div>
+      `).join('');
+        }
+
+        function toggleCurrencyModal() {
+            const modal = document.getElementById('currency-modal');
+            const isHidden = modal.classList.contains('hidden');
+            if (isHidden) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function setCurrency(code, label, rate) {
+            let symbol = '€';
+            if (code === 'GBP') symbol = '£';
+            if (code === 'USD') symbol = '$';
+            if (code === 'CHF') symbol = 'CHF';
+
+            activeCurrency = { code, label, symbol, rate };
+
+            document.getElementById('currency-badge').innerText = `${code} ${symbol}`;
+            document.getElementById('footer-country-label').innerText = label;
+
+            toggleCurrencyModal();
+            renderProducts();
+            updateCartUI();
+            showToast(`Region updated to ${label}`);
+        }
+
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobile-nav');
+            if (nav.classList.contains('-translate-y-full')) {
+                nav.classList.remove('-translate-y-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                nav.classList.add('-translate-y-full');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toast-message');
+            msg.innerText = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3200);
+        }
+
+        function showInfoToast(msg) {
+            showToast(msg);
+        }
+
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            const input = e.target.querySelector('input');
+            const email = input.value;
+            input.value = '';
+            showToast(`Thank you! Welcome to the Coutumes Club`);
+        }
+
+        function handleCheckout() {
+            showToast('Proceeding to encrypted secure checkout...');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+
+            // Keyboard escape to close modals
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeQuickView();
+                    toggleCartDrawer(false);
+                    document.getElementById('search-modal').classList.add('hidden');
+                    document.getElementById('currency-modal').classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

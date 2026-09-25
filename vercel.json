@@ -1,0 +1,17 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "source": "/appointment", "destination": "/appointment.html" },
+    { "source": "/book", "destination": "/appointment.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/admin-login", "destination": "/admin-login.html" },
+    { "source": "/customer", "destination": "/customer-app.html" },
+    { "source": "/app", "destination": "/customer-app.html" },
+    { "source": "/partner", "destination": "/partner-app.html" },
+    { "source": "/pay", "destination": "/pay.html" },
+    { "source": "/terms", "destination": "/terms.html" }
+  ]
+}

@@ -1,0 +1,48 @@
+# ==============================================================
+# Zero Spot — Apache / cPanel / Shared Hosting Configuration
+# ==============================================================
+
+Options -MultiViews
+RewriteEngine On
+RewriteBase /
+
+# 1. Subdomain Handling: admin.zero-spot.in
+# Route root of admin subdomain to admin.html and login to admin-login.html
+RewriteCond %{HTTP_HOST} ^admin\.zero-spot\.in$ [NC]
+RewriteCond %{REQUEST_URI} ^/$ [OR]
+RewriteCond %{REQUEST_URI} ^/index(\.html)?$ [NC]
+RewriteRule ^$ admin.html [L]
+
+RewriteCond %{HTTP_HOST} ^admin\.zero-spot\.in$ [NC]
+RewriteCond %{REQUEST_URI} ^/login$ [NC]
+RewriteRule ^login$ admin-login.html [L]
+
+# 2. Redirect /page.html to clean URL /page (External 301 Redirect)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+(.+)\.html[\s?] [NC]
+RewriteCond %{REQUEST_URI} !^/index\.html$ [NC]
+RewriteRule ^(.*)\.html$ /$1 [R=301,L,NE]
+
+# 3. Internally rewrite clean URL /page to page.html if the file exists
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+# 4. Fallback clean routes
+RewriteRule ^appointment/?$ appointment.html [L]
+RewriteRule ^book/?$ appointment.html [L]
+RewriteRule ^admin/?$ admin.html [L]
+RewriteRule ^admin-login/?$ admin-login.html [L]
+RewriteRule ^login/?$ login.html [L]
+RewriteRule ^customer/?$ customer-app.html [L]
+RewriteRule ^partner/?$ partner-app.html [L]
+RewriteRule ^pay/?$ pay.html [L]
+RewriteRule ^terms/?$ terms.html [L]
+
+# 5. Security & Browser Caching Headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # Prevent MIME sniffing
+    Header always set X-Content-Type-Options "nosniff"
+</IfModule>

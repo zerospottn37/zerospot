@@ -1,0 +1,16 @@
+{
+  "name": "zerospot-backend",
+  "version": "1.0.0",
+  "description": "ZeroSpot cleaning service backend",
+  "main": "backend.js",
+  "scripts": {
+    "start": "node backend.js",
+    "dev": "node --watch backend.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "firebase-admin": "^13.0.2"
+  }
+}

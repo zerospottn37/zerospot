@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeroSpot — Secure Digital UPI Payment</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', Inter, sans-serif;
+      background-color: #f5f5f2;
+      color: #0e0f0c;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col justify-between p-4 sm:p-6 md:p-8">
+
+  <!-- Header -->
+  <header class="max-w-md mx-auto w-full flex items-center justify-between py-3">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <img src="assets/logo-transparent.png" alt="ZeroSpot" class="h-8 w-auto">
+      <span class="font-black text-lg text-[#0e0f0c] tracking-tight">Zero<span class="text-lime-600">Spot</span></span>
+    </a>
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold">
+      <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+      Verified Merchant
+    </span>
+  </header>
+
+  <!-- Main Payment Container -->
+  <main class="max-w-md mx-auto w-full my-auto space-y-4">
+    <div class="rounded-3xl bg-white border border-black/10 shadow-xl overflow-hidden">
+      <!-- Dark Hero Card -->
+      <div class="bg-[#0e0f0c] text-white p-6 sm:p-7 space-y-4">
+        <div class="flex items-center justify-between text-xs text-white/70">
+          <span class="font-bold uppercase tracking-wider text-[#b8ff55]">Service Bill Payment</span>
+          <span id="display-booking-id" class="font-mono bg-white/10 px-2.5 py-0.5 rounded text-white font-bold">#ZS-BILL</span>
+        </div>
+
+        <div class="space-y-1">
+          <p class="text-xs text-white/60 font-medium">Total Amount Due</p>
+          <div class="flex items-baseline gap-1">
+            <span class="text-4xl sm:text-5xl font-black text-[#b8ff55] font-mono" id="display-amount">₹0.00</span>
+          </div>
+          <p class="text-[11px] text-white/50" id="display-customer-service">Post-service inspection payment</p>
+        </div>
+
+        <!-- Verified VPA Box -->
+        <div class="rounded-xl bg-white/10 p-3 flex items-center justify-between">
+          <div>
+            <p class="text-[10px] uppercase font-bold text-white/60">Verified UPI ID</p>
+            <p class="font-mono font-bold text-sm text-white">zerospottn37@okaxis</p>
+          </div>
+          <button onclick="copyUpiId()" class="px-2.5 py-1 rounded-lg bg-white/20 hover:bg-white text-white hover:text-black text-xs font-bold transition cursor-pointer">
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Buttons & QR -->
+      <div class="p-6 sm:p-7 space-y-5">
+        <!-- Primary 1-Click Pay in UPI App Button -->
+        <a id="btn-open-upi-app" href="#"
+          class="w-full inline-flex items-center justify-center gap-3 py-4 px-6 rounded-2xl bg-[#0e0f0c] hover:bg-black text-[#b8ff55] text-base font-black border-2 border-black shadow-lg hover:scale-[1.02] active:scale-[0.99] transition-all cursor-pointer">
+          <svg class="w-5 h-5 text-[#b8ff55]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>TAP TO PAY IN UPI APP</span>
+        </a>
+
+        <!-- Individual App Intent Triggers -->
+        <div>
+          <p class="text-[10px] font-black uppercase text-[#777970] text-center tracking-wider mb-2.5">Or Choose Installed App</p>
+          <div class="grid grid-cols-3 gap-2">
+            <a id="link-gpay" href="#" class="flex flex-col items-center justify-center p-3 rounded-xl border border-black/10 hover:border-black bg-[#fafaf7] hover:bg-white text-xs font-bold text-[#0e0f0c] transition cursor-pointer">
+              <span class="text-sm font-black text-blue-600">G</span>Pay
+            </a>
+            <a id="link-phonepe" href="#" class="flex flex-col items-center justify-center p-3 rounded-xl border border-black/10 hover:border-black bg-[#fafaf7] hover:bg-white text-xs font-bold text-[#0e0f0c] transition cursor-pointer">
+              <span class="text-sm font-black text-purple-600">Phone</span>Pe
+            </a>
+            <a id="link-paytm" href="#" class="flex flex-col items-center justify-center p-3 rounded-xl border border-black/10 hover:border-black bg-[#fafaf7] hover:bg-white text-xs font-bold text-[#0e0f0c] transition cursor-pointer">
+              <span class="text-sm font-black text-sky-600">Pay</span>tm
+            </a>
+          </div>
+        </div>
+
+        <!-- Desktop QR Code for Scanning -->
+        <div class="rounded-2xl border border-black/10 bg-[#fafaf7] p-4 text-center space-y-3">
+          <div class="flex items-center justify-center gap-1.5 text-xs font-bold text-[#0e0f0c]">
+            <svg class="w-4 h-4 text-[#777970]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+            <span>Scan QR with any Banking or UPI App</span>
+          </div>
+          <div class="flex justify-center">
+            <div class="bg-white p-3 rounded-xl border border-black/10 shadow-xs inline-block">
+              <img id="qr-code-img" src="" alt="Payment QR Code" class="w-44 h-44 object-contain">
+            </div>
+          </div>
+          <p class="text-[11px] text-[#777970]">Point phone camera, Google Pay, PhonePe, or Paytm scanner at the QR code.</p>
+        </div>
+
+        <!-- Trust Note -->
+        <div class="text-center text-xs text-[#777970] space-y-1">
+          <p class="font-semibold text-[#0e0f0c]">Zero-Advance Policy Guarantee</p>
+          <p class="text-[11px]">Pay only after inspecting completed service. Once verified, your official GST Tax Invoice will be generated immediately.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Operations Support Strip -->
+    <div class="text-center text-xs text-[#777970]">
+      Questions or payment assistance? WhatsApp Operations:
+      <a href="https://wa.me/918940051100" target="_blank" class="font-bold text-emerald-700 underline ml-1">+91 89400 51100</a>
+    </div>
+  </main>
+
+  <footer class="max-w-md mx-auto w-full text-center py-4 text-[11px] text-[#777970]">
+    &copy; 2026 ZeroSpot Cleaning &amp; Solutions. From: <a href="mailto:zerospottn37@gmail.com" class="underline">zerospottn37@gmail.com</a>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const amountVal = parseFloat(params.get('am') || params.get('amount') || "0");
+    const bookingId = params.get('id') || params.get('bookingId') || "";
+    const customerName = params.get('name') || "";
+    const serviceName = params.get('service') || "";
+
+    const upiId = "zerospottn37@okaxis";
+    const payee = "ZeroSpot Cleaners";
+    const formattedAmount = amountVal > 0 ? amountVal.toFixed(2) : "0.00";
+    const note = encodeURIComponent("ZeroSpot Service Bill " + bookingId);
+
+    // Exact UPI URI according to NPCI specifications
+    const upiUri = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payee)}&am=${formattedAmount}&cu=INR&tn=${note}`;
+
+    // App specific intents
+    const gpayUri = `tez://upi/pay?pa=${upiId}&pn=${encodeURIComponent(payee)}&am=${formattedAmount}&cu=INR&tn=${note}`;
+    const phonepeUri = `phonepe://pay?pa=${upiId}&pn=${encodeURIComponent(payee)}&am=${formattedAmount}&cu=INR&tn=${note}`;
+    const paytmUri = `paytmmp://pay?pa=${upiId}&pn=${encodeURIComponent(payee)}&am=${formattedAmount}&cu=INR&tn=${note}`;
+
+    // Update UI elements
+    document.getElementById("display-amount").textContent = `₹${parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+    if (bookingId) {
+      document.getElementById("display-booking-id").textContent = `#${bookingId}`;
+    }
+    if (serviceName || customerName) {
+      document.getElementById("display-customer-service").textContent = `${customerName ? customerName + ' — ' : ''}${serviceName || 'Service Bill'}`;
+    }
+
+    // Set links
+    document.getElementById("btn-open-upi-app").href = upiUri;
+    document.getElementById("link-gpay").href = gpayUri;
+    document.getElementById("link-phonepe").href = phonepeUri;
+    document.getElementById("link-paytm").href = paytmUri;
+
+    // Set QR code image
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=4&data=${encodeURIComponent(upiUri)}`;
+    document.getElementById("qr-code-img").src = qrUrl;
+
+    // Copy helper
+    function copyUpiId() {
+      navigator.clipboard.writeText(upiId).then(() => {
+        alert("UPI ID copied: " + upiId);
+      });
+    }
+
+    // Auto-launch UPI intent on mobile devices after short delay
+    window.addEventListener("load", () => {
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) && amountVal > 0) {
+        setTimeout(() => {
+          window.location.href = upiUri;
+        }, 300);
+      }
+    });
+  </script>
+</body>
+</html>
