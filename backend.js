@@ -1726,6 +1726,7 @@ app.post("/api/admin/bookings/:documentId/send-invoice-email", async (req, res) 
     const payee = String(req.body.payee || booking.upiPayee || "Zero Spot Cleaning & Solutions").trim();
     const invoiceNumber = String(req.body.invoiceNumber || booking.invoiceNumber || `ZS-${Date.now()}`).trim();
     const upiPaymentUri = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payee)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent(`Zero Spot ${booking.bookingId || invoiceNumber}`)}`;
+    const webPaymentUrl = String(req.body.paymentUrl || `https://www.zero-spot.in/pay?id=${encodeURIComponent(booking.bookingId || invoiceNumber)}&am=${amount.toFixed(2)}&name=${encodeURIComponent(booking.name || '')}&service=${encodeURIComponent(booking.service || '')}`);
 
     const patch = {
       invoiceNumber,
@@ -1739,6 +1740,7 @@ app.post("/api/admin/bookings/:documentId/send-invoice-email", async (req, res) 
       upiPayee: payee,
       upiAmount: amount,
       upiPaymentUri,
+      paymentUrl: webPaymentUrl,
       updatedAt: admin.firestore.FieldValue.serverTimestamp()
     };
 
@@ -1774,6 +1776,7 @@ app.post("/api/admin/bookings/:documentId/send-invoice-qr", async (req, res) => 
     const payee = String(req.body.payeeName || req.body.payee || booking.upiPayee || "Zero Spot Cleaning & Solutions").trim();
     const invoiceNumber = String(req.body.invoiceNumber || booking.invoiceNumber || `ZS-${Date.now()}`).trim();
     const upiPaymentUri = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payee)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent(`Zero Spot ${booking.bookingId || invoiceNumber}`)}`;
+    const webPaymentUrl = String(req.body.paymentUrl || `https://www.zero-spot.in/pay?id=${encodeURIComponent(booking.bookingId || invoiceNumber)}&am=${amount.toFixed(2)}&name=${encodeURIComponent(booking.name || '')}&service=${encodeURIComponent(booking.service || '')}`);
 
     const invoiceData = {
       invoiceNumber,
@@ -1783,6 +1786,7 @@ app.post("/api/admin/bookings/:documentId/send-invoice-qr", async (req, res) => 
       grandTotal: amount,
       upiId,
       upiPaymentUri,
+      paymentUrl: webPaymentUrl,
       taxMode: req.body.taxMode || "inclusive",
       paymentMethod: req.body.paymentMethod || "UPI"
     };
@@ -1888,6 +1892,7 @@ app.post("/api/admin/bookings/:documentId/send-bill", async (req, res) => {
     const upiId = String(req.body.upiId || booking.upiId || process.env.UPI_ID || "zerospottn37@okaxis").trim();
     const payee = String(req.body.payee || booking.upiPayee || "Zero Spot Cleaning & Solutions").trim();
     const upiPaymentUri = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payee)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent(`Zero Spot Booking ${booking.bookingId || ''}`)}`;
+    const webPaymentUrl = String(req.body.paymentUrl || `https://www.zero-spot.in/pay?id=${encodeURIComponent(booking.bookingId || '')}&am=${amount.toFixed(2)}&name=${encodeURIComponent(booking.name || '')}&service=${encodeURIComponent(booking.service || '')}`);
 
     const patch = {
       billSent: true,
@@ -1901,6 +1906,7 @@ app.post("/api/admin/bookings/:documentId/send-bill", async (req, res) => {
       upiPayee: payee,
       upiAmount: amount,
       upiPaymentUri,
+      paymentUrl: webPaymentUrl,
       updatedAt: admin.firestore.FieldValue.serverTimestamp()
     };
 

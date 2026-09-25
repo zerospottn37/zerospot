@@ -2518,6 +2518,34 @@
       }
     };
 
+    function getOnlinePaymentUrl(booking, amount) {
+      const bId = booking ? (booking.bookingId || booking.id || booking.documentId || '') : '';
+      const bName = booking ? (booking.name || booking.customerName || '') : '';
+      const bService = booking ? (booking.service || booking.serviceTitle || '') : '';
+      const amt = Number(amount || 0).toFixed(2);
+
+      let baseDomain = "https://www.zero-spot.in";
+      if (typeof window !== "undefined" && window.location && window.location.hostname) {
+        const host = window.location.hostname;
+        if (host !== "localhost" && host !== "127.0.0.1") {
+          if (host.startsWith("admin.")) {
+            baseDomain = `${window.location.protocol}//${host.replace(/^admin\./, 'www.')}`;
+          } else {
+            baseDomain = window.location.origin;
+          }
+        }
+      }
+
+      const query = new URLSearchParams({
+        id: bId,
+        am: amt,
+        name: bName,
+        service: bService
+      }).toString();
+
+      return `${baseDomain}/pay?${query}`;
+    }
+
     function updateBillModalCalculations() {
       if (!activeBillBooking) return;
       const items = window.currentModalBillItems || [];
@@ -2565,9 +2593,9 @@
       }
 
       const formattedTotal = total.toFixed(2);
-      const upiLink = `upi://pay?pa=zerospottn37@okaxis&pn=ZeroSpot%20Cleaners&am=${formattedTotal}&cu=INR&tn=${encodeURIComponent('ZeroSpot Service Bill #' + (activeBillBooking.bookingId || 'Clean'))}`;
+      const payWebUrl = getOnlinePaymentUrl(activeBillBooking, total);
       if ($("bill-modal-pay-link-input")) {
-        $("bill-modal-pay-link-input").value = upiLink;
+        $("bill-modal-pay-link-input").value = payWebUrl;
       }
     }
 
@@ -2626,6 +2654,7 @@
       const billRef = activeBillBooking.billRef || `BILL/${fy}/${customerSerial.replace('#', '')}`;
 
       const upiLink = `upi://pay?pa=zerospottn37@okaxis&pn=ZeroSpot%20Cleaners&am=${formattedAmt}&cu=INR&tn=${encodeURIComponent('ZeroSpot Service Bill #' + (activeBillBooking.bookingId || 'Clean'))}`;
+      const payWebUrl = getOnlinePaymentUrl(activeBillBooking, total);
 
       try {
         const token = sessionStorage.getItem("zs_admin_id_token");
@@ -2640,7 +2669,8 @@
             applyGst,
             channel,
             upiId: "zerospottn37@okaxis",
-            upiPaymentUri: upiLink
+            upiPaymentUri: upiLink,
+            paymentUrl: payWebUrl
           })
         }).catch(() => null);
 
@@ -2654,6 +2684,7 @@
         activeBillBooking.billSentAt = new Date().toISOString();
         activeBillBooking.upiId = "zerospottn37@okaxis";
         activeBillBooking.upiPaymentUri = upiLink;
+        activeBillBooking.paymentUrl = payWebUrl;
 
         activeBillBooking.invoiceData = {
           ...(activeBillBooking.invoiceData || {}),
@@ -2678,7 +2709,8 @@
           invoiceAmount: total,
           totalPrice: total,
           amount: total,
-          invoiceData: activeBillBooking.invoiceData
+          invoiceData: activeBillBooking.invoiceData,
+          paymentUrl: payWebUrl
         }, false);
 
         const cleanPhone = String(activeBillBooking.phone || "").replace(/\D/g, "");
@@ -2695,12 +2727,13 @@
           `*Customer:* ${activeBillBooking.name}\n` +
           (itemsSummary ? `*Services Breakdown:*\n${itemsSummary}\n` : `*Service:* ${activeBillBooking.service}\n`) +
           `*Total Payable:* ₹${total.toLocaleString('en-IN')}${applyGst ? ' (Includes 18% GST)' : ''}\n\n` +
-          `*DIGITAL PAYMENT LINK (Tap to Pay):*\n` +
-          `*UPI ID:* zerospottn37@okaxis\n` +
-          `*Exact Amount:* ₹${formattedAmt}\n\n` +
-          `*Click to Pay (Android UPI — GPay / PhonePe / Paytm / Any UPI App):*\n` +
-          `${upiLink}\n\n` +
-          `*Payment Instructions:* Please click the payment link above to complete your payment directly via any UPI app. Once payment is confirmed, your official GST Tax Invoice PDF will be issued immediately.\n\n` +
+          `👉 *TAP TO PAY ONLINE (1-Click UPI / GPay / PhonePe / Paytm):*\n` +
+          `${payWebUrl}\n\n` +
+          `*UPI Payment Details:*\n` +
+          `• UPI ID: zerospottn37@okaxis\n` +
+          `• Payee: ZeroSpot Cleaners\n` +
+          `• Exact Amount: ₹${formattedAmt}\n\n` +
+          `*Payment Instructions:* Tap the online payment link above to open your UPI app and complete payment securely. Once payment is confirmed, your official GST Tax Invoice PDF will be issued immediately.\n\n` +
           `ZeroSpot Operations: +91 89400 51100\n` +
           `From: ${fromEmail}`;
 
@@ -2727,16 +2760,16 @@ TOTAL PAYABLE: Rs. ${total.toLocaleString('en-IN')}${applyGst ? ' (Includes 18% 
 ==================================================
 
 DIGITAL PAYMENT DETAILS:
+Tap to Pay Online (Instant 1-Click UPI / GPay / PhonePe / Paytm):
+${payWebUrl}
+
 UPI ID: zerospottn37@okaxis
 Payee: ZeroSpot Cleaners
 Exact Amount: Rs. ${formattedAmt}
 
-Click to open UPI payment app directly on Android with exact amount:
-${upiLink}
-
 ==================================================
 Payment Instructions & Policy:
-Please click the payment link above to complete your payment directly via any UPI app.
+Please tap the online payment link above to complete your payment directly via any UPI app.
 Once payment is received, our operations team will immediately confirm your payment and issue your official GST Tax Invoice PDF.
 
 For any questions, reach out to our Operations Desk at +91 89400 51100.
@@ -2745,7 +2778,7 @@ Warm regards,
 ZeroSpot Operations Team
 From: ${fromEmail}
 WhatsApp: +91 89400 51100
-Website: https://zerospot.in`;
+Website: https://zero-spot.in`;
 
         if (channel === 'whatsapp' || channel === 'both') {
           if (cleanPhone) {
@@ -3482,8 +3515,10 @@ Website: https://zerospot.in`;
       }
 
       const upiLink = `upi://pay?pa=zerospottn37@okaxis&pn=ZeroSpot%20Cleaners&am=${total.toFixed(2)}&cu=INR&tn=${encodeURIComponent('ZeroSpot Service Bill #' + (currentActiveBookingId || 'Clean'))}`;
+      const currentBooking = allBookings.find(b => b.documentId === currentActiveBookingId) || { bookingId: currentActiveBookingId };
+      const payWebUrl = getOnlinePaymentUrl(currentBooking, total);
       if ($("desk-bill-upi-link-display")) {
-        $("desk-bill-upi-link-display").value = upiLink;
+        $("desk-bill-upi-link-display").value = payWebUrl;
       }
     };
 
@@ -3823,6 +3858,7 @@ Website: https://zerospot.in`;
       const cgst = Math.round(gst / 2);
       const sgst = gst - cgst;
       const upiLink = `upi://pay?pa=zerospottn37@okaxis&pn=ZeroSpot%20Cleaners&am=${formattedAmt}&cu=INR&tn=${encodeURIComponent('ZeroSpot Service Bill #' + (booking.bookingId || 'Clean'))}`;
+      const payWebUrl = getOnlinePaymentUrl(booking, total);
 
       const fy = getIndianFinancialYearStr();
       const customerSerial = getCustomerSerial(booking);
@@ -3838,6 +3874,7 @@ Website: https://zerospot.in`;
       booking.billSentAt = new Date().toISOString();
       booking.upiId = "zerospottn37@okaxis";
       booking.upiPaymentUri = upiLink;
+      booking.paymentUrl = payWebUrl;
       booking.invoiceData = {
         ...(booking.invoiceData || {}),
         billRef: billRef,
@@ -3864,6 +3901,7 @@ Website: https://zerospot.in`;
         billSentAt: booking.billSentAt,
         upiId: "zerospottn37@okaxis",
         upiPaymentUri: upiLink,
+        paymentUrl: payWebUrl,
         invoiceData: booking.invoiceData
       }, false);
 
@@ -3880,12 +3918,13 @@ Website: https://zerospot.in`;
         `*Customer:* ${booking.name}\n` +
         (itemsSummary ? `*Services Breakdown:*\n${itemsSummary}\n` : `*Service:* ${booking.service}\n`) +
         `*Total Payable:* ₹${total.toLocaleString('en-IN')}${applyGst ? ' (Includes 18% GST)' : ''}\n\n` +
-        `*DIGITAL PAYMENT LINK (Tap to Pay):*\n` +
-        `*UPI ID:* zerospottn37@okaxis\n` +
-        `*Exact Amount:* ₹${formattedAmt}\n\n` +
-        `*Click to Pay (Android UPI — GPay / PhonePe / Paytm / Any UPI App):*\n` +
-        `${upiLink}\n\n` +
-        `*Payment Instructions:* Please click the payment link above to complete your payment directly via any UPI app. Once payment is confirmed, your official GST Tax Invoice PDF will be issued immediately.\n\n` +
+        `👉 *TAP TO PAY ONLINE (1-Click UPI / GPay / PhonePe / Paytm):*\n` +
+        `${payWebUrl}\n\n` +
+        `*UPI Payment Details:*\n` +
+        `• UPI ID: zerospottn37@okaxis\n` +
+        `• Payee: ZeroSpot Cleaners\n` +
+        `• Exact Amount: ₹${formattedAmt}\n\n` +
+        `*Payment Instructions:* Tap the online payment link above to open your UPI app and complete payment securely. Once payment is confirmed, your official GST Tax Invoice PDF will be issued immediately.\n\n` +
         `ZeroSpot Operations: +91 89400 51100\n` +
         `From: ${fromEmail}`;
 
@@ -3912,16 +3951,16 @@ TOTAL PAYABLE: Rs. ${total.toLocaleString('en-IN')}${applyGst ? ' (Includes 18% 
 ==================================================
 
 DIGITAL PAYMENT DETAILS:
+Tap to Pay Online (Instant 1-Click UPI / GPay / PhonePe / Paytm):
+${payWebUrl}
+
 UPI ID: zerospottn37@okaxis
 Payee: ZeroSpot Cleaners
 Exact Amount: Rs. ${formattedAmt}
 
-Click to open UPI payment app directly on Android with exact amount:
-${upiLink}
-
 ==================================================
 Payment Instructions & Policy:
-Please click the payment link above to complete your payment directly via any UPI app.
+Please tap the online payment link above to complete your payment directly via any UPI app.
 Once payment is received, our operations team will immediately confirm your payment and issue your official GST Tax Invoice PDF.
 
 For any questions, reach out to our Operations Desk at +91 89400 51100.
@@ -3930,7 +3969,7 @@ Warm regards,
 ZeroSpot Operations Team
 From: ${fromEmail}
 WhatsApp: +91 89400 51100
-Website: https://zerospot.in`;
+Website: https://zero-spot.in`;
 
       if (channel === 'whatsapp' || channel === 'both') {
         if (cleanPhone) {
@@ -4748,17 +4787,17 @@ Website: https://zerospot.in`;
                 </div>
               </div>
 
-              <!-- Live Android UPI Intent Details -->
+              <!-- Live Customer Web & UPI Payment Link -->
               <div class="p-3.5 rounded-xl bg-[#fafaf7] border border-black/10 space-y-2 text-xs">
                 <div class="flex items-center justify-between text-[#777970]">
-                  <span>Android UPI Payee ID: <strong class="text-[#0e0f0c] font-mono">zerospottn37@okaxis</strong></span>
-                  <span class="text-emerald-700 font-bold">Android 1-Click Pay Intent</span>
+                  <span>Customer Payment Link: <strong class="text-[#0e0f0c] font-mono">zerospottn37@okaxis</strong></span>
+                  <span class="text-emerald-700 font-bold">1-Click Online Pay Link</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <input id="desk-bill-upi-link-display" type="text" readonly
-                    value="upi://pay?pa=zerospottn37@okaxis&pn=ZeroSpot%20Cleaners&am=${finalAmt.toFixed(2)}&cu=INR&tn=${encodeURIComponent('ZeroSpot Service Bill #' + (booking.bookingId || 'Clean'))}"
+                    value="${getOnlinePaymentUrl(booking, finalAmt)}"
                     class="flex-1 bg-white border border-black/10 px-3 py-1.5 rounded-lg text-[11px] font-mono text-[#0e0f0c] outline-none select-all truncate">
-                  <button type="button" onclick="navigator.clipboard.writeText($('desk-bill-upi-link-display').value); showToast('UPI link copied!', 'success');"
+                  <button type="button" onclick="navigator.clipboard.writeText($('desk-bill-upi-link-display').value); showToast('Online payment link copied!', 'success');"
                     class="px-3 py-1.5 rounded-lg bg-white hover:bg-black hover:text-white border border-black/10 font-bold text-xs transition cursor-pointer">
                     Copy Link
                   </button>
@@ -5513,7 +5552,8 @@ Website: https://zerospot.in`;
         `*Total Amount:* ₹${data.grandTotal.toLocaleString('en-IN')}` + (data.applyGst ? ` (Includes 18% GST)\n` : `\n`) +
         `*Status:* ${data.paymentStatus === 'paid' ? 'Paid in Full' : 'Payment Due on Completion'}\n\n` +
         `*Zero-Advance Policy:* Settle securely only after inspecting and feeling 100% satisfied with our service.\n` +
-        `*UPI ID:* zerospot@upi\n\n` +
+        `*Pay Online:* ${getOnlinePaymentUrl({ bookingId: data.bookingId, name: data.customerName, service: data.serviceName }, data.grandTotal)}\n` +
+        `*UPI ID:* zerospottn37@okaxis\n\n` +
         `Thank you for trusting ZeroSpot!`;
 
       const waBtn = $("studio-whatsapp-btn");

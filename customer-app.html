@@ -97,10 +97,10 @@
 
     function paymentUri(booking) {
       const amount = Number(booking.upiAmount || booking.invoiceAmount || booking.totalPrice || 0);
-      if (booking.upiPaymentUri) return booking.upiPaymentUri;
-      const upiId = booking.upiId || "zerospottn37@okaxis";
-      const payee = booking.upiPayee || "Zero Spot Cleaning & Solutions";
-      return `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payee)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent("Zero Spot " + (booking.bookingId || ""))}`;
+      const bId = booking.bookingId || booking.documentId || "";
+      const bName = booking.name || "";
+      const bService = booking.service || booking.serviceTitle || "";
+      return `pay.html?id=${encodeURIComponent(bId)}&am=${amount.toFixed(2)}&name=${encodeURIComponent(bName)}&service=${encodeURIComponent(bService)}`;
     }
 
     function render(bookings) {
@@ -124,7 +124,7 @@
             </div>
             <div class="kv"><b>Date</b><span>${escapeHTML(b.date || "Pending")}</span><b>Time</b><span>${escapeHTML(b.timeSlot || "Pending")}</span><b>Address</b><span>${escapeHTML(b.address || "")}</span></div>
             ${partnerReady ? `<div class="partner"><span class="muted">Assigned partner</span><strong>${escapeHTML(b.assignedPartner || b.partnerName)}</strong><div>${escapeHTML(b.partnerPhone || "")}</div></div>` : `<div class="muted">Partner details will appear here after admin confirmation and assignment.</div>`}
-            ${invoiceReady ? `<div class="invoice"><strong>Invoice ${escapeHTML(b.invoiceNumber || "")}</strong><div>Amount payable: <b>₹${amount.toLocaleString("en-IN")}</b></div><a class="btn pay" href="${paymentUri(b)}">Pay with UPI App</a></div>` : `<div class="muted">Payment button appears after service completion and admin invoice confirmation.</div>`}
+            ${invoiceReady ? `<div class="invoice"><strong>Invoice ${escapeHTML(b.invoiceNumber || "")}</strong><div>Amount payable: <b>₹${amount.toLocaleString("en-IN")}</b></div><a class="btn pay" href="${paymentUri(b)}">Pay Online (UPI / GPay / PhonePe)</a></div>` : `<div class="muted">Payment button appears after service completion and admin invoice confirmation.</div>`}
           </article>
         `;
       }).join("");
