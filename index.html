@@ -1132,7 +1132,7 @@
       </nav>
 
       <div class="nav-actions">
-        <a class="nav-login" href="login.html">Login</a>
+        <a class="nav-login" href="login.html?redirect=index.html">Login</a>
         <a class="nav-book-btn" href="appointment.html">
           Book Service ↗
         </a>
@@ -1154,6 +1154,7 @@
     <a href="#how-it-works">How It Works</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
+    <a class="nav-login" href="login.html?redirect=index.html">Login / Account</a>
     <a href="login.html">Partner Login</a>
     <a class="mob-book-btn" href="appointment.html">Book Service Online ↗</a>
   </div>
@@ -1510,6 +1511,7 @@
   </a>
 
   <!-- SCRIPTS -->
+  <script src="cookie-manager.js"></script>
   <script>
     // Dynamic Navbar Transparency on Scroll
     const siteNav = document.getElementById('siteNavbar');
@@ -1570,14 +1572,25 @@
     // Intercept all booking triggers across index.html
     function setupBookingAuthCheck() {
       const authUser = getAuthenticatedUser();
-      const loginLinks = document.querySelectorAll('.nav-login, a[href="login.html"]');
+      const loginLinks = document.querySelectorAll('.nav-login, a[href="login.html"], a[href^="login.html"]');
       if (authUser && loginLinks.length > 0) {
         loginLinks.forEach(l => {
-          l.textContent = authUser.name ? authUser.name.split(' ')[0] : 'Account';
+          if (!l.textContent.toLowerCase().includes('partner')) {
+            l.textContent = authUser.name ? authUser.name.split(' ')[0] : 'My Account';
+            l.href = 'customer-app.html';
+            l.title = 'View My Bookings & Account';
+          }
+        });
+      } else {
+        loginLinks.forEach(l => {
+          if (!l.textContent.toLowerCase().includes('partner') && !l.href.includes('redirect=')) {
+            l.href = 'login.html?redirect=index.html';
+          }
         });
       }
 
-      document.querySelectorAll('a[href^="appointment.html"]').forEach(link => {
+      // Guard all booking buttons & cards across the homepage
+      document.querySelectorAll('a[href^="appointment.html"], a[href^="/appointment"], a[href^="/book"], .nav-book-btn, .mob-book-btn').forEach(link => {
         link.addEventListener('click', function(e) {
           const user = getAuthenticatedUser();
           if (!user) {

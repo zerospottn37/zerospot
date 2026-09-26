@@ -588,9 +588,9 @@
 
     /* Redirect */
     function redirect(mode) {
-      let destination = mode === "partner" ? "partner-app.html" : "customer-app.html";
+      let destination = mode === "partner" ? "partner-app.html" : "index.html";
       if (redirectTo) {
-        if (redirectTo === "book") {
+        if (redirectTo === "book" || redirectTo === "appointment") {
           destination = "appointment.html";
         } else {
           destination = decodeURIComponent(redirectTo);
