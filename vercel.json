@@ -3,6 +3,26 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "admin.zero-spot.in" }],
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/login",
+      "has": [{ "type": "host", "value": "admin.zero-spot.in" }],
+      "destination": "/admin-login.html"
+    },
+    {
+      "source": "/admin-login",
+      "has": [{ "type": "host", "value": "admin.zero-spot.in" }],
+      "destination": "/admin-login.html"
+    },
+    {
+      "source": "/admin",
+      "has": [{ "type": "host", "value": "admin.zero-spot.in" }],
+      "destination": "/admin.html"
+    },
     { "source": "/appointment", "destination": "/appointment.html" },
     { "source": "/book", "destination": "/appointment.html" },
     { "source": "/admin", "destination": "/admin.html" },
