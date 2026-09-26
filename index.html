@@ -3,6 +3,11 @@
 
 <head>
   <meta charset="UTF-8" />
+  <script>
+    if (window.location.hostname.startsWith('admin.')) {
+      window.location.replace('/admin');
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zerospot — Professional Deep Cleaning & Precision A/C Care</title>
   <meta name="description"
@@ -1576,9 +1581,19 @@
       if (authUser && loginLinks.length > 0) {
         loginLinks.forEach(l => {
           if (!l.textContent.toLowerCase().includes('partner')) {
-            l.textContent = authUser.name ? authUser.name.split(' ')[0] : 'My Account';
-            l.href = 'customer-app.html';
-            l.title = 'View My Bookings & Account';
+            const firstName = authUser.name ? authUser.name.split(' ')[0] : 'My Account';
+            l.textContent = `👋 ${firstName} (Sign out)`;
+            l.href = '#';
+            l.title = 'Signed in. Click to sign out.';
+            l.onclick = (e) => {
+              e.preventDefault();
+              if (confirm(`Signed in as ${authUser.name || authUser.email}.\n\nDo you want to sign out?`)) {
+                if (window.ZS_Auth) window.ZS_Auth.clearSession();
+                sessionStorage.clear();
+                localStorage.clear();
+                window.location.reload();
+              }
+            };
           }
         });
       } else {

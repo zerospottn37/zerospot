@@ -1,6 +1,34 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "admin.zero-spot.in" }],
+      "destination": "/admin",
+      "permanent": false
+    },
+    {
+      "source": "/customer",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/customer-app",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/customer-app.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/app",
+      "destination": "/",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
     {
@@ -28,8 +56,9 @@
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/login", "destination": "/login.html" },
     { "source": "/admin-login", "destination": "/admin-login.html" },
-    { "source": "/customer", "destination": "/customer-app.html" },
-    { "source": "/app", "destination": "/customer-app.html" },
+    { "source": "/customer", "destination": "/index.html" },
+    { "source": "/customer-app", "destination": "/index.html" },
+    { "source": "/app", "destination": "/index.html" },
     { "source": "/partner", "destination": "/partner-app.html" },
     { "source": "/pay", "destination": "/pay.html" },
     { "source": "/terms", "destination": "/terms.html" }
