@@ -168,55 +168,14 @@
     CONSENT_KEY: 'zs_cookie_consent',
 
     init() {
-      // Don't show if already agreed or preferred
-      const hasConsented = ZS_Cookies.get(this.CONSENT_KEY) || localStorage.getItem(this.CONSENT_KEY);
-      if (hasConsented) return;
-
-      // Inject banner when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => this.renderBanner());
-      } else {
-        this.renderBanner();
-      }
+      // Visual banner removed per user request. Essential session cookies operate silently.
+      const existing = document.getElementById('zs-cookie-banner');
+      if (existing) existing.remove();
     },
 
     renderBanner() {
-      if (document.getElementById('zs-cookie-banner')) return;
-
-      const banner = document.createElement('div');
-      banner.id = 'zs-cookie-banner';
-      banner.className = 'fixed bottom-4 left-4 right-4 sm:left-6 sm:max-w-md z-50 p-4 sm:p-5 rounded-3xl bg-slate-900/95 backdrop-blur-md text-white border border-slate-700/80 shadow-2xl transition-all duration-300';
-      banner.innerHTML = `
-        <div class="flex items-start gap-3">
-          <div class="w-9 h-9 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg shrink-0 border border-emerald-500/30">
-            🍪
-          </div>
-          <div class="flex-1 min-w-0">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Cookie &amp; Session Cache</h4>
-            <p class="mt-1 text-xs text-slate-300 leading-relaxed">
-              ZeroSpot uses secure browser cookies to keep you signed in automatically and remember your service bookings so you never have to login every time.
-            </p>
-            <div class="mt-3 flex items-center gap-2">
-              <button id="zs-accept-cookies-btn" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-sm transition cursor-pointer">
-                Accept &amp; Stay Signed In
-              </button>
-              <button id="zs-manage-cookies-btn" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-semibold text-xs transition cursor-pointer">
-                Manage
-              </button>
-            </div>
-          </div>
-        </div>
-      `;
-
-      document.body.appendChild(banner);
-
-      document.getElementById('zs-accept-cookies-btn').addEventListener('click', () => {
-        this.acceptAll();
-      });
-
-      document.getElementById('zs-manage-cookies-btn').addEventListener('click', () => {
-        this.openPreferencesModal();
-      });
+      // Disabled
+      return;
     },
 
     acceptAll() {
