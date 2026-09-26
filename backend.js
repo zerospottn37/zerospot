@@ -50,7 +50,7 @@ if (!admin.apps.length) {
     certConfig = {
       projectId: process.env.FIREBASE_PROJECT_ID || "zerospot-ea705",
       clientEmail: clientEmail,
-      privateKey: privateKey.replace(/\\n/g, "\n"),
+      privateKey: String(privateKey).trim().replace(/^["']|["']$/g, "").replace(/\\n/g, "\n"),
     };
   } else {
     const serviceAccountPath = fs.existsSync(path.join(__dirname, "serviceAccountKey.json"))
@@ -63,16 +63,24 @@ if (!admin.apps.length) {
   }
 
   if (certConfig) {
-    admin.initializeApp({
-      credential: admin.credential.cert(certConfig),
-    });
-    console.log("✅ Firebase Admin initialized successfully");
+    try {
+      admin.initializeApp({
+        credential: admin.credential.cert(certConfig),
+      });
+      console.log("✅ Firebase Admin initialized successfully");
+    } catch (e) {
+      console.error("⚠️ Firebase Admin initializeApp failed:", e.message);
+    }
   } else {
     console.warn("⚠️ Firebase Admin credentials not found. Provide FIREBASE_PRIVATE_KEY or serviceAccountKey.json");
   }
 }
 
-db = admin.firestore();
+try {
+  db = admin.firestore();
+} catch (err) {
+  console.error("⚠️ Firestore instance setup error:", err.message);
+}
 
 // --------------------------------------------------
 // Health Check
