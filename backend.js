@@ -86,10 +86,11 @@ try {
 // Health Check
 // --------------------------------------------------
 
-app.get("/", (req, res) => {
+app.get(["/", "/api", "/api/"], (req, res) => {
   res.json({
     success: true,
     message: "ZeroSpot backend is running",
+    timestamp: new Date().toISOString(),
   });
 });
 
